@@ -1,30 +1,18 @@
 package com.jtspringproject.JtSpringProject.models;
 
-import java.util.List;
+import javax.persistence.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-@Entity(name = "COUPON")
-@Table
+@Entity(name="COUPON") // name from the database Table
 public class Coupon {
-    @Id
-	@Column(name = "coupon_id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@Column(name = "coupon_id") //very likely is the primary key in the COUPON table
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int id;
-	 
-	/* 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "customer_id",referencedColumnName = "customer_id")
-	private Product product;
-	*/
-	private int customerId;
+
+	// very likely is setting the foreign key
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "customer_id",referencedColumnName = "customer_id")
+//    private User user; // reference to the User object in java
 
 	public int getId() {
 		return id;
@@ -34,11 +22,12 @@ public class Coupon {
 		this.id = id;
 	}
 
-	public int getCustomerId() {
-		return customerId;
-	}
+//    public User getUser() { // return a User object with all the information about the customer
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
 }

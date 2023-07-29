@@ -12,10 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jtspringproject.JtSpringProject.models.Product;
-import com.jtspringproject.JtSpringProject.models.User;
-import com.jtspringproject.JtSpringProject.services.productService;
-import com.jtspringproject.JtSpringProject.services.userService;
+import com.jtspringproject.JtSpringProject.models.*;
+import com.jtspringproject.JtSpringProject.services.*;
 import com.mysql.cj.protocol.Resultset;
 
 import net.bytebuddy.asm.Advice.This;
@@ -29,7 +27,9 @@ public class AdminController {
 	private userService userService;
 	@Autowired
 	private productService productService;
-	
+	@Autowired
+	private couponService couponService;
+
 	int adminlogcheck = 0;
 	String usernameforclass = "";
 	@RequestMapping(value = {"/","/logout"})
@@ -231,4 +231,13 @@ public class AdminController {
 		return "redirect:/index";
 	}
 
+	@GetMapping("coupons") // this is used in jsp file and unpacked with for each function <c:forEach var="product" items="${products}">
+	public ModelAndView getCouponDetail() {
+
+		ModelAndView mView = new ModelAndView("displayCoupons");
+		List<Coupon> coupons = this.couponService.getCoupons();
+		mView.addObject("coupons", coupons);
+		return mView;
+
+	}
 }
