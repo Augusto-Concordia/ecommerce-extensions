@@ -46,6 +46,10 @@ coupon_id int unique key not null auto_increment primary key,
 customer_id int
 );
 
+# insert default coupons
+INSERT INTO COUPON (customer_id) VALUES (2);
+INSERT INTO COUPON (customer_id) VALUES (1);
+
 CREATE TABLE IF NOT EXISTS BASKET (
 basket_id  int unique key not null auto_increment primary key,
 customer_id int,
