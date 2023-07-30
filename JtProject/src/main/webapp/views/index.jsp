@@ -18,32 +18,32 @@
             <title>Store Front</title>
 
             <script type="text/javascript">
-                let slideIndex = 1;
-                const slideInterval = 3000;
-                
-                function changeSlide(x) {
-                  showSlides(slideIndex += x);
-                }
+              let slideIndex = 1;
+              const slideInterval = 3000;
 
-                function showSlides(x) {
-                  let slides = document.querySelectorAll("#store-carousel .product");
-                  
-                  if (x > slides.length) 
-                    slideIndex = 1;
+              function changeSlide(x) {
+                showSlides(slideIndex += x);
+              }
 
-                  if (x < 1) 
-                    slideIndex = slides.length;
+              function showSlides(x) {
+                let slides = document.querySelectorAll("#store-carousel .product");
 
-                  for (let i = 0; i < slides.length; i++) 
-                    slides[i].style.display = "none";
+                if (x > slides.length)
+                  slideIndex = 1;
 
-                  slides[slideIndex - 1].style.display = "block";
-                }
+                if (x < 1)
+                  slideIndex = slides.length;
 
-                function autoSlide() {
-                  changeSlide(1);
-                  setTimeout(autoSlide, slideInterval);
-                }
+                for (let i = 0; i < slides.length; i++)
+                  slides[i].style.display = "none";
+
+                slides[slideIndex - 1].style.display = "block";
+              }
+
+              function autoSlide() {
+                changeSlide(1);
+                setTimeout(autoSlide, slideInterval);
+              }
 
               $(document).ready(function () {
                 autoSlide();
@@ -57,7 +57,7 @@
                 $(".basket-type-switch").on("click", toggleBasketType);
 
                 // Redirect to the admin portal
-                $("#admin-btn").on("click", () => location.href = "admin/loginvalidate");
+                $("#admin-btn").on("click", () => location.href = "admin");
 
                 // Logout
                 $("#logout-btn").on("click", () => location.href = "userlogout");
@@ -107,7 +107,7 @@
               <img id="admin-btn" src="images/icons/admin.png" alt="Admin portal icon" class="btn btn-icon">
             </c:if>
 
-            <img id="logout-btn" src="images/icons/exit.png" alt="Admin portal icon" class="btn btn-icon">
+            <img id="logout-btn" src="images/icons/exit.png" alt="Logout icon" class="btn btn-icon">
           </header>
 
           <body id="store-body">
@@ -174,4 +174,5 @@
             </div>
 
           </body>
+
         </html>

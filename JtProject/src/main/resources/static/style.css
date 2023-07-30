@@ -55,7 +55,8 @@ a,
   cursor: pointer;
 }
 
-#store-body {
+#store-body,
+#admin-body {
   margin: 10px;
 }
 
@@ -97,6 +98,10 @@ header {
   align-content: center;
 }
 
+#admin-body header {
+  grid-template-columns: 144px 1fr 48px 8px 48px 48px;
+}
+
 header .btn-icon {
   justify-self: flex-end;
 
@@ -106,6 +111,19 @@ header .btn-icon {
 
 header #logout-btn {
   grid-column: 4;
+}
+
+#admin-body header #add-btn {
+  grid-column: 3;
+  scale: 0.8;
+}
+
+#admin-body header #store-btn {
+  grid-column: 5;
+}
+
+#admin-body header #logout-btn {
+  grid-column: 6;
 }
 
 header h3 {
