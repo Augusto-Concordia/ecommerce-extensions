@@ -51,14 +51,11 @@ public class basketproductDao {
         Session session = sessionFactory.getCurrentSession();
         return session.get(BasketProduct.class, id);
     }
-    /*
 
     @SuppressWarnings("unchecked")
     public List<BasketProduct> findAll() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("from BasketProduct").list();
     }
-
-     */
 
 }

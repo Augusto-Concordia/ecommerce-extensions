@@ -44,12 +44,10 @@ public class basketDao {
         return session.get(Basket.class, id);
     }
 
-    /*
     @SuppressWarnings("unchecked")
     public List<Basket> findAll() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("from basket").list();
     }
-    */
 
 }

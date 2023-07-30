@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,13 +42,13 @@ public class basketService {
     public Basket findBasket(int id) {
         return basketDao.findById(id);
     }
-    /*
+
     @Transactional
     public List<Basket> findAllBaskets() {
         return basketDao.findAll();
     }
-    */
 
+    // BASKET PRODUCT //
 
     @Transactional
     public void addProductToBasket(BasketProduct basketProduct) {
@@ -63,12 +64,17 @@ public class basketService {
     public BasketProduct findProductInBasket(BasketProduct.BasketProductPK id) {
         return basketProductDao.findById(id);
     }
-    /*
+
     @Transactional
-    public List<BasketProduct> findAllProductsInBasket() {
-        return basketProductDao.findAll();
+    public List<BasketProduct> findAllProductInBasketByBasketId(int basket_id) {
+        List<BasketProduct> products_in_basket = new ArrayList();
+        for (BasketProduct basket_product : basketProductDao.findAll()) {
+            if (basket_product.getId().getBasketId() == basket_id) {
+                products_in_basket.add(basket_product);
+            }
+        }
+        return products_in_basket;
     }
-    */
 
 }
 
