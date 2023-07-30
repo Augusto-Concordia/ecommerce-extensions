@@ -5,12 +5,29 @@ import java.io.Serializable;
 @Entity(name="BASKET_PRODUCT")
 @Table
 public class BasketProduct {
-    // by adding @id to both , it makes the combine basket_id and product_id the primary key
+
     @Id
-    private BasketProductPK id;
+    @Column(name = "basket_product_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int basket_product_id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "basket_id")
+    private Basket basket;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     private int quantity;
 
+    public Basket getBasket() {return basket;}
+
+    public void setBasket(Basket basket) {this.basket = basket;}
+
+    public Product getProduct() {return product;}
+
+    public void setBasket(Product product) {this.product = product;}
 
     public int getQuantity() {
         return quantity;
@@ -18,29 +35,6 @@ public class BasketProduct {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public BasketProductPK getId() {
-        return id;
-    }
-
-    public void setId(BasketProductPK id) {
-        this.id = id;
-    }
-
-    @Embeddable
-    public static class BasketProductPK implements Serializable {
-
-        @Column(name = "basket_id")
-        private int basketId;
-
-        @Column(name = "product_id")
-        private int productId;
-
-        public int getBasketId() {return basketId;}
-        public void setBasketId(int basketId) {this.basketId = basketId;}
-        public int getProductId() {return productId;}
-        public void getProductId(int productId) {this.productId = productId;}
     }
 
 }

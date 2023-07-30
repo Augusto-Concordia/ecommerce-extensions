@@ -56,8 +56,19 @@ customer_id int,
 basket_type ENUM ('CUSTOM_BASKET', 'BASKET')
 );
 
+# insert default basket
+INSERT INTO BASKET (customer_id, basket_type) VALUES (2, 'CUSTOM_BASKET');
+INSERT INTO BASKET (customer_id, basket_type) VALUES (1, 'BASKET');
+
 CREATE TABLE IF NOT EXISTS BASKET_PRODUCT (
+basket_product_id  int unique key not null auto_increment primary key,
 basket_id  int,
 product_id int,
 quantity int
 );
+
+# insert products basket
+INSERT INTO BASKET_PRODUCT (basket_id, product_id, quantity) VALUES (2, 2, 10);
+INSERT INTO BASKET_PRODUCT (basket_id, product_id, quantity) VALUES (2, 3, 10);
+INSERT INTO BASKET_PRODUCT (basket_id, product_id, quantity) VALUES (1, 2, 10);
+INSERT INTO BASKET_PRODUCT (basket_id, product_id, quantity) VALUES (1, 3, 10);

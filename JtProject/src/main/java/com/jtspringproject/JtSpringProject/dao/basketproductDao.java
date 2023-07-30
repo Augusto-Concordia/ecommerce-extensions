@@ -1,6 +1,5 @@
 package com.jtspringproject.JtSpringProject.dao;
 import com.jtspringproject.JtSpringProject.models.*;
-import com.jtspringproject.JtSpringProject.models.BasketProduct.BasketProductPK;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +10,13 @@ import java.io.Serializable;
 import java.util.List;
 
 @Repository
-public class basketproductDao {
-
+public class basketProductDao {
     @Autowired
     private SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sf) {
         this.sessionFactory = sf;
     }
-
-    @EmbeddedId
-    private BasketProductPK bpk;
-
-    private int quantity;
-
-
-
 
     public void save(BasketProduct basketProduct) {
         Session session = sessionFactory.getCurrentSession();
@@ -39,15 +29,15 @@ public class basketproductDao {
     }
 
 
-    public void delete(BasketProduct.BasketProductPK id) {
+    public void delete(int id) {
         Session session = sessionFactory.getCurrentSession();
-        BasketProduct basketProduct = findById(id);
-        if (basketProduct != null) {
-            session.delete(basketProduct);
+        BasketProduct basket_product = session.get(BasketProduct.class, id);
+        if (basket_product != null) {
+            session.delete(basket_product);
         }
     }
 
-    public BasketProduct findById(BasketProduct.BasketProductPK id) {
+    public BasketProduct findById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(BasketProduct.class, id);
     }
@@ -55,7 +45,7 @@ public class basketproductDao {
     @SuppressWarnings("unchecked")
     public List<BasketProduct> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from BasketProduct").list();
+        return session.createQuery("from basket_product").list();
     }
 
 }

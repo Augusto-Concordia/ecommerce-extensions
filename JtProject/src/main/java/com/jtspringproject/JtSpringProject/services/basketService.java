@@ -1,6 +1,6 @@
 package com.jtspringproject.JtSpringProject.services;
 
-import com.jtspringproject.JtSpringProject.dao.basketproductDao;
+import com.jtspringproject.JtSpringProject.dao.basketProductDao;
 import com.jtspringproject.JtSpringProject.dao.basketDao;
 import com.jtspringproject.JtSpringProject.models.Basket;
 import com.jtspringproject.JtSpringProject.models.BasketProduct;
@@ -15,10 +15,10 @@ import java.util.List;
 public class basketService {
 
     private final basketDao basketDao;
-    private final basketproductDao basketProductDao;
+    private final basketProductDao basketProductDao;
 
     @Autowired
-    public basketService(basketDao basketDao, basketproductDao basketProductDao) {
+    public basketService(basketDao basketDao, basketProductDao basketProductDao) {
         this.basketDao = basketDao;
         this.basketProductDao = basketProductDao;
     }
@@ -56,20 +56,25 @@ public class basketService {
     }
 
     @Transactional
-    public void removeProductFromBasket(BasketProduct.BasketProductPK id) {
+    public void removeProductFromBasket(int id) {
         basketProductDao.delete(id);
     }
 
     @Transactional
-    public BasketProduct findProductInBasket(BasketProduct.BasketProductPK id) {
+    public BasketProduct findProductInBasket(int id) {
         return basketProductDao.findById(id);
+    }
+
+    @Transactional
+    public List<BasketProduct> findAllBasketProducts() {
+        return basketProductDao.findAll();
     }
 
     @Transactional
     public List<BasketProduct> findAllProductInBasketByBasketId(int basket_id) {
         List<BasketProduct> products_in_basket = new ArrayList();
         for (BasketProduct basket_product : basketProductDao.findAll()) {
-            if (basket_product.getId().getBasketId() == basket_id) {
+            if (basket_product.getProduct().getId() == basket_id) {
                 products_in_basket.add(basket_product);
             }
         }
