@@ -1,18 +1,27 @@
 
 package com.jtspringproject.JtSpringProject.models;
-
-
-
 import javax.persistence.*;
 
 public class Basket {
+     
+    @Id
+    @Column(name = "basket_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int basket_id;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private User user;
 
     private String basket_type;
 
-    private String basket_items;
+    public int getBasketId() {
+		return basket_id;
+	}
+
+	public void setBasketId(int basket_id) {
+		this.basket_id = basket_id;
+	}
 
     public User getUser() { // return a User object with all the information about the customer
         return user;
