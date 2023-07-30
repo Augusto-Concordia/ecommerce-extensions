@@ -158,14 +158,21 @@ public class AdminController {
 		return "redirect:/index";
 	}
 
-	@GetMapping("coupons") // this is used in jsp file and unpacked with for each function <c:forEach
-							// var="product" items="${products}">
-	public ModelAndView getCouponDetail() {
+	@GetMapping("coupons")
+	public ModelAndView getCoupons() {
 
-		ModelAndView mView = new ModelAndView("displayCoupons");
+		ModelAndView mView = new ModelAndView("coupons");
 		List<Coupon> coupons = this.couponService.getCoupons();
-		mView.addObject("coupons", coupons);
+
+		if (coupons.isEmpty()) {
+			mView.addObject("msg", "No products are available");
+		} else {
+			mView.addObject("coupons", coupons);
+		}
 		return mView;
 
+
 	}
+
+
 }
