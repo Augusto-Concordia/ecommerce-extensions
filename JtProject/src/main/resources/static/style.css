@@ -7,6 +7,7 @@
 
   --default-border-radius: 7px; /* Default Border Radius (Used for most elements) */
   --button-border-radius: 5px; /* Button Border Radius (Used for most elements) */
+  --button-small-border-radius: 3px; /* Button Border Radius (Used for most elements) */
 
   --mid-shadow-primary: 0px 16px 40px 0px var(--primary-color); /* Mid Shadow (Primary) */
   --close-shadow-primary: 0px 8px 40px 0px var(--primary-color); /* Close Shadow (Primary) */
@@ -29,7 +30,7 @@
 
 /* GENERAL STYLES */
 
-body {
+body, button {
   margin: 0px;
 
   font-family: "Cabin", sans-serif;
@@ -446,6 +447,73 @@ header h3 {
 #store-list .product-buttons {
   position: absolute;
   right: 8px;
+}
+
+.store-unit-dropdown {
+  padding: 5px;
+  width: 70px;
+  background-color: var(--secondary-color);
+  border-radius: var(--button-small-border-radius);
+
+  display: none;
+
+  position: absolute;
+  right: -15px;
+  top: 10px;
+}
+
+.store-unit-dropdown-basket {
+  left: 0;
+  margin-top: -20px;
+}
+
+.store-unit-dropdown-custombasket {
+  right: 5px;
+  margin-top: -20px;
+}
+
+.unit-selection-box {
+  background-color: var(--accent-color);
+  padding: 7px;
+  border-radius: var(--button-small-border-radius);
+  width: 50%;
+  margin: 10px auto 10px auto;
+  position: relative;
+}
+
+.store-unit-dropdown button {
+  border: 0;
+  background-color: transparent;
+}
+
+.unit-count {
+  color: #808080;
+  position: absolute;
+  left: 10px;
+}
+
+.unit-increment-button {
+  transform: scaleX(-1) rotate(-90deg);
+  position: absolute;
+  right: 0;
+  top: 1px;
+}
+
+.unit-decrement-button {
+  transform: rotate(90deg);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.unit-add-button {
+  background-color: var(--primary-color) !important;
+  color: var(--white-color);
+  border-radius: var(--button-small-border-radius);
+  font-size: 1.2em;
+  padding: 4px 10px;
+  width: 100%;
+  cursor: pointer;
 }
 
 /* BASKET STYLES */

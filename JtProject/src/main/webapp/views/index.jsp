@@ -20,6 +20,7 @@
             <script type="text/javascript">
                 let slideIndex = 1;
                 const slideInterval = 3000;
+                let pauseAutoSlide = false;
                 
                 function changeSlide(x) {
                   showSlides(slideIndex += x);
@@ -41,12 +42,53 @@
                 }
 
                 function autoSlide() {
-                  changeSlide(1);
+                  if (!pauseAutoSlide)
+                    changeSlide(1);
                   setTimeout(autoSlide, slideInterval);
                 }
 
               $(document).ready(function () {
                 autoSlide();
+
+                $(".btn-basket-carousel").on("click", function() {
+                  $(this).nextAll(".store-unit-dropdown-basket").toggle();
+                  pauseAutoSlide = true;
+                });
+                $(".btn-custombasket-carousel").on("click", function() {
+                  $(this).nextAll(".store-unit-dropdown-custombasket").toggle();
+                  pauseAutoSlide = true;
+                });
+                
+                $(".btn-basket").on("click", function() {
+                  $(this).nextAll(".store-unit-dropdown").toggle();
+                });
+                $(".btn-custombasket").on("click", function() {
+                  $(this).nextAll(".store-unit-dropdown").toggle();
+                });
+
+                $(".unit-add-button").on("click", function() {
+                    $(this).parent(".store-unit-dropdown").toggle();
+                    $(this).parent().find(".unit-count").text("1");
+
+                    if ($(".store-unit-dropdown-basket").is(":notvisible") && $(".store-unit-dropdown-custombasket").is(":notvisible"))
+                      pauseAutoSlide = false;
+                });
+
+                $(".product").on("click", ".unit-increment-button", function() {
+                  var unitCountSpan = $(this).siblings(".unit-count");
+                  var unitCount = parseInt(unitCountSpan.text(), 10);
+                  unitCount++;
+                  unitCountSpan.text(unitCount.toString());
+                });
+                $(".product").on("click", ".unit-decrement-button", function() {
+                  var unitCountSpan = $(this).siblings(".unit-count");
+                  var unitCount = parseInt(unitCountSpan.text(), 10);
+                  if (unitCount > 0)
+                    unitCount--;
+                  else
+                    unitCount = 0;
+                  unitCountSpan.text(unitCount.toString());
+                });
 
                 let isCustomBasket = false;
 
@@ -127,8 +169,24 @@
                         </div>
                         <img class="product-img" src="${product.image}" alt="Product">
                         <div class="product-buttons">
-                          <a href="#" class="btn btn-primary btn-basket"><img src="images/icons/basket.png" alt="Basket" width="40"></a>
-                          <a href="#" class="btn btn-primary btn-custombasket"><img src="images/icons/custombasket.png" alt="Basket" width="40"></a>
+                          <a class="btn btn-primary btn-basket-carousel"><img src="images/icons/basket.png" alt="Basket" width="40"></a>
+                          <div class="store-unit-dropdown store-unit-dropdown-basket">
+                            <div class="unit-selection-box">
+                              <span class="unit-count">1</span>
+                              <button class="unit-increment-button"><img src="images/icons/dropdown_arrow.png" alt="Up arrow" width="12"></button>
+                              <button class="unit-decrement-button"><img src="images/icons/dropdown_arrow.png" alt="Down arrow" width="12"></button><br>
+                            </div>
+                            <button class="unit-add-button carousel">Add</button>
+                          </div>
+                          <a class="btn btn-primary btn-custombasket-carousel"><img src="images/icons/custombasket.png" alt="Basket" width="40"></a>
+                          <div class="store-unit-dropdown store-unit-dropdown-custombasket">
+                            <div class="unit-selection-box">
+                              <span class="unit-count">1</span>
+                              <button class="unit-increment-button"><img src="images/icons/dropdown_arrow.png" alt="Up arrow" width="12"></button>
+                              <button class="unit-decrement-button"><img src="images/icons/dropdown_arrow.png" alt="Down arrow" width="12"></button><br>
+                            </div>
+                            <button class="unit-add-button carousel">Add</button>
+                          </div>
                         </div>
                       </div>
                     </c:if>
@@ -148,8 +206,16 @@
                       <h5 class="product-price">$${product.price}</h5>
                     </div>
                     <div class="product-buttons">
-                      <a href="#" class="btn btn-primary btn-basket"><img src="images/icons/basket.png" alt="Basket" width="25"></a>
-                      <a href="#" class="btn btn-primary btn-custombasket"><img src="images/icons/custombasket.png" alt="Basket" width="25"></a>
+                      <a class="btn btn-primary btn-basket"><img src="images/icons/basket.png" alt="Basket" width="25"></a>
+                      <a class="btn btn-primary btn-custombasket"><img src="images/icons/custombasket.png" alt="Basket" width="25"></a>
+                      <div class="store-unit-dropdown">
+                        <div class="unit-selection-box">
+                          <span class="unit-count">1</span>
+                          <button class="unit-increment-button"><img src="images/icons/dropdown_arrow.png" alt="Up arrow" width="12"></button>
+                          <button class="unit-decrement-button"><img src="images/icons/dropdown_arrow.png" alt="Down arrow" width="12"></button><br>
+                        </div>
+                        <button class="unit-add-button">Add</button>
+                      </div>
                     </div>
                   </div>
                 </c:forEach>
