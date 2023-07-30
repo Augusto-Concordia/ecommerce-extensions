@@ -321,6 +321,7 @@ header h3 {
 /* STOREFRONT STYLES */
 
 #storefront {
+  max-width: calc(100vw - 3% - 25em);
   width: 75%;
   margin: 20px 0;
 
@@ -343,7 +344,7 @@ header h3 {
   height: 0;
   width: 80%;
   margin: 10px 0 0 10%;
-  height: calc(100% - 20px);;
+  height: calc(100% - 20px);
 }
 
 #store-carousel .product-img {
@@ -451,17 +452,20 @@ header h3 {
 /* BASKET STYLES */
 
 #baskets-container {
-  width: 24%;
+  --baskets-container-margin-top: 7em;
 
-  position: absolute;
-  top: 102px;
-  right: 0;
-  bottom: 0;
+  width: 24%;
+  min-width: 25em;
+
+  position: fixed;
+  top: var(--baskets-container-margin-top);
+  right: -14px;
 
   display: grid;
 }
 
 #baskets-container .basket {
+  height: calc(100vh - var(--baskets-container-margin-top) - 57px);
   margin-right: 25px;
   margin-bottom: 25px;
   padding: 20px;
@@ -533,6 +537,8 @@ header h3 {
 
 #products-container {
   margin-top: 2em;
+
+  overflow-y: scroll;
 
   display: flex;
   gap: 1em;
