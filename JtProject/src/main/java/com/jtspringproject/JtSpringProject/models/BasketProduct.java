@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Table
 public class BasketProduct {
     // by adding @id to both , it makes the combine basket_id and product_id the primary key
-
+    @Id
     private BasketProductPK id;
 
     private int quantity;
