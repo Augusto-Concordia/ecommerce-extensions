@@ -9,16 +9,15 @@ email    varchar(255) null,
 password varchar(255) null,
 role     ENUM('ROLE_NORMAL', 'ROLE_ADMIN') null,
 username varchar(255) null,
-accumulatedPurchases double null,
-customBasket varchar(1024) null # a Jason object so that we can store product name and quantity 
+accumulatedPurchases double null
 );
 
 # insert default customers
-INSERT INTO CUSTOMER(email, password, role, username, accumulatedPurchases, customBasket) VALUES
-('admin@nyan.cat', '123', 'ROLE_ADMIN', 'admin', 0.0 , 'customBasket'),
-('lisa@gmail.com', '765', 'ROLE_NORMAL', 'lisa', 0.0 , 'customBasket'),
-('amrit@gmail.com', 'password', 'ROLE_NORMAL', 'amrit', 0.0 , 'customBasket'),
-('yupei@gmail.com', 'password', 'ROLE_NORMAL', 'yupei', 0.0 , 'customBasket');
+INSERT INTO CUSTOMER(email, password, role, username, accumulatedPurchases) VALUES
+('admin@nyan.cat', '123', 'ROLE_ADMIN', 'admin', 0.0 ),
+('lisa@gmail.com', '765', 'ROLE_NORMAL', 'lisa', 0.0 ),
+('amrit@gmail.com', 'password', 'ROLE_NORMAL', 'amrit', 0.0 ),
+('yupei@gmail.com', 'password', 'ROLE_NORMAL', 'yupei', 0.0);
 
 
 # create the product table
@@ -28,8 +27,7 @@ image       varchar(255) null,
 name        varchar(255) null,
 price       int null,
 quantity    int null,
-paired_product_id int null, 
-FOREIGN KEY (paired_product_id) REFERENCES PRODUCT(product_id)
+paired_product_id int null
 );
 
 # insert default products
@@ -45,6 +43,11 @@ INSERT INTO PRODUCT(image, name, price, quantity) VALUES
 # create coupon table
 CREATE TABLE IF NOT EXISTS COUPON (
 coupon_id int unique key not null auto_increment primary key,
-customer_id int, 
-FOREIGN KEY (customer_id) REFERENCES CUSTOMER(id)
+customer_id int
+);
+
+CREATE TABLE IF NOT EXISTS BASKET (
+    customer_id int,
+    basket_type ENUM ('CUSTOM_BASKET', 'BASKET'),
+    basket_items VARCHAR(1024) null
 );
