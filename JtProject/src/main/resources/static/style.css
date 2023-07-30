@@ -92,7 +92,7 @@ header {
   border-radius: var(--default-border-radius);
 
   display: grid;
-  grid-template-columns: 5% 90% 2.5% 2.5%;
+  grid-template-columns: 96px 1fr 48px 48px;
   align-items: center;
   align-content: center;
 }
@@ -101,7 +101,7 @@ header .btn-icon {
   justify-self: flex-end;
 
   aspect-ratio: 1;
-  width: 48px;
+  width: 42px;
 }
 
 header #logout-btn {
@@ -539,12 +539,18 @@ header h3 {
   margin-top: 2em;
 
   overflow-y: scroll;
+  scrollbar-width: none;
+  height: 100%;
 
   display: flex;
   gap: 1em;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
+}
+
+#products-container::-webkit-scrollbar {
+  width: 0;
 }
 
 #basket-summary #actions {
