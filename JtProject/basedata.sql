@@ -9,7 +9,7 @@ email    varchar(255) null,
 password varchar(255) null,
 role     ENUM('ROLE_NORMAL', 'ROLE_ADMIN') null,
 username varchar(255) null,
-accumulatedPurchases double null
+accumulatedPurchases int null
 );
 
 # insert default customers
