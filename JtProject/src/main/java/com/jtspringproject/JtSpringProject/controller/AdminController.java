@@ -80,16 +80,14 @@ public class AdminController {
 		return mView;
 	}
 
-	@RequestMapping(value = "products/add", method = RequestMethod.POST)
-	public String addProduct(@RequestParam("name") String name,
-			@RequestParam("productImage") String image,
-			@RequestParam("paired_product_id") int paired_product,
-			@RequestParam("quantity") int quantity,
-			@RequestParam("price") int price) {
+	@RequestMapping(value = "products/add",method=RequestMethod.POST)
+	public String addProduct(@RequestParam("name") String name , 
+							@RequestParam("productImage") String image,
+							@RequestParam("quantity")int quantity,
+							@RequestParam("price") int price) {
 		Product product = new Product();
 		product.setImage(image);
 		product.setName(name);
-		product.setPairedProduct(paired_product);
 		product.setQuantity(quantity);
 		product.setPrice(price);
 		this.productService.addProduct(product);
@@ -108,11 +106,14 @@ public class AdminController {
 		mView.addObject("product", product);
 		return mView;
 	}
-
-	@RequestMapping(value = "products/update/{id}", method = RequestMethod.POST)
-	public String updateProduct(@RequestParam("name") String name, @RequestParam("productImage") String image,
-			@RequestParam("paired_product_id") int paired_product, @RequestParam("quantity") int quantity,
-			@RequestParam("price") int price) {
+	
+	@RequestMapping(value = "products/update/{id}",method=RequestMethod.POST)
+	public String updateProduct(@RequestParam("name") String name , 
+								@RequestParam("productImage") String image,
+								@RequestParam("paired_product_id") int paired_product,
+								@RequestParam("quantity")int quantity,
+								@RequestParam("price") int price)
+	{
 		Product product = new Product();
 		product.setImage(image);
 		product.setName(name);
