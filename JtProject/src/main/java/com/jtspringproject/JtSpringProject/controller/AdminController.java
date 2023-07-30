@@ -69,6 +69,21 @@ public class AdminController {
 	}
 
 	// PRODUCTS //
+	@GetMapping("products")
+	public ModelAndView getProduct() {
+
+		ModelAndView mView = new ModelAndView("products");
+
+		List<Product> products = this.productService.getProducts();
+
+		if (products.isEmpty()) {
+			mView.addObject("msg", "No products are available");
+		} else {
+			mView.addObject("products", products);
+		}
+		return mView;
+	}
+	
 	@GetMapping("products/add")
 	public ModelAndView addProduct() {
 		ModelAndView mView = new ModelAndView("productsAdd");
@@ -80,7 +95,7 @@ public class AdminController {
 		return mView;
 	}
 
-	@RequestMapping(value = "products/add",method=RequestMethod.POST)
+	@RequestMapping(value = "products/add", method=RequestMethod.POST)
 	public String addProduct(@RequestParam("name") String name , 
 							@RequestParam("productImage") String image,
 							@RequestParam("quantity")int quantity,
@@ -109,7 +124,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "products/update/{id}",method=RequestMethod.POST)
 	public String updateProduct(@RequestParam("name") String name , 
-								@RequestParam("productImage") String image,
+								@RequestParam("image") String image,
 								@RequestParam("paired_product_id") int paired_product,
 								@RequestParam("quantity")int quantity,
 								@RequestParam("price") int price)
