@@ -2,11 +2,14 @@ package com.jtspringproject.JtSpringProject.models;
 import javax.persistence.*;
 
 public class Basket_Product {
-
+    // by adding @id to both , it makes the combine basket_id and product_id the primary key
+    
+    @Id
     @ManyToOne
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
