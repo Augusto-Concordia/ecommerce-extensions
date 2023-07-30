@@ -30,12 +30,6 @@ public class Product {
 	private int price;
 
 	private int pairedProduct;
-	 
-	/* 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "paired_product_id",referencedColumnName = "paired_product_id")
-	private Product product;
-	*/
 
 	public int getId() {
 		return id;
@@ -82,20 +76,6 @@ public class Product {
 	}
 
 	public void setPrice(int price) {
-		this.price = price;
-	}
-	
-	/* 
-	@ManyToOne
-    @JoinColumn(name = "customer_id")
-    private User customer;
-	*/
-
-	public void setProductValues(String name, String image, int paired_product, int quantity, int price) {
-		this.name = name;
-		this.image = image;
-		this.pairedProduct = paired_product;
-		this.quantity = quantity;
 		this.price = price;
 	}
 	
