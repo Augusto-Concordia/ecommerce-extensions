@@ -8,7 +8,7 @@ public class Coupon {
 
 	@Id
 	@Column(name = "coupon_id")
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private int id;
 
 	@ManyToOne(fetch = FetchType.LAZY)

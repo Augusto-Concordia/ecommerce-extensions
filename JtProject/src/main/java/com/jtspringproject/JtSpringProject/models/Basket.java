@@ -8,7 +8,7 @@ public class Basket {
      
     @Id
     @Column(name = "basket_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int basket_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
