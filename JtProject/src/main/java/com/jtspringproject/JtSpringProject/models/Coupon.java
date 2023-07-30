@@ -3,6 +3,7 @@ package com.jtspringproject.JtSpringProject.models;
 import javax.persistence.*;
 
 @Entity(name="COUPON") // name from the database Table
+@Table
 public class Coupon {
 	@Id
 	@Column(name = "coupon_id")

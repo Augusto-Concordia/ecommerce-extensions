@@ -87,7 +87,11 @@ public class AdminController {
 			@RequestParam("quantity") int quantity,
 			@RequestParam("price") int price) {
 		Product product = new Product();
-		product.setProductValues(name, image, paired_product, quantity, price);
+		product.setImage(image);
+		product.setName(name);
+		product.setPairedProduct(paired_product);
+		product.setQuantity(quantity);
+		product.setPrice(price);
 		this.productService.addProduct(product);
 
 		return "redirect:/admin/products";
@@ -110,7 +114,11 @@ public class AdminController {
 			@RequestParam("paired_product_id") int paired_product, @RequestParam("quantity") int quantity,
 			@RequestParam("price") int price) {
 		Product product = new Product();
-		product.setProductValues(name, image, paired_product, quantity, price);
+		product.setImage(image);
+		product.setName(name);
+		product.setPairedProduct(paired_product);
+		product.setQuantity(quantity);
+		product.setPrice(price);
 		this.productService.updateProduct(product);
 		return "redirect:/admin/products";
 	}

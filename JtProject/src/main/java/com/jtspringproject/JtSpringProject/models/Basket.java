@@ -2,6 +2,8 @@
 package com.jtspringproject.JtSpringProject.models;
 import javax.persistence.*;
 
+@Entity(name="BASKET") // name from the database Table
+@Table
 public class Basket {
      
     @Id
