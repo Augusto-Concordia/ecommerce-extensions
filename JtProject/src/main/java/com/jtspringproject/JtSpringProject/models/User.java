@@ -29,8 +29,6 @@ public class User {
 
 	private double accumalatedPurchases = 0.0;
 
-	private String customBasket;
-
 	public int getId() {
 		return id;
 	}
@@ -81,14 +79,6 @@ public class User {
 
 	public void updateAccumalatedPurchases(double new_purchase) {
 		this.accumalatedPurchases = this.accumalatedPurchases + new_purchase;
-	}
-
-	public String getCustomBasket() {
-		return this.customBasket;
-	}
-
-	public void setCustomeBasket(String customBasketJSON) {
-		this.customBasket = customBasketJSON;
 	}
 
 	@Override
