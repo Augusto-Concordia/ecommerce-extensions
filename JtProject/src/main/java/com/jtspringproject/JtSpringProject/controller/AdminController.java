@@ -79,18 +79,19 @@ public class AdminController {
 
 	// PRODUCTS //
 	@GetMapping("products")
-	public ModelAndView getProduct() {
+	public ModelAndView getproduct() {
+		ModelAndView mView = new ModelAndView("products"); // Preparing the view to be used
 
-		ModelAndView mView = new ModelAndView("products");
-
-		List<Product> products = this.productService.getProducts();
+		List<Product> products = this.productService.getProducts(); // preparing a list of products to insert in the view
 
 		if (products.isEmpty()) {
 			mView.addObject("msg", "No products are available");
 		} else {
-			mView.addObject("products", products);
+			mView.addObject("products", products); // view objcet "products" to be used in products.jsp
 		}
 		return mView;
+
+
 	}
 	
 	@GetMapping("products/add")
@@ -104,11 +105,11 @@ public class AdminController {
 		return mView;
 	}
 
-	@RequestMapping(value = "products/add", method=RequestMethod.POST)
-	public String addProduct(@RequestParam("name") String name , 
-							@RequestParam("productImage") String image,
-							@RequestParam("quantity")int quantity,
-							@RequestParam("price") int price) {
+	@RequestMapping(value = "products/add",method=RequestMethod.POST)
+	public String addProduct(@RequestParam("name") String name ,
+							 @RequestParam("productImage") String image,
+							 @RequestParam("quantity")int quantity,
+							 @RequestParam("price") int price) {
 		Product product = new Product();
 		product.setImage(image);
 		product.setName(name);
@@ -124,27 +125,29 @@ public class AdminController {
 
 		ModelAndView mView = new ModelAndView("productsUpdate");
 		Product product = this.productService.getProduct(id);
-		// limits the paired product to available products
-		List<Product> products = this.productService.getProducts();
-		mView.addObject("availableProducts", products);
+//     // limits the paired product to available products
+//     List<Product> products = this.productService.getProducts();
+//     mView.addObject("availableProducts",products);
 		mView.addObject("product", product);
 		return mView;
+		//return "redirect:/admin/coupons";
 	}
-	
+
 	@RequestMapping(value = "products/update/{id}",method=RequestMethod.POST)
-	public String updateProduct(@RequestParam("name") String name , 
-								@RequestParam("image") String image,
-								@RequestParam("paired_product_id") int paired_product,
+	public String updateProduct(@RequestParam("name") String name ,
+								@RequestParam("productImage") String image,
+								//@RequestParam("paired_product_id") int paired_product,
 								@RequestParam("quantity")int quantity,
 								@RequestParam("price") int price)
 	{
 		Product product = new Product();
 		product.setImage(image);
 		product.setName(name);
-		product.setPairedProduct(paired_product);
+		//product.setPairedProduct(paired_product);
 		product.setQuantity(quantity);
 		product.setPrice(price);
-		this.productService.updateProduct(product);
+		this.productService.addProduct(product); // this works
+		// this.productService.updateProduct(product); // this is not working
 		return "redirect:/admin/products";
 	}
 
@@ -201,3 +204,4 @@ public class AdminController {
 
 
 }
+
