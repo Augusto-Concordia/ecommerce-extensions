@@ -2,6 +2,7 @@ package com.jtspringproject.JtSpringProject.controller;
 
 import java.sql.*;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -134,20 +135,28 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "products/update/{id}",method=RequestMethod.POST)
-	public String updateProduct(@RequestParam("name") String name ,
+	public String updateProduct(@PathVariable("id") int id, // get the id from the path variable
+								@RequestParam("name") String name ,
 								@RequestParam("productImage") String image,
-								//@RequestParam("paired_product_id") int paired_product,
 								@RequestParam("quantity")int quantity,
 								@RequestParam("price") int price)
 	{
-		Product product = new Product();
+		// Get the existing product from the database using the provided id
+		Product product = this.productService.getProduct(id);
+		if (product == null) {
+			// Handle the case where no product with the given id exists
+			throw new NoSuchElementException("No product with id " + id + " exists");
+		}
+
+		// Update the product properties
 		product.setImage(image);
 		product.setName(name);
-		//product.setPairedProduct(paired_product);
 		product.setQuantity(quantity);
 		product.setPrice(price);
-		this.productService.addProduct(product); // this works
-		// this.productService.updateProduct(product); // this is not working
+
+		// Save the updated product back to the database
+		this.productService.updateProduct(product);
+
 		return "redirect:/admin/products";
 	}
 

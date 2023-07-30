@@ -20,6 +20,8 @@ public class productService {
 	public Product addProduct(Product product) {
 		return this.productDao.addProduct(product);
 	}
+
+
 	
 	public Product getProduct(int id) {
 		return this.productDao.getProduct(id);
