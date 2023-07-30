@@ -27,7 +27,7 @@ public class User {
 
 	private String role;
 
-	private double accumalatedPurchases = 0.0;
+	private int accumalatedPurchases = 0;
 
 	public int getId() {
 		return id;
@@ -69,15 +69,15 @@ public class User {
 		this.role = role;
 	}
 
-	public double getAccumalatedPurchases() {
+	public int getAccumalatedPurchases() {
 		return this.accumalatedPurchases;
 	}
 
 	public void resetAccumalatedPurchases() {
-		this.accumalatedPurchases = 0.0;
+		this.accumalatedPurchases = 0;
 	}
 
-	public void updateAccumalatedPurchases(double new_purchase) {
+	public void updateAccumalatedPurchases(int new_purchase) {
 		this.accumalatedPurchases = this.accumalatedPurchases + new_purchase;
 	}
 
