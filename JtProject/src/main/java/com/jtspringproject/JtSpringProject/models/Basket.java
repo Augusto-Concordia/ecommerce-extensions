@@ -11,7 +11,7 @@ public class Basket {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int basket_id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private User user;
 

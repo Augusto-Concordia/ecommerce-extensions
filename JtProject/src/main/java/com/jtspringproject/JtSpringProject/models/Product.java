@@ -18,6 +18,7 @@ import org.hibernate.procedure.ProcedureCallMemento;
 @Entity(name="PRODUCT")
 @Table
 public class Product {
+	
 	@Id
 	@Column(name = "product_id")
 	@GeneratedValue(strategy=GenerationType.AUTO)

@@ -5,12 +5,13 @@ import javax.persistence.*;
 @Entity(name="COUPON") // name from the database Table
 @Table
 public class Coupon {
+
 	@Id
 	@Column(name = "coupon_id")
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int id;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id")
 	private User user;
 
