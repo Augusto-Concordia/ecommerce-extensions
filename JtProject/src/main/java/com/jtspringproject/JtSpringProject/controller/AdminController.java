@@ -31,6 +31,15 @@ public class AdminController {
 	@Autowired
 	private couponService couponService;
 
+	/*
+	 * get to get data from db ( @GetMapping )
+	 * post to post data to db ( @PostMapping )
+	 * @RequestParam("dbcolumn") what are we gonna ask the db for ? example line 124 we are requesting the product db so we can add a new product
+	 * within the getmapping the ModelAndView mv = new ModelAndView("namejsp"); namejsp should match a jsp file
+	 * @...("/loginvalidate") the url directory where its gonna go
+	 * return "redirect:/index"; will recall the mapping for index
+	 */
+
 	@GetMapping()
 	public ModelAndView mainRedirect(Model model, HttpServletRequest req) {
 		Cookie[] cookies = req.getCookies();
