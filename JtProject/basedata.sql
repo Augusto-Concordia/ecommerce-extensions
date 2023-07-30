@@ -4,7 +4,7 @@ USE ecommjava;
 
 # create the customer table
 CREATE TABLE IF NOT EXISTS CUSTOMER(
-id       int unique key not null auto_increment primary key,
+customer_id       int unique key not null auto_increment primary key,
 email    varchar(255) null,
 password varchar(255) null,
 role     ENUM('ROLE_NORMAL', 'ROLE_ADMIN') null,
@@ -47,7 +47,13 @@ customer_id int
 );
 
 CREATE TABLE IF NOT EXISTS BASKET (
-    customer_id int,
-    basket_type ENUM ('CUSTOM_BASKET', 'BASKET'),
-    basket_items VARCHAR(1024) null
+basket_id  int unique key not null auto_increment primary key,
+customer_id int,
+basket_type ENUM ('CUSTOM_BASKET', 'BASKET')
+);
+
+CREATE TABLE IF NOT EXISTS BASKET_PRODUCT (
+basket_id  int,
+product_id int,
+quantity int
 );

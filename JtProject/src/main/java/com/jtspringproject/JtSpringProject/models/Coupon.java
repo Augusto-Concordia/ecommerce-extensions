@@ -10,6 +10,10 @@ public class Coupon {
 	private int id;
 
 	// very likely is setting the foreign key
+
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
+	private User user;
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "customer_id",referencedColumnName = "customer_id")
 //    private User user; // reference to the User object in java
@@ -22,12 +26,12 @@ public class Coupon {
 		this.id = id;
 	}
 
-//    public User getUser() { // return a User object with all the information about the customer
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+	public User getUser() { // return a User object with all the information about the customer
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 }
