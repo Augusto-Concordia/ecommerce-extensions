@@ -187,6 +187,7 @@
             </script>
           </head>
 
+          <!-- Welcome Dialog -->
           <div id="welcome-dialog" class="disabled">
             <div id="welcome-content">
               <img id="logo" src="images/nyan_logo_nobg_large.png" alt="Nyan Groceries icon">

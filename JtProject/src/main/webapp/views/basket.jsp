@@ -83,7 +83,21 @@
 
                                 <div id="actions" class="btn-container spanning-row">
                                     <div class="btn-container">
-                                        <a class="btn btn-primary"><span>Checkout</span></a>
+                                        <a class="btn btn-primary">
+                                            <span>
+                                                <c:choose>
+                                                    <c:when test="${param.type == 'basket'}">
+                                                        <c:out value="Checkout" />
+                                                    </c:when>
+                                                    <c:when test="${param.type == 'custom-basket'}">
+                                                        <c:out value="Export" />
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:out value="Error" />
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </span>
+                                        </a>
                                     </div>
                                     <img class="btn btn-icon" src="images/icons/delete.png" alt="Empty this basket button">
                                 </div>
