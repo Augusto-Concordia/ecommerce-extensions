@@ -7,10 +7,10 @@
             <span id="product-name">${param.name}</span>
             <div id="product-prices">
                 <span id="total-price">
-                    <fmt:formatNumber value="${param.unit_price * param.qty}" pattern=".00$" />
+                    <fmt:formatNumber value="${param.unit_price * param.qty}" pattern="0.00$" />
                 </span>
                 <span id="unit-price">
-                    <fmt:formatNumber value="${param.unit_price}" pattern="(.00$/u)" />
+                    <fmt:formatNumber value="${param.unit_price}" pattern="(0.00$/u)" />
                 </span>
             </div>
             <span id="product-qty">x${param.qty}</span>

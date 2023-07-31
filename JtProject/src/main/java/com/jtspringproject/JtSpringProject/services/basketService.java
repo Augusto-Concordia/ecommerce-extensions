@@ -61,6 +61,11 @@ public class basketService {
     }
 
     @Transactional
+    public void updateProductInBasket(BasketProduct basketProduct) {
+        basketProductDao.update(basketProduct);
+    }
+
+    @Transactional
     public BasketProduct findProductInBasket(int id) {
         return basketProductDao.findById(id);
     }

@@ -38,7 +38,8 @@ INSERT INTO PRODUCT(image, name, price, quantity) VALUES
 ('https://clipart-library.com/images_k/mango-transparent/mango-transparent-3.png', 'Mango', 3, 60),
 ('https://www.pngmart.com/files/3/Strawberry-Transparent-Background.png', 'Strawberry', 2, 40),
 ('https://pluspng.com/img-png/cherry-png-red-cherry-png-image-download-png-image-2000.png', 'Cherry', 2, 40),
-('https://purepng.com/public/uploads/large/purepng.com-blueberriesblueberriesflowering-plantsindigoberriescyanococcus-1701527118046elpcq.png', 'Blueberry', 2, 40);
+('https://purepng.com/public/uploads/large/purepng.com-blueberriesblueberriesflowering-plantsindigoberriescyanococcus-1701527118046elpcq.png', 'Blueberry', 2, 40),
+('https://www.pngplay.com/wp-content/uploads/1/Baked-Bread-PNG-Image.png', 'Assorted Bread Basket', 101, 10);
 
 # create coupon table
 CREATE TABLE IF NOT EXISTS COUPON (

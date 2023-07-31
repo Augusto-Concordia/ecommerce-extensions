@@ -27,7 +27,7 @@ public class BasketProduct {
 
     public Product getProduct() {return product;}
 
-    public void setBasket(Product product) {this.product = product;}
+    public void setProduct(Product product) {this.product = product;}
 
     public int getQuantity() {
         return quantity;

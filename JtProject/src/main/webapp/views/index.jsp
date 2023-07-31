@@ -90,6 +90,15 @@
                 });
 
                 $(".unit-add-button").on("click", function () {
+                  fetch("basket/add?" + new URLSearchParams({
+                    id: $(this).parent().find(".product-id").text(),
+                    quantity: parseInt($(this).parent().find(".unit-count").text()),
+                  }), {
+                    method: "POST",
+                  });
+
+                  location.href = "/";
+
                   $(this).parent(".store-unit-dropdown").toggle();
                   $(this).parent().find(".unit-count").text("1");
 
@@ -132,7 +141,13 @@
                 $("#welcome-dialog #yes-btn").on("click", closeWelcomeDialog); //todo: add the correct side-effect
 
                 // Opens the basket overlay
-                setTimeout(openWelcomeDialog, 1000);
+                let nowDate = Date.now();
+
+                if (localStorage.getItem("welcomeDialogTime") == null || (nowDate - localStorage.getItem("welcomeDialogTime")) / (1000 * 60) > 5)
+                  setTimeout(function () {
+                    localStorage.setItem("welcomeDialogTime", Date.now());
+                    openWelcomeDialog();
+                  }, 1000);
 
                 // Opens the welcome dialog
                 function openWelcomeDialog() {
@@ -234,6 +249,7 @@
                           <a class="btn btn-primary btn-basket-carousel"><img src="images/icons/basket.png" alt="Basket" width="40"></a>
                           <div class="store-unit-dropdown store-unit-dropdown-basket">
                             <div class="unit-selection-box">
+                              <span hidden class="product-id">${product.id}</span>
                               <span class="unit-count">1</span>
                               <button class="unit-increment-button"><img src="images/icons/dropdown_arrow.png" alt="Up arrow" width="12"></button>
                               <button class="unit-decrement-button"><img src="images/icons/dropdown_arrow.png" alt="Down arrow" width="12"></button><br>
@@ -243,6 +259,7 @@
                           <a class="btn btn-primary btn-custombasket-carousel"><img src="images/icons/custombasket.png" alt="Basket" width="40"></a>
                           <div class="store-unit-dropdown store-unit-dropdown-custombasket">
                             <div class="unit-selection-box">
+                              <span hidden class="product-id">${product.id}</span>
                               <span class="unit-count">1</span>
                               <button class="unit-increment-button"><img src="images/icons/dropdown_arrow.png" alt="Up arrow" width="12"></button>
                               <button class="unit-decrement-button"><img src="images/icons/dropdown_arrow.png" alt="Down arrow" width="12"></button><br>
@@ -268,10 +285,12 @@
                       <h5 class="product-price">$${product.price}</h5>
                     </div>
                     <div class="product-buttons">
-                      <a class="btn btn-primary btn-basket"><img src="images/icons/basket.png" alt="Basket" width="25"></a>
+                      <a class="btn btn-primary btn-basket"><img src="images/icons/basket.png" alt="Basket" width="25">
+                      </a>
                       <a class="btn btn-primary btn-custombasket"><img src="images/icons/custombasket.png" alt="Basket" width="25"></a>
                       <div class="store-unit-dropdown">
                         <div class="unit-selection-box">
+                          <span hidden class="product-id">${product.id}</span>
                           <span class="unit-count">1</span>
                           <button class="unit-increment-button"><img src="images/icons/dropdown_arrow.png" alt="Up arrow" width="12"></button>
                           <button class="unit-decrement-button"><img src="images/icons/dropdown_arrow.png" alt="Down arrow" width="12"></button><br>

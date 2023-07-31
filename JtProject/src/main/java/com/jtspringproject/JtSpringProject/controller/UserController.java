@@ -1,5 +1,6 @@
 package com.jtspringproject.JtSpringProject.controller;
 
+import com.jtspringproject.JtSpringProject.models.Basket;
 import com.jtspringproject.JtSpringProject.models.BasketProduct;
 import com.jtspringproject.JtSpringProject.models.Coupon;
 import com.jtspringproject.JtSpringProject.models.Product;
@@ -13,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -167,7 +169,6 @@ public class UserController {
 	}
 
 	// BASKET //
-
 	@GetMapping
 	public ModelAndView getBasket() {
 
@@ -184,4 +185,36 @@ public class UserController {
 		}
 		return mView;
 	}
+
+	@RequestMapping(value = "basket/add", method=RequestMethod.POST)
+	public String addProductToBasket(@RequestParam("id") int id, 
+									@RequestParam("quantity")int quantity)
+	{	
+		// temp basket stuff - currently putting everything in basket id 1
+		Basket basket = this.basketService.findBasket(1);
+		// get the existing product from the database using the provided id
+		Product product = this.productService.getProduct(id);
+		if (product == null) {
+			// Handle the case where no product with the given id exists
+			throw new NoSuchElementException("No product with id " + id + " exists");
+		}
+
+		List<BasketProduct> products_in_basket = this.basketService.findAllBasketProducts(); // all basket products
+		// check if item is already in basket
+		for (BasketProduct basket_product : products_in_basket) {
+            if (basket_product.getProduct().getId() == id) {
+                basket_product.setQuantity(basket_product.getQuantity() + quantity);
+				this.basketService.updateProductInBasket(basket_product);
+				return "redirect:/";
+            }
+        }
+
+		BasketProduct basketProduct = new BasketProduct();
+		basketProduct.setBasket(basket);
+		basketProduct.setProduct(product);
+		basketProduct.setQuantity(quantity);
+		this.basketService.addProductToBasket(basketProduct);
+		return "redirect:/";
+	}
+
 }
