@@ -19,6 +19,7 @@
 
             <script type="text/javascript">
               let slideIndex = 1;
+              let pauseAutoSlide = false;
               const slideInterval = 3000;
 
               function changeSlide(x) {
@@ -41,12 +42,36 @@
               }
 
               function autoSlide() {
-                changeSlide(1);
+                changeSlide(pauseAutoSlide ? 0 : 1);
                 setTimeout(autoSlide, slideInterval);
               }
 
               $(document).ready(function () {
                 autoSlide();
+
+                $(document).on("keydown", function (e) {
+                  // moves the carousel to the left or right with the arrow keys
+                  if (e.keyCode == 37) // left arrow
+                    changeSlide(-1);
+                  else if (e.keyCode == 39) // right arrow
+                    changeSlide(1);
+
+                  // close the dropdowns if the escape key is pressed
+                  if (e.keyCode == 27) {
+                    $(".store-unit-dropdown").hide();
+                    pauseAutoSlide = false;
+                  }
+                });
+
+                $(".product").on("click", function (e) {
+                  let dropdown = $(this).find(".store-unit-dropdown");
+
+                  // close the dropdowns if the user clicks outside of them
+                  if (e.target.classList.value.includes("product") && dropdown.is(":visible")) {
+                    dropdown.hide();
+                    pauseAutoSlide = false;
+                  }
+                });
 
                 $(".btn-basket-carousel").on("click", function () {
                   $(this).nextAll(".store-unit-dropdown-basket").toggle();
