@@ -97,8 +97,6 @@
                     method: "POST",
                   });
 
-                  location.href = "/";
-
                   $(this).parent(".store-unit-dropdown").toggle();
                   $(this).parent().find(".unit-count").text("1");
 
