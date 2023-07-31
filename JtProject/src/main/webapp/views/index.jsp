@@ -127,14 +127,34 @@
                 // Logout
                 $("#logout-btn").on("click", () => location.href = "userlogout");
 
-                // Show the basket overlay after 5 seconds
-                setTimeout(function () {
-                  $(".basket #overlay").trigger("basketOverlayOpen");
+                // dismisses the welcome dialog with the correct side-effect
+                $("#welcome-dialog #no-btn").on("click", closeWelcomeDialog);
+                $("#welcome-dialog #yes-btn").on("click", closeWelcomeDialog); //todo: add the correct side-effect
 
-                  setTimeout(function () {
-                    $(".basket #overlay").trigger("basketOverlayClose");
-                  }, 5000);
-                }, 2000);
+                // Opens the basket overlay
+                setTimeout(openWelcomeDialog, 1000);
+
+                // Opens the welcome dialog
+                function openWelcomeDialog() {
+                  $("#welcome-dialog").addClass("enabled");
+                  $("#welcome-dialog").removeClass("disabled");
+                }
+
+                // Closes the welcome dialog
+                function closeWelcomeDialog() {
+                  $("#welcome-dialog").addClass("disabled");
+                  $("#welcome-dialog").removeClass("enabled");
+                }
+
+                // Opens the basket overlay
+                function openBasketOverlay() {
+                  $(".basket #overlay").trigger("basketOverlayOpen");
+                }
+
+                // Closes the basket overlay
+                function closeBasketOverlay() {
+                  $(".basket #overlay").trigger("basketOverlayClose");
+                }
 
                 // Toggle between login and register
                 function toggleBasketType() {
@@ -160,6 +180,18 @@
               });
             </script>
           </head>
+
+          <div id="welcome-dialog" class="disabled">
+            <div id="welcome-content">
+              <img id="logo" src="images/nyan_logo_nobg_large.png" alt="Nyan Groceries icon">
+              <span id="title">Welcome back!</span>
+              <span id="content">Do you want to start from your custom basket?</span>
+              <div id="actions">
+                <a id="yes-btn" class="btn">Yes</a>
+                <a id="no-btn" class="btn">No</a>
+              </div>
+            </div>
+          </div>
 
           <header>
             <img id="logo" src="images/nyan_logo_nobg.png" alt="Store icon" width="48px" height="48px">

@@ -86,12 +86,97 @@ a,
   line-height: 100%;
 }
 
+#overlay-content #title,
+#overlay-content #content {
+  font-weight: 700;
+}
+
 #overlay-content #title {
   font-weight: 700;
 }
 
 #overlay-content #content {
   margin-top: 0.5em;
+}
+
+#welcome-dialog {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--white-color);
+  background-color: rgb(0, 0, 0, 0.7);
+}
+
+#welcome-content {
+  min-width: 50em;
+  max-width: 60em;
+  padding-block: 10em;
+  padding-inline: 6em;
+
+  border-radius: var(--default-border-radius);
+
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 2em 2em 2em;
+  column-gap: 6em;
+  row-gap: 5em;
+
+  background-color: var(--secondary-color);
+}
+
+#welcome-content .btn {
+  width: 4em;
+
+  background-color: var(--primary-color);
+  box-shadow: var(--close-shadow-primary);
+}
+
+#welcome-content #logo {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+
+  align-self: center;
+  justify-self: center;
+}
+
+#welcome-content #title {
+  grid-column: 2;
+  grid-row: 1;
+
+  font-family: "Autour One", cursive;
+  font-size: 4em;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+#welcome-content #content {
+  grid-column: 2;
+  grid-row: 2;
+
+  font-family: Cabin, sans-serif;
+  font-size: 2.5em;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+#welcome-content #actions {
+  grid-column: 2;
+  grid-row: 3;
+
+  display: flex;
+  gap: 1em;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
 }
 
 header {
