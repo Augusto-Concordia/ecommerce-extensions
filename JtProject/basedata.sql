@@ -34,11 +34,11 @@ paired_product_id int null
 INSERT INTO PRODUCT(image, name, price, quantity) VALUES
 ('https://freepngimg.com/save/9557-apple-fruit-transparent/744x744', 'Apple', 3, 40),
 ('https://www.nicepng.com/png/full/813-8132637_poiata-bunicii-cracked-egg.png', 'Cracked Eggs', 1, 90),
-('https://www.nicepng.com/png/detail/923-9237061_orange-naranja-orange-slide-middle-media-naranja-png.png', 'Orange', 3, 40),
-('https://www.nicepng.com/png/detail/14-146654_free-png-pear-png-images-transparent-pear-png.png', 'Pear', 3, 60),
-('https://www.nicepng.com/png/detail/45-455648_berry-vector-acai-strawberry-clipart-transparent-background.png', 'Strawberry', 2, 40),
-('https://www.nicepng.com/png/detail/51-510169_cherries-clipart-red-cherry-cherry-fruit-png.png', 'cherry', 2, 40),
-('https://www.nicepng.com/png/detail/16-161611_blueberries-png-blueberry-png.png', 'blueberry', 2, 40);
+('https://www.pngall.com/wp-content/uploads/2016/05/Orange-Free-PNG-Image.png', 'Orange', 3, 40),
+('https://clipart-library.com/images_k/mango-transparent/mango-transparent-3.png', 'Mango', 3, 60),
+('https://www.pngmart.com/files/3/Strawberry-Transparent-Background.png', 'Strawberry', 2, 40),
+('https://pluspng.com/img-png/cherry-png-red-cherry-png-image-download-png-image-2000.png', 'Cherry', 2, 40),
+('https://purepng.com/public/uploads/large/purepng.com-blueberriesblueberriesflowering-plantsindigoberriescyanococcus-1701527118046elpcq.png', 'Blueberry', 2, 40);
 
 # create coupon table
 CREATE TABLE IF NOT EXISTS COUPON (
