@@ -9,7 +9,7 @@ email    varchar(255) null,
 password varchar(255) null,
 role     ENUM('ROLE_NORMAL', 'ROLE_ADMIN') null,
 username varchar(255) null,
-paired_product_id int null DEFAULT '0'
+accumulatedPurchases int null
 );
 
 # insert default customers
@@ -27,7 +27,7 @@ image       varchar(255) null,
 name        varchar(255) null,
 price       int null,
 quantity    int null,
-paired_product_id int null
+paired_product_id int null DEFAULT '0'
 );
 
 # insert default products
