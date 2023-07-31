@@ -90,10 +90,12 @@
                 });
 
                 $(".unit-add-button").on("click", function () {
+                  console.log($(this).parent().find(".unit-count").text());
+
                   $(this).parent(".store-unit-dropdown").toggle();
                   $(this).parent().find(".unit-count").text("1");
 
-                  if ($(".store-unit-dropdown-basket").is(":notvisible") && $(".store-unit-dropdown-custombasket").is(":notvisible"))
+                  if (!$(".store-unit-dropdown-basket").is(":visible") && !$(".store-unit-dropdown-custombasket").is(":visible"))
                     pauseAutoSlide = false;
                 });
 
