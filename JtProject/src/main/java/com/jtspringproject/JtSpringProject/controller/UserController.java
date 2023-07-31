@@ -1,5 +1,7 @@
 package com.jtspringproject.JtSpringProject.controller;
 
+import com.jtspringproject.JtSpringProject.models.BasketProduct;
+import com.jtspringproject.JtSpringProject.models.Coupon;
 import com.jtspringproject.JtSpringProject.models.Product;
 import com.jtspringproject.JtSpringProject.models.User;
 
@@ -22,8 +24,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jtspringproject.JtSpringProject.services.userService;
-import com.jtspringproject.JtSpringProject.services.productService;
+import com.jtspringproject.JtSpringProject.services.*;
+
+	/*
+	 * get to get data from db ( @GetMapping )
+	 * post to post data to db ( @PostMapping )
+	 * @RequestParam("dbcolumn") what are we gonna ask the db for ? example line 124 we are requesting the product db so we can add a new product
+	 * within the getmapping the ModelAndView mv = new ModelAndView("namejsp"); namejsp should match a jsp file
+	 * @...("/loginvalidate") the url directory where its gonna go
+	 * return "redirect:/index"; will recall the mapping for index
+	 */
 
 @Controller
 public class UserController {
@@ -32,6 +42,8 @@ public class UserController {
 	private userService userService;
 	@Autowired
 	private productService productService;
+	@Autowired
+	private basketService basketService;
 
 	@GetMapping("/register")
 	public String registerUser() {
@@ -150,5 +162,24 @@ public class UserController {
 		this.userService.addUser(user);
 
 		return "redirect:/";
+	}
+
+	// BASKET //
+
+	@GetMapping("basket")
+	public ModelAndView getBasket() {
+
+		ModelAndView mView = new ModelAndView("basket");
+
+		List<BasketProduct> products_in_basket = this.basketService.findAllBasketProducts(); // basket of user 
+
+		if (products_in_basket.isEmpty()) {
+			mView.addObject("msg", "No products are available");
+			System.out.println("basket empty !");
+		} else {
+			mView.addObject("products_in_basket", products_in_basket);
+			System.out.println("basket not empty !");
+		}
+		return mView;
 	}
 }

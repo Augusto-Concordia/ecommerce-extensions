@@ -1,16 +1,17 @@
 <%@page import="java.util.*" %>
-    <%@page import="com.jtspringproject.JtSpringProject.models.Product" %>
+    <%@page import="com.jtspringproject.JtSpringProject.models.*" %>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-                <% List<Product> products = (List<Product>) request.getAttribute("products");
+                <% List<BasketProduct> products_in_basket = (List<BasketProduct>) request.getAttribute("products_in_basket");
 
                         float basketSubtotal = 0.0f;
                         float couponDiscount = 0.0f;
                         float basketTotal = 0.0f;
-
-                        for (Product product : products) {
-                        basketSubtotal += product.getPrice() * product.getQuantity();
+                        
+                        if (products_in_basket != null) {
+                        for (BasketProduct basket_item : products_in_basket) {
+                        basketSubtotal += basket_item.getProduct().getPrice() * basket_item.getQuantity();
                         }
 
                         basketTotal = basketSubtotal - couponDiscount;
@@ -18,6 +19,7 @@
                         request.setAttribute("basketSubtotal", basketSubtotal);
                         request.setAttribute("couponDiscount", couponDiscount);
                         request.setAttribute("basketTotal", basketTotal);
+                        }
                         %>
 
                         <script lang="text/javascript">
@@ -52,12 +54,12 @@
                                 <img class="basket-type-switch btn btn-icon" src="images/icons/switch.png" alt="Switches the current displayed basket">
                             </div>
                             <div id="products-container">
-                                <c:forEach var="product" items="${products}">
+                                <c:forEach var="basket_item" items="${products_in_basket}">
                                     <jsp:include page="smallProduct.jsp">
-                                        <jsp:param name="name" value="${product.name}" />
-                                        <jsp:param name="image" value="${product.image}" />
-                                        <jsp:param name="unit_price" value="${product.price}" />
-                                        <jsp:param name="qty" value="${product.quantity}" />
+                                        <jsp:param name="name" value="${basket_item.getProduct().getName()}" />
+                                        <jsp:param name="image" value="${basket_item.getProduct().getImage()}" />
+                                        <jsp:param name="unit_price" value="${basket_item.getProduct().getPrice()}" />
+                                        <jsp:param name="qty" value="${basket_item.getQuantity()}" />
                                     </jsp:include>
                                 </c:forEach>
                             </div>

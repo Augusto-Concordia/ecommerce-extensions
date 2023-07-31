@@ -45,7 +45,7 @@ public class basketProductDao {
     @SuppressWarnings("unchecked")
     public List<BasketProduct> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from basket_product").list();
+        return session.createQuery("from BASKET_PRODUCT").list();
     }
 
 }
