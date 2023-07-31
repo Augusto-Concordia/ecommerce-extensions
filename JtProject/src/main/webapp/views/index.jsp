@@ -8,7 +8,7 @@
 
           <head>
             <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
             <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -138,12 +138,18 @@
                 function openWelcomeDialog() {
                   $("#welcome-dialog").addClass("enabled");
                   $("#welcome-dialog").removeClass("disabled");
+
+                  $(document.body).addClass("unscrollable");
+                  $(document.body).removeClass("scrollable");
                 }
 
                 // Closes the welcome dialog
                 function closeWelcomeDialog() {
                   $("#welcome-dialog").addClass("disabled");
                   $("#welcome-dialog").removeClass("enabled");
+
+                  $(document.body).addClass("scrollable");
+                  $(document.body).removeClass("unscrollable");
                 }
 
                 // Opens the basket overlay
