@@ -17,7 +17,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int customer_id;
 
 	private String username;
 
@@ -30,11 +30,11 @@ public class User {
 	private int accumalatedPurchases = 0;
 
 	public int getId() {
-		return id;
+		return customer_id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int customer_id) {
+		this.customer_id = customer_id;
 	}
 
 	public String getUsername() {
@@ -83,7 +83,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", role="
+		return "User [id=" + customer_id + ", username=" + username + ", email=" + email + ", password=" + password + ", role="
 				+ role + ", accumalated purchases=" + accumalatedPurchases + "]";
 	}
 
