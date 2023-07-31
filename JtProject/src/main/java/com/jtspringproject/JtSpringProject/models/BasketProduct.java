@@ -11,11 +11,11 @@ public class BasketProduct {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int basket_product_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne // (fetch = FetchType.LAZY)
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne // (fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
 

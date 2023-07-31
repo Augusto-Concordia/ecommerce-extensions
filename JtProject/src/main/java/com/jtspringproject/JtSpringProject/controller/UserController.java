@@ -80,8 +80,10 @@ public class UserController {
 			if (u.getUsername() != null) {
 				ModelAndView mView = new ModelAndView("index");
 				List<Product> products = this.productService.getProducts();
+				List<BasketProduct> products_in_basket = this.basketService.findAllBasketProducts(); 
 
 				mView.addObject("products", products);
+				mView.addObject("products_in_basket", products_in_basket);
 				mView.addObject("user", u);
 
 				return mView;
@@ -166,7 +168,7 @@ public class UserController {
 
 	// BASKET //
 
-	@GetMapping("basket")
+	@GetMapping
 	public ModelAndView getBasket() {
 
 		ModelAndView mView = new ModelAndView("basket");
