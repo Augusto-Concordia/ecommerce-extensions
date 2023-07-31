@@ -65,7 +65,7 @@
                             <div id="basket-summary">
                                 <div id="sub-total" class="spanning-row">
                                     <span>Sub-total</span> <span class="amount">
-                                        <fmt:formatNumber value="${basketSubtotal}" pattern=".00$" />
+                                        <fmt:formatNumber value="${basketSubtotal}" pattern="0.00$" />
                                     </span>
                                 </div>
 
@@ -77,7 +77,7 @@
 
                                 <div id="total" class="spanning-row">
                                     <span>Total</span> <span class="amount">
-                                        <fmt:formatNumber value="${basketTotal}" pattern=".00$" />
+                                        <fmt:formatNumber value="${basketTotal}" pattern="0.00$" />
                                     </span>
                                 </div>
 
