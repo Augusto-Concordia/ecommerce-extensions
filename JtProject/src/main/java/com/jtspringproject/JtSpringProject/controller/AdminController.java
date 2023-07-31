@@ -2,6 +2,7 @@ package com.jtspringproject.JtSpringProject.controller;
 
 import java.sql.*;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,15 @@ public class AdminController {
 	@Autowired
 	private couponService couponService;
 
+	/*
+	 * get to get data from db ( @GetMapping )
+	 * post to post data to db ( @PostMapping )
+	 * @RequestParam("dbcolumn") what are we gonna ask the db for ? example line 124 we are requesting the product db so we can add a new product
+	 * within the getmapping the ModelAndView mv = new ModelAndView("namejsp"); namejsp should match a jsp file
+	 * @...("/loginvalidate") the url directory where its gonna go
+	 * return "redirect:/index"; will recall the mapping for index
+	 */
+
 	@GetMapping()
 	public ModelAndView mainRedirect(Model model, HttpServletRequest req) {
 		Cookie[] cookies = req.getCookies();
@@ -52,11 +62,18 @@ public class AdminController {
 			}
 
 			User u = this.userService.checkLogin(username, password);
+			List<Product> products = this.productService.getProducts();
 
 			if (u.getUsername() != null && u.getRole().equals("ROLE_ADMIN")) {
 				ModelAndView mView = new ModelAndView("admin");
 
 				mView.addObject("user", u);
+
+				if (products.isEmpty()) {
+					mView.addObject("msg", "No products are available");
+				} else {
+					mView.addObject("products", products); // view objcet "products" to be used in products.jsp
+				}
 
 				return mView;
 			}
@@ -67,8 +84,7 @@ public class AdminController {
 
 		return new ModelAndView("userLogin");
 	}
-
-	// PRODUCTS //
+	
 	@GetMapping("products/add")
 	public ModelAndView addProduct() {
 		ModelAndView mView = new ModelAndView("productsAdd");
@@ -80,14 +96,16 @@ public class AdminController {
 		return mView;
 	}
 
-	@RequestMapping(value = "products/add", method = RequestMethod.POST)
-	public String addProduct(@RequestParam("name") String name,
-			@RequestParam("productImage") String image,
-			@RequestParam("paired_product_id") int paired_product,
-			@RequestParam("quantity") int quantity,
-			@RequestParam("price") int price) {
+	@RequestMapping(value = "products/add",method=RequestMethod.POST)
+	public String addProduct(@RequestParam("name") String name ,
+							 @RequestParam("productImage") String image,
+							 @RequestParam("quantity")int quantity,
+							 @RequestParam("price") int price) {
 		Product product = new Product();
-		product.setProductValues(name, image, paired_product, quantity, price);
+		product.setImage(image);
+		product.setName(name);
+		product.setQuantity(quantity);
+		product.setPrice(price);
 		this.productService.addProduct(product);
 
 		return "redirect:/admin/products";
@@ -98,20 +116,37 @@ public class AdminController {
 
 		ModelAndView mView = new ModelAndView("productsUpdate");
 		Product product = this.productService.getProduct(id);
-		// limits the paired product to available products
-		List<Product> products = this.productService.getProducts();
-		mView.addObject("availableProducts", products);
+//     // limits the paired product to available products
+//     List<Product> products = this.productService.getProducts();
+//     mView.addObject("availableProducts",products);
 		mView.addObject("product", product);
 		return mView;
+		//return "redirect:/admin/coupons";
 	}
 
-	@RequestMapping(value = "products/update/{id}", method = RequestMethod.POST)
-	public String updateProduct(@RequestParam("name") String name, @RequestParam("productImage") String image,
-			@RequestParam("paired_product_id") int paired_product, @RequestParam("quantity") int quantity,
-			@RequestParam("price") int price) {
-		Product product = new Product();
-		product.setProductValues(name, image, paired_product, quantity, price);
+	@RequestMapping(value = "products/update/{id}",method=RequestMethod.POST)
+	public String updateProduct(@PathVariable("id") int id, // get the id from the path variable
+								@RequestParam("name") String name ,
+								@RequestParam("productImage") String image,
+								@RequestParam("quantity")int quantity,
+								@RequestParam("price") int price)
+	{
+		// Get the existing product from the database using the provided id
+		Product product = this.productService.getProduct(id);
+		if (product == null) {
+			// Handle the case where no product with the given id exists
+			throw new NoSuchElementException("No product with id " + id + " exists");
+		}
+
+		// Update the product properties
+		product.setImage(image);
+		product.setName(name);
+		product.setQuantity(quantity);
+		product.setPrice(price);
+
+		// Save the updated product back to the database
 		this.productService.updateProduct(product);
+
 		return "redirect:/admin/products";
 	}
 
@@ -150,14 +185,21 @@ public class AdminController {
 		return "redirect:/index";
 	}
 
-	@GetMapping("coupons") // this is used in jsp file and unpacked with for each function <c:forEach
-							// var="product" items="${products}">
-	public ModelAndView getCouponDetail() {
+	@GetMapping("coupons")
+	public ModelAndView getCoupons() {
 
-		ModelAndView mView = new ModelAndView("displayCoupons");
+		ModelAndView mView = new ModelAndView("coupons");
 		List<Coupon> coupons = this.couponService.getCoupons();
-		mView.addObject("coupons", coupons);
+
+		if (coupons.isEmpty()) {
+			mView.addObject("msg", "No products are available");
+		} else {
+			mView.addObject("coupons", coupons);
+		}
 		return mView;
 
+
 	}
+
+
 }

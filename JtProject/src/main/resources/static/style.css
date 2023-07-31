@@ -527,7 +527,6 @@ header h3 {
 
 #store-list .product {
   padding-bottom: 30%;
-  /* height: 200px; */
   margin: 0 10px 10px 0;
   height: 0;
   flex: 0 0 calc(33.333333% - 10px);
@@ -879,4 +878,112 @@ header h3 {
 
 #custom-basket #basket-summary {
   background-color: var(--secondary-color);
+}
+
+/* ADMIN DASHBOARD STYLES */
+
+#admin-container {
+  display: flex;
+}
+
+#admin-label {
+  font-size: 16px;
+  margin: 16px 0 0 10px;
+}
+
+#admin-products {
+  background-color: var(--secondary-color);
+  border-radius: var(--default-border-radius);
+
+  max-width: calc(100vw - 3% - 25em);
+  width: 75%;
+
+  margin: 20px 0;
+}
+
+#admin-products .product {
+  background-color: var(--primary-color);
+  border-radius: var(--default-border-radius);
+  
+  margin: 10px;
+  height: 140px;
+  
+  display: flex;
+  position: relative;
+}
+
+#admin-products .product-img {
+  width: 18%;
+  height: auto;
+  object-fit: contain;
+  margin-left: 3%;
+}
+
+#admin-products .product-details {
+  color: var(--white-color);
+}
+
+#admin-products .product-details-left {
+  position: absolute;
+  top: 50%;
+  margin-left: 10px;
+  transform: translateY(-50%);
+}
+
+#admin-products .product-details h5 {
+  font-size: 1.7em;
+  font-weight: 100;
+  display: inline;
+}
+
+#admin-products .product-details-right {
+  display: flex;
+  align-items: center; 
+  height: 100%; 
+
+  position: absolute;
+  right: 3%;
+}
+
+#admin-products .product-price {
+  margin-right: 50px;
+  font-size: 1.7em !important;
+  font-weight: 100;
+}
+
+#admin-products .product-pairing {
+  font-size: 1.1em !important;
+  font-weight: 100;
+}
+
+#admin-products .product-pairing .paired-product {
+  font-weight: bold;
+}
+
+#admin-products .product-pairing .recommended-product {
+  font-style: italic;
+}
+
+#admin-products button {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+}
+
+#admin-products #edit-button {
+  margin-right: 10px;
+}
+
+#selected-product {
+  background-color: var(--secondary-color);
+  border-radius: var(--default-border-radius);
+
+  width: 24%;
+  min-width: 25em;
+
+  position: fixed;
+  right: 0;
+
+  margin: 20px 10px;
+  height: 50px;
 }
