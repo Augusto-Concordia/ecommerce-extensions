@@ -150,12 +150,18 @@
 
 												<label for="product-name">Name</label>
 												<input id="product-name" required placeholder="Banana" type="text"></input>
-
-												<label for="product-quantity">Quantity</label>
-												<input id="product-quantity" required placeholder="619" type="number"></input>
-
-												<label for="product-price">Price (CA$/u)</label>
-												<input id="product-price" required placeholder="4.02" type="number"></input>
+												
+												<div id="product-form-split">
+													<div id="product-form-left">
+														<label for="product-quantity">Quantity</label>
+														<input id="product-quantity" required placeholder="619" type="number"></input>
+													</div>
+													
+													<div id="product-form-right">
+														<label for="product-price">Price (CA$/u)</label>
+														<input id="product-price" required placeholder="4.02" type="number"></input>
+													</div>
+												</div>
 
 												<label for="product-pairing">Select Pair</label>
 												<select id="product-pairing">

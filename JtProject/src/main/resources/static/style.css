@@ -311,6 +311,7 @@ header h3 {
 
 #register {
   box-shadow: var(--mid-shadow-primary);
+  background-color: var(--primary-color);
 }
 
 #welcome h2#store-name {
@@ -328,10 +329,6 @@ header h3 {
   font-weight: 400;
 }
 
-#register {
-  background-color: var(--primary-color);
-}
-
 #login-body {
   overflow: hidden;
 
@@ -339,8 +336,9 @@ header h3 {
   background-size: cover;
   background-repeat: no-repeat;
 
-  height: calc(100vh - 136px * 2);
-  padding: 136px 64px;
+  height: calc(100vh - 3%);
+  /* margin-top: 3%; */
+  padding: 3% 64px;
 
   display: grid;
   grid-template-columns: 60% calc(40% - 68px);
@@ -829,6 +827,10 @@ header h3 {
   margin-bottom: 0.5em;
 }
 
+#product-info #product-prices {
+  line-height: 28px;
+}
+
 #product-info #product-prices #total-price {
   font-size: 2em;
   font-weight: 700;
@@ -1012,15 +1014,13 @@ header h3 {
 }
 
 #selected-product-content #title {
-  font-size: 3.5em;
+  font-size: 1.5em;
   font-weight: 700;
-  margin-bottom: 0.5em;
 }
 
 #selected-product-details {
   width: 100%;
   height: 100%;
-  margin-top: 2em;
 
   display: flex;
   flex-direction: column;
@@ -1033,9 +1033,20 @@ header h3 {
 
   width: auto;
   height: auto;
-  min-width: 16em;
-  max-width: 80%;
-  min-height: 16em;
+  max-height: 190px;
+}
+
+#selected-product-details #product-form-split {
+  display: flex;
+}
+
+#selected-product-details #product-form-left, 
+#selected-product-details #product-form-right {
+  flex: 1;
+}
+
+#selected-product-details #product-form-left {
+  margin-right: 10px;
 }
 
 #selected-product-details label,
@@ -1046,7 +1057,7 @@ header h3 {
 #selected-product-details input,
 #selected-product-details select {
   width: 100%;
-  height: 3em;
+  height: 2.2em;
   margin-top: 0.3em;
   padding-left: 1em;
 
@@ -1063,7 +1074,7 @@ header h3 {
 #selected-product-details select::placeholder {
   opacity: 0.5;
 
-  font-size: 1.25em;
+  font-size: 1em;
   font-style: italic;
   line-height: 1.25em;
 }
@@ -1073,7 +1084,8 @@ header h3 {
 }
 
 #selected-product-details label {
-  margin-top: 1em;
+  margin-top: 0.6em;
+  font-size: 0.9em;
 }
 
 #selected-product-details input::placeholder {
@@ -1082,7 +1094,7 @@ header h3 {
 
 #selected-product-details input[type="submit"] {
   height: 2em;
-  margin-top: 2em;
+  margin-top: 14px;
   padding: 0;
 
   font-size: 2em;
@@ -1099,4 +1111,10 @@ header h3 {
   color: var(--white-color);
   background-color: var(--primary-color);
   box-shadow: var(--close-shadow-primary);
+
+  transform: scale(0.7);
+}
+
+#selected-product-details-right {
+  margin-top: -10px;
 }
