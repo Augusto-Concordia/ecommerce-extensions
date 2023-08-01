@@ -78,7 +78,7 @@
 						${product.name}
 					</td>
 					<td>
-
+							${product.pairedProduct.name}
 
 					</td>
 

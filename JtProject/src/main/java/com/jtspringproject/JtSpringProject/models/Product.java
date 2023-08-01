@@ -32,7 +32,9 @@ public class Product {
 	
 	private int price;
 
-	private int pairedProduct;
+	@OneToOne  //(fetch = FetchType.LAZY)
+	@JoinColumn(name = "paired_product_id")
+	private Product pairedProduct;
 
 	public int getId() {
 		return id;
@@ -58,11 +60,11 @@ public class Product {
 		this.image = image;
 	}
 
-	public int getPairedProduct() {
+	public Product getPairedProduct() {
 		return pairedProduct;
 	}
 
-	public void setPairedProduct(int pairedProduct) {
+	public void setPairedProduct(Product pairedProduct) {
 		this.pairedProduct = pairedProduct;
 	}
 

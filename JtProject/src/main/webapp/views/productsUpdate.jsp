@@ -84,8 +84,26 @@
 						<br>
 					</div>
 
+					<p>Paired Product</p>
+
+
+
+						<select name="pairedID">
+							<c:forEach var="product1" items="${availableProducts}">
+								<c:if test="${product1.id != product.id}">
+									<option  value="${product1.id}">${product1.name}</option>
+								</c:if>
+							</c:forEach>
+						</select>
+
+
+
+					<br> <br>
 					<input type="submit" value="Update Details" class="btn btn-primary">
 				</div>
+
+
+
 			</div>
 		</form>
 	</div>

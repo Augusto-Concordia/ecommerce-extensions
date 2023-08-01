@@ -35,11 +35,11 @@ public class productService {
 		return this.productDao.deletProduct(id);
 	}
 
-	public int getPairedProduct(int id) {
-		return this.productDao.getPairedProduct(id);
-	}
-
-	public int updatePairedProduct(int id, int paired_product_id) {
-		return this.updatePairedProduct(id, paired_product_id);
-	}
+//	public int getPairedProduct(int id) {
+//		return this.productDao.getPairedProduct(id);
+//	}
+//
+//	public int updatePairedProduct(int id, int paired_product_id) {
+//		return this.updatePairedProduct(id, paired_product_id);
+//	}
 }

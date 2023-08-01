@@ -48,13 +48,14 @@
 </nav><br>
 <div class="container-fluid">
 
-    <a style="margin: 20px 0" class="btn btn-primary"
-       href="/admin/products/add">Add Product</a><br>
     <table class="table">
 
         <tr>
             <th scope="col">coupon ID</th>
             <th scope="col">customer ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+
 
         </tr>
         <tbody>
@@ -67,6 +68,13 @@
                 <td>
                         ${coupon.user.id}
                 </td>
+                <td>
+                        ${coupon.user.username}
+                </td>
+                <td>
+                        ${coupon.user.email}
+                </td>
+
             </tr>
         </c:forEach>
 
@@ -90,3 +98,4 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
+

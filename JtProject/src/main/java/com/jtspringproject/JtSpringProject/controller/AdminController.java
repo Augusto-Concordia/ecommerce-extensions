@@ -125,10 +125,11 @@ public class AdminController {
 
 		ModelAndView mView = new ModelAndView("productsUpdate");
 		Product product = this.productService.getProduct(id);
-//     // limits the paired product to available products
-//     List<Product> products = this.productService.getProducts();
-//     mView.addObject("availableProducts",products);
 		mView.addObject("product", product);
+     	// add all products to select for paired items
+     	List<Product> products = this.productService.getProducts();
+    	mView.addObject("availableProducts",products);
+
 		return mView;
 		//return "redirect:/admin/coupons";
 	}
@@ -138,8 +139,12 @@ public class AdminController {
 								@RequestParam("name") String name ,
 								@RequestParam("productImage") String image,
 								@RequestParam("quantity")int quantity,
-								@RequestParam("price") int price)
+								@RequestParam("price") int price,
+								@RequestParam("pairedID") int pairedID )
 	{
+		// transfer the pariedID posted from productsUpdate input to a Product object => to be used as an argument below
+		Product pairedProduct = this.productService.getProduct(pairedID);
+
 		// Get the existing product from the database using the provided id
 		Product product = this.productService.getProduct(id);
 		if (product == null) {
@@ -152,6 +157,7 @@ public class AdminController {
 		product.setName(name);
 		product.setQuantity(quantity);
 		product.setPrice(price);
+		product.setPairedProduct(pairedProduct);
 
 		// Save the updated product back to the database
 		this.productService.updateProduct(product);

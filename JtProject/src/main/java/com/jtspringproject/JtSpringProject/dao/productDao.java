@@ -53,24 +53,24 @@ public class productDao {
 		}
 		return false;
 	}
-
-	@Transactional
-	public int getPairedProduct(int id) {
-		// access db get product with id then return the int value under the column labelled paired_product_id
-		Session session1 = this.sessionFactory.getCurrentSession();
-		Product product = (Product) session1.load(Product.class, id);
-		return product.getPairedProduct();
-	}
-
-	@Transactional
-	public int updatePairedProduct(int id, int paired_product_id) {
-		// access db get product with id
-		// set column value for column paired_product_id to int paired_product_id
-		Session session1 = this.sessionFactory.getCurrentSession();
-		Product product = (Product) session1.load(Product.class, id);
-
-		product.setPairedProduct(paired_product_id);
-		this.updateProduct(product);
+// we don't need this, since we can use the getProduct(int id) to fetch data
+//	@Transactional
+//	public Product getPairedProduct(int id) {
+//		// access db get product with id then return the int value under the column labelled paired_product_id
+//		Session session1 = this.sessionFactory.getCurrentSession();
+//		Product product = (Product) session1.load(Product.class, id);
+//		return product.getPairedProduct();
+//	}
+//
+//	@Transactional
+//	public int updatePairedProduct(int id, int paired_product_id) {
+//		// access db get product with id
+//		// set column value for column paired_product_id to int paired_product_id
+//		Session session1 = this.sessionFactory.getCurrentSession();
+//		Product product = (Product) session1.load(Product.class, id);
+//
+//		product.setPairedProduct(paired_product_id);
+//		this.updateProduct(product);
 
 		/*
 		// acess db get prodcut with paired_product_id
@@ -81,7 +81,7 @@ public class productDao {
 		paired_product.setPairedProduct(id);
 		session2.save(paired_product); // ??
 		*/
-		return paired_product_id;
-	}
+//		return paired_product_id;
+//	}
 
 }
