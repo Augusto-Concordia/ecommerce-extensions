@@ -68,7 +68,7 @@
 
 							<!-- Selected Product -->
 							<section id="selected-product">
-
+								<div id="selected-product-content">No product selected</div>
 							</section>
 						</div>
 					</body>
