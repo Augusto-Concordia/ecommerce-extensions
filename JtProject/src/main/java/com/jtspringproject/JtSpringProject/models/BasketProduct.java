@@ -23,11 +23,11 @@ public class BasketProduct {
 
     private int quantity;
 
-    public Basket getBasket() {return basket;}
-
     public int getBasket_product_id() {
         return basket_product_id;
     }
+    
+    public Basket getBasket() {return basket;}
 
     public void setBasket(Basket basket) {this.basket = basket;}
 

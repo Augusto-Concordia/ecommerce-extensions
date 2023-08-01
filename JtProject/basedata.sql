@@ -5,8 +5,8 @@ USE ecommjava;
 
 # create the customer table
 CREATE TABLE IF NOT EXISTS CUSTOMER(
-                                       customer_id       int unique key not null auto_increment primary key,
-                                       email    varchar(255) null,
+    customer_id       int unique key not null auto_increment primary key,
+    email    varchar(255) null,
     password varchar(255) null,
     role     ENUM('ROLE_NORMAL', 'ROLE_ADMIN') null,
     username varchar(255) null,

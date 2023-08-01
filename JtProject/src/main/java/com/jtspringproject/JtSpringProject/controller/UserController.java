@@ -190,6 +190,7 @@ public class UserController {
 	public String addProductToBasket(@RequestParam("id") int id, 
 									@RequestParam("quantity")int quantity)
 	{	
+		// will add to custom or normal basket based on the find basket id
 		// temp basket stuff - currently putting everything in basket id 1
 		Basket basket = this.basketService.findBasket(1);
 		// get the existing product from the database using the provided id
@@ -227,8 +228,6 @@ public class UserController {
 	public void removeItemFromBasketByProductId(@RequestParam("productID") int productID) {
 		basketService.removeProductFromBasketPID(productID);
 	}
-
-
 
 	@PostMapping("/basket/clear")
 	public void clearBasket() {

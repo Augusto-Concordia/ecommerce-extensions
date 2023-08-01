@@ -26,5 +26,9 @@ public class userService {
 		return this.userDao.getUser(username, password);
 	}
 
+	public User getUserById(int id) {
+		return this.userDao.getUser(id);
+	}
+
 	
 }

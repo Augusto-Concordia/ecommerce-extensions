@@ -258,7 +258,7 @@
               </div>
             </div>
           </div>
-
+          <span id="current_user" hidden>${user.id}</span>
           <header>
             <img id="logo" src="images/nyan_logo_nobg.png" alt="Store icon" width="48px" height="48px">
 
@@ -277,6 +277,7 @@
 
             <!-- Storefront -->
             <div id="storefront">
+              
 
               <!-- Product Carousel -->
               <div id="store-carousel">

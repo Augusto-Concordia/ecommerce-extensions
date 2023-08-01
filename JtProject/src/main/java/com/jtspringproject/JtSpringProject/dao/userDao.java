@@ -23,11 +23,25 @@ public class userDao {
 	public void setSessionFactory(SessionFactory sf) {
         this.sessionFactory = sf;
     }
+
    @Transactional
     public List<User> getAllUser() {
         Session session = this.sessionFactory.getCurrentSession();
 		List<User>  userList = session.createQuery("from CUSTOMER").list();
         return userList;
+    }
+
+	@Transactional
+    public User getUser(int customer_id) {
+    	Query query = sessionFactory.getCurrentSession().createQuery("from CUSTOMER where customer_id = :customer_id");
+    	query.setParameter("customer_id",customer_id);
+    	
+    	try {
+			User user = (User) query.getSingleResult();
+			return user;
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
     }
     
     @Transactional
