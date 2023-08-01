@@ -95,6 +95,8 @@
                     quantity: parseInt($(this).parent().find(".unit-count").text()),
                   }), {
                     method: "POST",
+                  }).then(response => {
+                    location.reload();
                   });
 
                   $(this).parent(".store-unit-dropdown").toggle();
