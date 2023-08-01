@@ -97,26 +97,27 @@
                     method: "POST",
                   });
 
-                  $(".unit-remove").on("click", function () {
-                    fetch("/basket/clear?" + new URLSearchParams({
-                      id: $(this).parent().find(".product-id").text(),
-                      quantity: parseInt($(this).parent().find(".unit-count").text()),
-                    }), {
-                      method: "POST",
-                  });
-                  $("#remove-all").on("click", function () {
-                    fetch("basket/clear", {
-                      method: "POST",
-                    }).then(response => {
-                      location.reload();
-                    });
-
-
                   $(this).parent(".store-unit-dropdown").toggle();
                   $(this).parent().find(".unit-count").text("1");
 
                   if ($(".store-unit-dropdown-basket").is(":notvisible") && $(".store-unit-dropdown-custombasket").is(":notvisible"))
                     pauseAutoSlide = false;
+                });
+
+                $("#remove-all").on("click", function () {
+                  fetch("basket/clear", {
+                    method: "POST",
+                  }).then(response => {
+                    location.reload();
+                  });
+                });
+
+                $("#remove-all").on("click", function () {
+                  fetch("basket/clear", {
+                    method: "POST",
+                  }).then(response => {
+                    location.reload();
+                  });
                 });
 
                 $(".product").on("click", ".unit-increment-button", function () {
@@ -135,83 +136,84 @@
                   unitCountSpan.text(unitCount.toString());
                 });
 
-                let isCustomBasket = false;
+              let isCustomBasket = false;
 
-                let basket = $("#basket");
-                let customBasket = $("#custom-basket");
+              let basket = $("#basket");
+              let customBasket = $("#custom-basket");
 
-                // Toggle between the two baskets
-                $(".basket-type-switch").on("click", toggleBasketType);
+              // Toggle between the two baskets
+              $(".basket-type-switch").on("click", toggleBasketType);
 
-                // Redirect to the admin portal
-                $("#admin-btn").on("click", () => location.href = "admin");
+              // Redirect to the admin portal
+              $("#admin-btn").on("click", () => location.href = "admin");
 
-                // Logout
-                $("#logout-btn").on("click", () => location.href = "userlogout");
+              // Logout
+              $("#logout-btn").on("click", () => location.href = "userlogout");
 
-                // dismisses the welcome dialog with the correct side-effect
-                $("#welcome-dialog #no-btn").on("click", closeWelcomeDialog);
-                $("#welcome-dialog #yes-btn").on("click", closeWelcomeDialog); //todo: add the correct side-effect
+              // dismisses the welcome dialog with the correct side-effect
+              $("#welcome-dialog #no-btn").on("click", closeWelcomeDialog);
+              $("#welcome-dialog #yes-btn").on("click", closeWelcomeDialog); //todo: add the correct side-effect
 
-                // Opens the basket overlay
-                let nowDate = Date.now();
+              // Opens the basket overlay
+              let nowDate = Date.now();
 
-                if (localStorage.getItem("welcomeDialogTime") == null || (nowDate - localStorage.getItem("welcomeDialogTime")) / (1000 * 60) > 5)
-                  setTimeout(function () {
-                    localStorage.setItem("welcomeDialogTime", Date.now());
-                    openWelcomeDialog();
-                  }, 1000);
+              if (localStorage.getItem("welcomeDialogTime") == null || (nowDate - localStorage.getItem("welcomeDialogTime")) / (1000 * 60) > 5)
+                setTimeout(function () {
+                  localStorage.setItem("welcomeDialogTime", Date.now());
+                  openWelcomeDialog();
+                }, 1000);
 
-                // Opens the welcome dialog
-                function openWelcomeDialog() {
-                  $("#welcome-dialog").addClass("enabled");
-                  $("#welcome-dialog").removeClass("disabled");
+              // Opens the welcome dialog
+              function openWelcomeDialog() {
+                $("#welcome-dialog").addClass("enabled");
+                $("#welcome-dialog").removeClass("disabled");
 
-                  $(document.body).addClass("unscrollable");
-                  $(document.body).removeClass("scrollable");
+                $(document.body).addClass("unscrollable");
+                $(document.body).removeClass("scrollable");
+              }
+
+              // Closes the welcome dialog
+              function closeWelcomeDialog() {
+                $("#welcome-dialog").addClass("disabled");
+                $("#welcome-dialog").removeClass("enabled");
+
+                $(document.body).addClass("scrollable");
+                $(document.body).removeClass("unscrollable");
+              }
+
+              // Opens the basket overlay
+              function openBasketOverlay() {
+                $(".basket #overlay").trigger("basketOverlayOpen");
+              }
+
+              // Closes the basket overlay
+              function closeBasketOverlay() {
+                $(".basket #overlay").trigger("basketOverlayClose");
+              }
+
+              // Toggle between login and register
+              function toggleBasketType() {
+                isCustomBasket = !isCustomBasket;
+
+                updateBasket();
+              }
+
+              // Updates the currently displayed basket
+              function updateBasket() {
+                if (isCustomBasket) {
+                  customBasket.removeClass("disabled");
+                  customBasket.addClass("enabled");
+                  basket.addClass("disabled");
+                  basket.removeClass("enabled");
+                } else {
+                  customBasket.addClass("disabled");
+                  customBasket.removeClass("enabled");
+                  basket.addClass("enabled");
+                  basket.removeClass("disabled");
                 }
+              }
+          });
 
-                // Closes the welcome dialog
-                function closeWelcomeDialog() {
-                  $("#welcome-dialog").addClass("disabled");
-                  $("#welcome-dialog").removeClass("enabled");
-
-                  $(document.body).addClass("scrollable");
-                  $(document.body).removeClass("unscrollable");
-                }
-
-                // Opens the basket overlay
-                function openBasketOverlay() {
-                  $(".basket #overlay").trigger("basketOverlayOpen");
-                }
-
-                // Closes the basket overlay
-                function closeBasketOverlay() {
-                  $(".basket #overlay").trigger("basketOverlayClose");
-                }
-
-                // Toggle between login and register
-                function toggleBasketType() {
-                  isCustomBasket = !isCustomBasket;
-
-                  updateBasket();
-                }
-
-                // Updates the currently displayed basket
-                function updateBasket() {
-                  if (isCustomBasket) {
-                    customBasket.removeClass("disabled");
-                    customBasket.addClass("enabled");
-                    basket.addClass("disabled");
-                    basket.removeClass("enabled");
-                  } else {
-                    customBasket.addClass("disabled");
-                    customBasket.removeClass("enabled");
-                    basket.addClass("enabled");
-                    basket.removeClass("disabled");
-                  }
-                }
-              });
             </script>
           </head>
 
