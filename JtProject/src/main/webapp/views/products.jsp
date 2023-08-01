@@ -55,12 +55,10 @@
 			<tr>
 				<th scope="col">Serial No.</th>
 				<th scope="col">Product Name</th>
-				<th scope="col">PairedID</th>
-				<th scope="col">Preview</th>
+				<th scope="col">Image</th>
+				<th scope="col">Paired Product</th>
 				<th scope="col">Quantity</th>
 				<th scope="col">Price</th>
-				<th scope="col">Weight</th>
-				<th scope="col">Descrption</th>
 				<th scope="col">Delete</th>
 				<th scope="col">Update</th>
 			</tr>
@@ -77,24 +75,18 @@
 					<td>
 						${product.name}
 					</td>
+
+					<td><img src="${product.image}"
+						height="100px" width="100px">
+					</td>
 					<td>
 							${product.pairedProduct.name}
 
 					</td>
-
-					<td><img src="${product.image}"
-						height="100px" width="100px"></td>
 					<td>
 						${product.quantity}
 					</td>
-					<td>S
-						${product.price}
-					</td>
-					<td>
-
-					</td>
-					<td>
-
+					<td> ${product.price}
 					</td>
 
 					<td>

@@ -143,7 +143,12 @@ public class AdminController {
 								@RequestParam("pairedID") int pairedID )
 	{
 		// transfer the pariedID posted from productsUpdate input to a Product object => to be used as an argument below
-		Product pairedProduct = this.productService.getProduct(pairedID);
+		Product pairedProduct = new Product();
+		if (pairedID == 0){
+			pairedProduct = null;
+		}
+
+		pairedProduct = this.productService.getProduct(pairedID);
 
 		// Get the existing product from the database using the provided id
 		Product product = this.productService.getProduct(id);

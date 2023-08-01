@@ -89,6 +89,7 @@
 
 
 						<select name="pairedID">
+							<option value=0>Select an option</option>
 							<c:forEach var="product1" items="${availableProducts}">
 								<c:if test="${product1.id != product.id}">
 									<option  value="${product1.id}">${product1.name}</option>
