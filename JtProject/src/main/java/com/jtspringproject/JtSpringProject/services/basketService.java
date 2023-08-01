@@ -48,6 +48,10 @@ public class basketService {
         return basketDao.findAll();
     }
 
+    public List<Basket> findAllBasketsById(int user_id) {
+        return basketDao.findAllBasketByUser(user_id);
+    }
+
     // BASKET PRODUCT //
 
     @Transactional

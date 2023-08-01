@@ -50,4 +50,10 @@ public class basketDao {
         return session.createQuery("from basket").list();
     }
 
+    @SuppressWarnings("unchecked")
+    public List<Basket> findAllBasketByUser(int user_id) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from basket  where user_id = :user_id").list();
+    }
+
 }

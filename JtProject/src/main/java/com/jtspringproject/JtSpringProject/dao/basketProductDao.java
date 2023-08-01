@@ -54,7 +54,7 @@ public class basketProductDao {
 
     public BasketProduct findByProductId(int product_id) {
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from BASKET_PRODUCT bp where bp.product.id = :product_id");
+        Query query = session.createQuery("from BASKET_PRODUCT where product.id = :product_id");
         query.setParameter("product_id", product_id);
         List<BasketProduct> results = query.list();
         if (results.isEmpty()) {

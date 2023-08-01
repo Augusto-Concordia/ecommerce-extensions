@@ -41,6 +41,8 @@ public class userDao {
 			return user;
 		}catch(Exception e){
 			System.out.println(e.getMessage());
+			User user = new User();
+			return user;
 		}
     }
     
