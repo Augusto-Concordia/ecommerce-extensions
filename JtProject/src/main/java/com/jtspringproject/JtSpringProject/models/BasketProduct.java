@@ -2,6 +2,8 @@ package com.jtspringproject.JtSpringProject.models;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
+
 @Entity(name="BASKET_PRODUCT")
 @Table
 public class BasketProduct {
@@ -36,5 +38,7 @@ public class BasketProduct {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+
 
 }

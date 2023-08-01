@@ -217,4 +217,16 @@ public class UserController {
 		return "redirect:/";
 	}
 
+	@PostMapping("/basket/removeitem")
+	public String removeItemFromBasket(@RequestParam("basketProductID") Long basketProductID) {
+		// You're directly getting the id of the BasketProduct object to be removed.
+		basketService.removeProductFromBasket(Math.toIntExact(basketProductID));
+		return "redirect:/basket";
+	}
+	@PostMapping("/basket/clear")
+	public String clearBasket() {
+		basketService.removeAllProductsFromBasket();
+		return "redirect:/basket";
+	}
+
 }

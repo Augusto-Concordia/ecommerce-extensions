@@ -96,6 +96,13 @@
                   }), {
                     method: "POST",
                   });
+                  $(".unit-remove").on("click", function () {
+                    fetch("/basket/clear?" + new URLSearchParams({
+                      id: $(this).parent().find(".product-id").text(),
+                      quantity: parseInt($(this).parent().find(".unit-count").text()),
+                    }), {
+                      method: "POST",
+                    });
 
                   $(this).parent(".store-unit-dropdown").toggle();
                   $(this).parent().find(".unit-count").text("1");

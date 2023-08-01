@@ -86,5 +86,11 @@ public class basketService {
         return products_in_basket;
     }
 
+    @Transactional
+    public void removeAllProductsFromBasket() {
+        basketProductDao.deleteAll();
+    }
+
+
 }
 
