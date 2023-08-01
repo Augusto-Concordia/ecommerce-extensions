@@ -96,6 +96,7 @@
                   }), {
                     method: "POST",
                   });
+                  /*
                   $(".unit-remove").on("click", function () {
                     fetch("/basket/clear?" + new URLSearchParams({
                       id: $(this).parent().find(".product-id").text(),
@@ -103,6 +104,16 @@
                     }), {
                       method: "POST",
                     });
+
+
+                    $(".unit-remove").on("click", function () {
+                      fetch("basket/clear", {
+                        method: "POST",
+                      }).then(response => {
+                        location.reload();
+                      });
+                    });
+                    */
 
                   $(this).parent(".store-unit-dropdown").toggle();
                   $(this).parent().find(".unit-count").text("1");
