@@ -106,13 +106,20 @@
                     pauseAutoSlide = false;
                 });
 
-                $("#remove-all").on("click", function () {
-                  fetch("basket/clear", {
+                $("#remove").each((i, e) => $(e).on("click", function () {
+                  let productId = $(e).parent().parent().find("#product-info #product-id").text();
+                  let basketType = $(e).parent().parent().find("#product-info #basket-type").text();
+
+                  console.log(productId);
+
+                  fetch("basket/removeitem?" + new URLSearchParams({
+                    basketProductID: productId
+                  }), {
                     method: "POST",
                   }).then(response => {
-                    location.reload();
+                    //location.reload();
                   });
-                });
+                }));
 
                 $("#remove-all").on("click", function () {
                   fetch("basket/clear", {

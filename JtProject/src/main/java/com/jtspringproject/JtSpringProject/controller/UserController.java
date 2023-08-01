@@ -218,15 +218,14 @@ public class UserController {
 	}
 
 	@PostMapping("/basket/removeitem")
-	public String removeItemFromBasket(@RequestParam("basketProductID") Long basketProductID) {
+	public void removeItemFromBasket(@RequestParam("basketProductID") int basketProductID) {
 		// You're directly getting the id of the BasketProduct object to be removed.
-		basketService.removeProductFromBasket(Math.toIntExact(basketProductID));
-		return "redirect:/basket";
+		basketService.removeProductFromBasket(basketProductID);
 	}
+
 	@PostMapping("/basket/clear")
-	public String clearBasket() {
+	public void clearBasket() {
 		basketService.removeAllProductsFromBasket();
-		return "redirect:/basket";
 	}
 
 }

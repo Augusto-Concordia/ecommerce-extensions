@@ -56,6 +56,8 @@
                             <div id="products-container">
                                 <c:forEach var="basket_item" items="${products_in_basket}">
                                     <jsp:include page="smallProduct.jsp">
+                                        <jsp:param name="id" value="${basket_item.getProduct().getId()}" />
+                                        <jsp:param name="basket_type" value="${param.type}" />
                                         <jsp:param name="name" value="${basket_item.getProduct().getName()}" />
                                         <jsp:param name="image" value="${basket_item.getProduct().getImage()}" />
                                         <jsp:param name="unit_price" value="${basket_item.getProduct().getPrice()}" />

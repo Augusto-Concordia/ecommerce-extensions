@@ -4,6 +4,8 @@
         <img id="product-icon" src="${param.image}" alt="Product image">
 
         <div id="product-info">
+            <span id="product-id" hidden>${param.id}</span>
+            <span id="basket-id" hidden>${param.basket_type}</span>
             <span id="product-name">${param.name}</span>
             <div id="product-prices">
                 <span id="total-price">
