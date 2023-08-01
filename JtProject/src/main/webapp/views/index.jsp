@@ -128,7 +128,11 @@
 
                 // dismisses the welcome dialog with the correct side-effect
                 $("#welcome-dialog #no-btn").on("click", closeWelcomeDialog);
-                $("#welcome-dialog #yes-btn").on("click", closeWelcomeDialog); //todo: add the correct side-effect
+                $("#welcome-dialog #yes-btn").on("click", function() {
+                  closeWelcomeDialog();
+                  isCustomBasket = true;
+                  updateBasket();
+                });
 
                 // Opens the basket overlay
                 setTimeout(openWelcomeDialog, 1000);
