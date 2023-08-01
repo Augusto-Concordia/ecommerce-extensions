@@ -220,8 +220,15 @@ public class UserController {
 	@PostMapping("/basket/removeitem")
 	public void removeItemFromBasket(@RequestParam("basketProductID") int basketProductID) {
 		// You're directly getting the id of the BasketProduct object to be removed.
-		basketService.removeProductFromBasket(basketProductID);
+		basketService.removeProductFromBasketPID(basketProductID);
 	}
+
+	@PostMapping("/basket/removeitembypid")
+	public void removeItemFromBasketByProductId(@RequestParam("productID") int productID) {
+		basketService.removeProductFromBasketPID(productID);
+	}
+
+
 
 	@PostMapping("/basket/clear")
 	public void clearBasket() {

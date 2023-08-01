@@ -25,6 +25,10 @@ public class BasketProduct {
 
     public Basket getBasket() {return basket;}
 
+    public int getBasket_product_id() {
+        return basket_product_id;
+    }
+
     public void setBasket(Basket basket) {this.basket = basket;}
 
     public Product getProduct() {return product;}

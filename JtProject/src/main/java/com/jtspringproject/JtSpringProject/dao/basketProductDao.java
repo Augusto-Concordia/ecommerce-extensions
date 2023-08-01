@@ -30,7 +30,7 @@ public class basketProductDao {
 
     public void delete(int id) {
         Session session = sessionFactory.getCurrentSession();
-        BasketProduct basket_product = session.get(BasketProduct.class, id);
+        BasketProduct basket_product = session.byId(BasketProduct.class).load(id);
         if (basket_product != null) {
             session.delete(basket_product);
         }
@@ -51,5 +51,19 @@ public class basketProductDao {
         Query query = session.createQuery("delete from BASKET_PRODUCT");
         query.executeUpdate();
     }
+
+    public BasketProduct findByProductId(int product_id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from BASKET_PRODUCT bp where bp.product.id = :product_id");
+        query.setParameter("product_id", product_id);
+        List<BasketProduct> results = query.list();
+        if (results.isEmpty()) {
+            return null; // handle no-results scenario
+        } else {
+            return results.get(0); // return first matching BasketProduct
+        }
+    }
+
+
 
 }

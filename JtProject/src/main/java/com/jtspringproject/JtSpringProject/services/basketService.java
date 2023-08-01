@@ -57,7 +57,24 @@ public class basketService {
 
     @Transactional
     public void removeProductFromBasket(int id) {
-        basketProductDao.delete(id);
+        BasketProduct basketProduct = basketProductDao.findById(id);
+        if (basketProduct != null) {
+            System.out.println("\n\n\n\nBasketProduct found: " + basketProduct.toString());
+            basketProductDao.delete(id);
+        } else {
+            System.out.println("\n\n\n\n\nBasketProduct not found for ID: " + id);
+        }
+    }
+    //created this implementation for universal basket, we prob need to add more constraints for user
+    //specific
+    @Transactional
+    public void removeProductFromBasketPID(int product_id) {
+        BasketProduct basketProduct = basketProductDao.findByProductId(product_id);
+        if (basketProduct != null) {
+            basketProductDao.delete(basketProduct.getBasket_product_id());
+        } else {
+            System.out.println("BasketProduct why not not found for Product ID: " + product_id);
+        }
     }
 
     @Transactional
