@@ -101,7 +101,7 @@
                                             </span>
                                         </a>
                                     </div>
-                                    <img class="btn btn-icon" src="images/icons/delete.png" alt="Empty this basket button">
+                                    <img class="btn btn-icon" id = "remove-all" src="images/icons/delete.png" alt="Empty this basket button">
                                 </div>
                             </div>
                         </div>
