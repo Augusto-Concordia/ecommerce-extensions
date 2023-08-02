@@ -82,10 +82,25 @@ public class UserController {
 			if (u.getUsername() != null) {
 				ModelAndView mView = new ModelAndView("index");
 				List<Product> products = this.productService.getProducts();
-				List<BasketProduct> products_in_basket = this.basketService.findAllBasketProducts(); 
+
+				List<BasketProduct> products_in_regular_basket = new ArrayList<>();
+				for (Basket basket : this.basketService.findAllRegularBaskets()) {
+					products_in_regular_basket.addAll(basketService.findAllProductInBasketByBasketId(basket.getBasketId()));
+				}
+				
+
+				List<BasketProduct> products_in_custom_basket = new ArrayList<>();
+				for (Basket basket : this.basketService.findAllCustomBaskets()) {
+					products_in_custom_basket.addAll(basketService.findAllProductInBasketByBasketId(basket.getBasketId()));
+				}
 
 				mView.addObject("products", products);
-				mView.addObject("products_in_basket", products_in_basket);
+
+				mView.addObject("products_in_regular_basket", products_in_regular_basket);
+				// System.out.println("regular" + products_in_regular_basket);
+				mView.addObject("products_in_custom_basket", products_in_custom_basket);
+				// System.out.println("custom" + products_in_custom_basket);
+
 				mView.addObject("user", u);
 
 				return mView;
@@ -168,23 +183,7 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	// BASKET //
-	@GetMapping
-	public ModelAndView getBasket() {
-
-		ModelAndView mView = new ModelAndView("basket");
-
-		List<BasketProduct> products_in_basket = this.basketService.findAllBasketProducts(); // basket of user 
-
-		if (products_in_basket.isEmpty()) {
-			mView.addObject("msg", "No products are available");
-			System.out.println("basket empty !");
-		} else {
-			mView.addObject("products_in_basket", products_in_basket);
-			System.out.println("basket not empty !");
-		}
-		return mView;
-	}
+	// BASKET //}
 
 	@RequestMapping(value = "basket/add", method=RequestMethod.POST)
 	public String addProductToBasket(@RequestParam("id") int id, 
@@ -249,7 +248,7 @@ public class UserController {
         return basketService.findCustomBasketsByUserId(user.getId());
     }
 
-	 */
+	*/
 	@GetMapping("/baskets/regular")
 	public List<Basket> getAllRegularBaskets() {
 		return basketService.findAllRegularBaskets();

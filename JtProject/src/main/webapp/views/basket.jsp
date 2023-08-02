@@ -3,24 +3,41 @@
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-                <% List<BasketProduct> products_in_basket = (List<BasketProduct>) request.getAttribute("products_in_basket");
+                <% 
+                    List<BasketProduct> products_in_r_basket = (List<BasketProduct>) request.getAttribute("products_in_regular_basket");
 
-                        float basketSubtotal = 0.0f;
-                        float couponDiscount = 0.0f;
-                        float basketTotal = 0.0f;
-                        
-                        if (products_in_basket != null) {
-                        for (BasketProduct basket_item : products_in_basket) {
-                        basketSubtotal += basket_item.getProduct().getPrice() * basket_item.getQuantity();
+                    float basketSubtotalRegular = 0.0f;
+                    float couponDiscountRegular = 0.0f;
+                    float basketTotalRegular = 0.0f;
+                            
+                    if (products_in_r_basket != null) {
+                        for (BasketProduct basket_item : products_in_r_basket) {
+                            basketSubtotalRegular += basket_item.getProduct().getPrice() * basket_item.getQuantity();
                         }
 
-                        basketTotal = basketSubtotal - couponDiscount;
+                        basketTotalRegular = basketSubtotalRegular - couponDiscountRegular;
+                        request.setAttribute("basketSubtotalRegularBasket", basketSubtotalRegular);
+                        request.setAttribute("couponDiscountRegularBasket", couponDiscountRegular);
+                        request.setAttribute("basketTotalRegularBasket", basketTotalRegular);
+                    }
+                    
+                    List<BasketProduct> products_in_c_basket = (List<BasketProduct>) request.getAttribute("products_in_custom_basket");
 
-                        request.setAttribute("basketSubtotal", basketSubtotal);
-                        request.setAttribute("couponDiscount", couponDiscount);
-                        request.setAttribute("basketTotal", basketTotal);
+                    float basketSubtotalCustom = 0.0f;
+                    float couponDiscountCustom = 0.0f;
+                    float basketTotalCustom = 0.0f;
+                            
+                    if (products_in_c_basket != null) {
+                        for (BasketProduct basket_item : products_in_c_basket) {
+                            basketSubtotalCustom += basket_item.getProduct().getPrice() * basket_item.getQuantity();
                         }
-                        %>
+
+                        basketTotalCustom = basketSubtotalCustom - couponDiscountCustom;
+                        request.setAttribute("basketSubtotalCustomBasket", basketSubtotalCustom);
+                        request.setAttribute("couponDiscountCustomBasket", couponDiscountCustom);
+                        request.setAttribute("basketTotalCustomBasket", basketTotalCustom);
+                    }
+                    %>
 
                         <script lang="text/javascript">
                             $(document).ready(function () {
@@ -54,7 +71,8 @@
                                 <img class="basket-type-switch btn btn-icon" src="images/icons/switch.png" alt="Switches the current displayed basket">
                             </div>
                             <div id="products-container">
-                                <c:forEach var="basket_item" items="${products_in_basket}">
+                                <c:if test='${param.type == "basket"}'>
+                                <c:forEach var="basket_item" items="${products_in_regular_basket}">
                                     <jsp:include page="smallProduct.jsp">
                                         <jsp:param name="id" value="${basket_item.getProduct().getId()}" />
                                         <jsp:param name="basket_type" value="${param.type}" />
@@ -64,24 +82,49 @@
                                         <jsp:param name="qty" value="${basket_item.getQuantity()}" />
                                     </jsp:include>
                                 </c:forEach>
+                                </c:if>
+                                <c:if test='${param.type == "custom-basket"}'>
+                                    <c:forEach var="basket_item" items="${products_in_custom_basket}">
+                                        <jsp:include page="smallProduct.jsp">
+                                            <jsp:param name="id" value="${basket_item.getProduct().getId()}" />
+                                            <jsp:param name="basket_type" value="${param.type}" />
+                                            <jsp:param name="name" value="${basket_item.getProduct().getName()}" />
+                                            <jsp:param name="image" value="${basket_item.getProduct().getImage()}" />
+                                            <jsp:param name="unit_price" value="${basket_item.getProduct().getPrice()}" />
+                                            <jsp:param name="qty" value="${basket_item.getQuantity()}" />
+                                        </jsp:include>
+                                    </c:forEach>
+                                </c:if>
                             </div>
 
                             <div id="basket-summary">
                                 <div id="sub-total" class="spanning-row">
                                     <span>Sub-total</span> <span class="amount">
-                                        <fmt:formatNumber value="${basketSubtotal}" pattern="0.00$" />
+                                        <c:if test='${param.type == "basket"}'>
+                                            <fmt:formatNumber value="${basketSubtotalRegularBasket}" pattern="0.00$" />
+                                        </c:if>
+                                        <c:if test='${param.type == "custom-basket"}'>
+                                            <fmt:formatNumber value="${basketSubtotalCustomBasket}" pattern="0.00$" />
+                                        </c:if>
                                     </span>
                                 </div>
 
                                 <div id="coupons" class="spanning-row">
-                                    <span>Coupons</span> <span class="amount">
-                                        <fmt:formatNumber value="${couponDiscount}" pattern="-0.00$" />
-                                    </span>
+                                    <c:if test='${param.type == "basket"}'>
+                                        <span>Coupons</span> <span class="amount">
+                                            <fmt:formatNumber value="${couponDiscountRegularBasket}" pattern="-0.00$" />
+                                        </span>
+                                    </c:if>
                                 </div>
 
                                 <div id="total" class="spanning-row">
                                     <span>Total</span> <span class="amount">
-                                        <fmt:formatNumber value="${basketTotal}" pattern="0.00$" />
+                                        <c:if test='${param.type == "basket"}'>
+                                            <fmt:formatNumber value="${basketTotalRegularBasket}" pattern="0.00$" />
+                                        </c:if>
+                                        <c:if test='${param.type == "custom-basket"}'>
+                                            <fmt:formatNumber value="${basketTotalCustomBasket}" pattern="0.00$" />
+                                        </c:if>
                                     </span>
                                 </div>
 

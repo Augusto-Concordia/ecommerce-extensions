@@ -43,6 +43,9 @@ public class BasketProduct {
         this.quantity = quantity;
     }
 
-
+    @Override
+	public String toString() {
+		return "BasketProduct [basket=" + basket.getBasketId() + ", product=" + product.getId() + ", quantity=" + quantity + "]";
+	}
 
 }

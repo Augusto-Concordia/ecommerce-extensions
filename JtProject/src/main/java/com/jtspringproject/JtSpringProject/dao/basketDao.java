@@ -1,5 +1,7 @@
 package com.jtspringproject.JtSpringProject.dao;
 import com.jtspringproject.JtSpringProject.models.Basket;
+import com.jtspringproject.JtSpringProject.models.BasketProduct;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -46,8 +48,7 @@ public class basketDao {
 
     @SuppressWarnings("unchecked")
     public List<Basket> findAll() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from basket").list();
+        return this.sessionFactory.getCurrentSession().createQuery("from BASKET").list();
     }
 
     @SuppressWarnings("unchecked")

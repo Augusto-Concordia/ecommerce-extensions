@@ -99,13 +99,10 @@ public class basketService {
 
     @Transactional
     public List<BasketProduct> findAllProductInBasketByBasketId(int basket_id) {
-        List<BasketProduct> products_in_basket = new ArrayList();
-        for (BasketProduct basket_product : basketProductDao.findAll()) {
-            if (basket_product.getProduct().getId() == basket_id) {
-                products_in_basket.add(basket_product);
-            }
-        }
-        return products_in_basket;
+        List<BasketProduct> allBasketsProducts = basketProductDao.findAll();
+        return allBasketsProducts.stream()
+                .filter(basketproduct -> basket_id == (basketproduct.getBasket().getBasketId()))
+                .collect(Collectors.toList());
     }
 
     @Transactional
