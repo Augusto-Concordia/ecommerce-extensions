@@ -62,11 +62,18 @@ public class AdminController {
 			}
 
 			User u = this.userService.checkLogin(username, password);
+			List<Product> products = this.productService.getProducts();
 
 			if (u.getUsername() != null && u.getRole().equals("ROLE_ADMIN")) {
 				ModelAndView mView = new ModelAndView("admin");
 
 				mView.addObject("user", u);
+
+				if (products.isEmpty()) {
+					mView.addObject("msg", "No products are available");
+				} else {
+					mView.addObject("products", products); // view objcet "products" to be used in products.jsp
+				}
 
 				return mView;
 			}

@@ -73,20 +73,17 @@
                   }
                 });
 
-                $(".btn-basket-carousel").on("click", function () {
-                  $(this).nextAll(".store-unit-dropdown-basket").toggle();
-                  pauseAutoSlide = true;
-                });
-                $(".btn-custombasket-carousel").on("click", function () {
-                  $(this).nextAll(".store-unit-dropdown-custombasket").toggle();
-                  pauseAutoSlide = true;
-                });
-
                 $(".btn-basket").on("click", function () {
-                  $(this).nextAll(".store-unit-dropdown").toggle();
+                  $(this).nextAll(".store-unit-dropdown-basket").toggle();
+
+                  if ($(this).hasClass("btn-basket-carousel"))
+                    pauseAutoSlide = true;
                 });
                 $(".btn-custombasket").on("click", function () {
-                  $(this).nextAll(".store-unit-dropdown").toggle();
+                  $(this).nextAll(".store-unit-dropdown-custombasket").toggle();
+
+                  if ($(this).hasClass("btn-custombasket-carousel"))
+                    pauseAutoSlide = true;
                 });
 
                 $(".unit-add-button").on("click", function () {
@@ -102,7 +99,7 @@
                   $(this).parent(".store-unit-dropdown").toggle();
                   $(this).parent().find(".unit-count").text("1");
 
-                  if ($(".store-unit-dropdown-basket").is(":notvisible") && $(".store-unit-dropdown-custombasket").is(":notvisible"))
+                  if (!$(".store-unit-dropdown-basket").is(":visible") && !$(".store-unit-dropdown-custombasket").is(":visible"))
                     pauseAutoSlide = false;
                 });
                 /* Augusto's code implementation
@@ -179,9 +176,13 @@
               // Logout
               $("#logout-btn").on("click", () => location.href = "userlogout");
 
-              // dismisses the welcome dialog with the correct side-effect
-              $("#welcome-dialog #no-btn").on("click", closeWelcomeDialog);
-              $("#welcome-dialog #yes-btn").on("click", closeWelcomeDialog); //todo: add the correct side-effect
+                // dismisses the welcome dialog with the correct side-effect
+                $("#welcome-dialog #no-btn").on("click", closeWelcomeDialog);
+                $("#welcome-dialog #yes-btn").on("click", function() {
+                  closeWelcomeDialog();
+                  isCustomBasket = true;
+                  updateBasket();
+                });
 
               // Opens the basket overlay
               let nowDate = Date.now();
@@ -291,7 +292,7 @@
                         </div>
                         <img class="product-img" src="${product.image}" alt="Product">
                         <div class="product-buttons">
-                          <a class="btn btn-primary btn-basket-carousel"><img src="images/icons/basket.png" alt="Basket" width="40"></a>
+                          <a class="btn btn-primary btn-basket btn-basket-carousel"><img src="images/icons/basket.png" alt="Basket" width="40"></a>
                           <div class="store-unit-dropdown store-unit-dropdown-basket">
                             <div class="unit-selection-box">
                               <span hidden class="product-id">${product.id}</span>
@@ -301,7 +302,7 @@
                             </div>
                             <button class="unit-add-button carousel">Add</button>
                           </div>
-                          <a class="btn btn-primary btn-custombasket-carousel"><img src="images/icons/custombasket.png" alt="Basket" width="40"></a>
+                          <a class="btn btn-primary btn-custombasket btn-custombasket-carousel"><img src="images/icons/custombasket.png" alt="Basket" width="40"></a>
                           <div class="store-unit-dropdown store-unit-dropdown-custombasket">
                             <div class="unit-selection-box">
                               <span hidden class="product-id">${product.id}</span>
@@ -333,7 +334,15 @@
                       <a class="btn btn-primary btn-basket"><img src="images/icons/basket.png" alt="Basket" width="25">
                       </a>
                       <a class="btn btn-primary btn-custombasket"><img src="images/icons/custombasket.png" alt="Basket" width="25"></a>
-                      <div class="store-unit-dropdown">
+                      <div class="store-unit-dropdown store-unit-dropdown-basket">
+                        <div class="unit-selection-box">
+                          <span class="unit-count">1</span>
+                          <button class="unit-increment-button"><img src="images/icons/dropdown_arrow.png" alt="Up arrow" width="12"></button>
+                          <button class="unit-decrement-button"><img src="images/icons/dropdown_arrow.png" alt="Down arrow" width="12"></button><br>
+                        </div>
+                        <button class="unit-add-button">Add</button>
+                      </div>
+                      <div class="store-unit-dropdown store-unit-dropdown-custombasket">
                         <div class="unit-selection-box">
                           <span hidden class="product-id">${product.id}</span>
                           <span class="unit-count">1</span>
