@@ -42,11 +42,9 @@
 										// Get the product details
 										let product = $(e).parent().parent().parent().children(".product-details").children(".product-details-left");
 
-										console.log(product);
-
 										// Set the selected product details
 										$("#product-img").attr("src", product.parent().parent().children(".product-img").attr("src"));
-										$("#product-img-url").val(product.children(".product-img").attr("src"));
+										$("#product-img-url").val(product.parent().parent().children(".product-img").attr("src"));
 										$("#product-name").val(product.children(".product-name").text());
 										$("#product-quantity").val(product.children(".product-quantity").text().replace("(", "").replace("x)", ""));
 										$("#product-price").val(product.siblings().children(".product-price").text().replace("$", ""));
@@ -157,13 +155,13 @@
 
 												<label for="product-name">Name</label>
 												<input id="product-name" required placeholder="Banana" type="text"></input>
-												
+
 												<div id="product-form-split">
 													<div id="product-form-left">
 														<label for="product-quantity">Quantity</label>
 														<input id="product-quantity" required placeholder="619" type="number"></input>
 													</div>
-													
+
 													<div id="product-form-right">
 														<label for="product-price">Price (CA$/u)</label>
 														<input id="product-price" required placeholder="4.02" type="number"></input>
