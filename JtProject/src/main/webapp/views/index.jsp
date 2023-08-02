@@ -88,8 +88,8 @@
 
                 $(".unit-add-button").on("click", function () {
                   fetch("basket/add?" + new URLSearchParams({
-                    id: $(this).parent().find(".product-id").text(),
-                    quantity: parseInt($(this).parent().find(".unit-count").text()),
+                    id: $(this).parentsUntil(".product").siblings(".product-id").text(),
+                    quantity: parseInt($(this).siblings(".unit-selection-box").find(".unit-count").text()),
                   }), {
                     method: "POST",
                   }).then(response => {
@@ -162,87 +162,87 @@
                   unitCountSpan.text(unitCount.toString());
                 });
 
-              let isCustomBasket = false;
+                let isCustomBasket = false;
 
-              let basket = $("#basket");
-              let customBasket = $("#custom-basket");
+                let basket = $("#basket");
+                let customBasket = $("#custom-basket");
 
-              // Toggle between the two baskets
-              $(".basket-type-switch").on("click", toggleBasketType);
+                // Toggle between the two baskets
+                $(".basket-type-switch").on("click", toggleBasketType);
 
-              // Redirect to the admin portal
-              $("#admin-btn").on("click", () => location.href = "admin");
+                // Redirect to the admin portal
+                $("#admin-btn").on("click", () => location.href = "admin");
 
-              // Logout
-              $("#logout-btn").on("click", () => location.href = "userlogout");
+                // Logout
+                $("#logout-btn").on("click", () => location.href = "userlogout");
 
                 // dismisses the welcome dialog with the correct side-effect
                 $("#welcome-dialog #no-btn").on("click", closeWelcomeDialog);
-                $("#welcome-dialog #yes-btn").on("click", function() {
+                $("#welcome-dialog #yes-btn").on("click", function () {
                   closeWelcomeDialog();
                   isCustomBasket = true;
                   updateBasket();
                 });
 
-              // Opens the basket overlay
-              let nowDate = Date.now();
+                // Opens the basket overlay
+                let nowDate = Date.now();
 
-              if (localStorage.getItem("welcomeDialogTime") == null || (nowDate - localStorage.getItem("welcomeDialogTime")) / (1000 * 60) > 5)
-                setTimeout(function () {
-                  localStorage.setItem("welcomeDialogTime", Date.now());
-                  openWelcomeDialog();
-                }, 1000);
+                if (localStorage.getItem("welcomeDialogTime") == null || (nowDate - localStorage.getItem("welcomeDialogTime")) / (1000 * 60) > 5)
+                  setTimeout(function () {
+                    localStorage.setItem("welcomeDialogTime", Date.now());
+                    openWelcomeDialog();
+                  }, 1000);
 
-              // Opens the welcome dialog
-              function openWelcomeDialog() {
-                $("#welcome-dialog").addClass("enabled");
-                $("#welcome-dialog").removeClass("disabled");
+                // Opens the welcome dialog
+                function openWelcomeDialog() {
+                  $("#welcome-dialog").addClass("enabled");
+                  $("#welcome-dialog").removeClass("disabled");
 
-                $(document.body).addClass("unscrollable");
-                $(document.body).removeClass("scrollable");
-              }
-
-              // Closes the welcome dialog
-              function closeWelcomeDialog() {
-                $("#welcome-dialog").addClass("disabled");
-                $("#welcome-dialog").removeClass("enabled");
-
-                $(document.body).addClass("scrollable");
-                $(document.body).removeClass("unscrollable");
-              }
-
-              // Opens the basket overlay
-              function openBasketOverlay() {
-                $(".basket #overlay").trigger("basketOverlayOpen");
-              }
-
-              // Closes the basket overlay
-              function closeBasketOverlay() {
-                $(".basket #overlay").trigger("basketOverlayClose");
-              }
-
-              // Toggle between login and register
-              function toggleBasketType() {
-                isCustomBasket = !isCustomBasket;
-
-                updateBasket();
-              }
-
-              // Updates the currently displayed basket
-              function updateBasket() {
-                if (isCustomBasket) {
-                  customBasket.removeClass("disabled");
-                  customBasket.addClass("enabled");
-                  basket.addClass("disabled");
-                  basket.removeClass("enabled");
-                } else {
-                  customBasket.addClass("disabled");
-                  customBasket.removeClass("enabled");
-                  basket.addClass("enabled");
-                  basket.removeClass("disabled");
+                  $(document.body).addClass("unscrollable");
+                  $(document.body).removeClass("scrollable");
                 }
-              }
-          });
+
+                // Closes the welcome dialog
+                function closeWelcomeDialog() {
+                  $("#welcome-dialog").addClass("disabled");
+                  $("#welcome-dialog").removeClass("enabled");
+
+                  $(document.body).addClass("scrollable");
+                  $(document.body).removeClass("unscrollable");
+                }
+
+                // Opens the basket overlay
+                function openBasketOverlay() {
+                  $(".basket #overlay").trigger("basketOverlayOpen");
+                }
+
+                // Closes the basket overlay
+                function closeBasketOverlay() {
+                  $(".basket #overlay").trigger("basketOverlayClose");
+                }
+
+                // Toggle between login and register
+                function toggleBasketType() {
+                  isCustomBasket = !isCustomBasket;
+
+                  updateBasket();
+                }
+
+                // Updates the currently displayed basket
+                function updateBasket() {
+                  if (isCustomBasket) {
+                    customBasket.removeClass("disabled");
+                    customBasket.addClass("enabled");
+                    basket.addClass("disabled");
+                    basket.removeClass("enabled");
+                  } else {
+                    customBasket.addClass("disabled");
+                    customBasket.removeClass("enabled");
+                    basket.addClass("enabled");
+                    basket.removeClass("disabled");
+                  }
+                }
+              });
 
             </script>
           </head>
@@ -278,7 +278,7 @@
 
             <!-- Storefront -->
             <div id="storefront">
-              
+
 
               <!-- Product Carousel -->
               <div id="store-carousel">
@@ -286,6 +286,7 @@
                   <c:forEach var="product" items="${products}" varStatus="loopStatus">
                     <c:if test="${loopStatus.index < 3}">
                       <div class="product">
+                        <span hidden class="product-id">${product.id}</span>
                         <div class="product-details">
                           <h5 class="product-name">${product.name}</h5>
                           <h5 class="product-price">$${product.price}</h5>
@@ -295,7 +296,6 @@
                           <a class="btn btn-primary btn-basket btn-basket-carousel"><img src="images/icons/basket.png" alt="Basket" width="40"></a>
                           <div class="store-unit-dropdown store-unit-dropdown-basket">
                             <div class="unit-selection-box">
-                              <span hidden class="product-id">${product.id}</span>
                               <span class="unit-count">1</span>
                               <button class="unit-increment-button"><img src="images/icons/dropdown_arrow.png" alt="Up arrow" width="12"></button>
                               <button class="unit-decrement-button"><img src="images/icons/dropdown_arrow.png" alt="Down arrow" width="12"></button><br>
@@ -305,7 +305,6 @@
                           <a class="btn btn-primary btn-custombasket btn-custombasket-carousel"><img src="images/icons/custombasket.png" alt="Basket" width="40"></a>
                           <div class="store-unit-dropdown store-unit-dropdown-custombasket">
                             <div class="unit-selection-box">
-                              <span hidden class="product-id">${product.id}</span>
                               <span class="unit-count">1</span>
                               <button class="unit-increment-button"><img src="images/icons/dropdown_arrow.png" alt="Up arrow" width="12"></button>
                               <button class="unit-decrement-button"><img src="images/icons/dropdown_arrow.png" alt="Down arrow" width="12"></button><br>
@@ -325,6 +324,7 @@
               <div id="store-list">
                 <c:forEach var="product" items="${products}">
                   <div class="product">
+                    <span hidden class="product-id">${product.id}</span>
                     <img class="product-img" src="${product.image}" alt="Product">
                     <div class="product-details">
                       <h5 class="product-name">${product.name}</h5>
@@ -344,7 +344,6 @@
                       </div>
                       <div class="store-unit-dropdown store-unit-dropdown-custombasket">
                         <div class="unit-selection-box">
-                          <span hidden class="product-id">${product.id}</span>
                           <span class="unit-count">1</span>
                           <button class="unit-increment-button"><img src="images/icons/dropdown_arrow.png" alt="Up arrow" width="12"></button>
                           <button class="unit-decrement-button"><img src="images/icons/dropdown_arrow.png" alt="Down arrow" width="12"></button><br>
