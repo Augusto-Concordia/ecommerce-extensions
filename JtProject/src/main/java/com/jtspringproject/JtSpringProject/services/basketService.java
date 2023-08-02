@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class basketService {
@@ -112,6 +113,23 @@ public class basketService {
         basketProductDao.deleteAll();
     }
 
+    @Transactional
+    public List<Basket> findAllRegularBaskets() {
+        List<Basket> allBaskets = basketDao.findAll();
+        return allBaskets.stream()
+                .filter(basket -> "BASKET".equals(basket.getBasketType()))
+                .collect(Collectors.toList());
+    }
 
+    @Transactional
+    public List<Basket> findAllCustomBaskets() {
+        List<Basket> allBaskets = basketDao.findAll();
+        return allBaskets.stream()
+                .filter(basket -> "CUSTOM_BASKET".equals(basket.getBasketType()))
+                .collect(Collectors.toList());
+    }
 }
+
+
+
 

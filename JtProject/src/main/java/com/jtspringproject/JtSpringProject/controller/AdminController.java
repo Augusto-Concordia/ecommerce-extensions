@@ -31,6 +31,8 @@ public class AdminController {
 	private productService productService;
 	@Autowired
 	private couponService couponService;
+	@Autowired
+	private basketService basketService;
 
 	/*
 	 * get to get data from db ( @GetMapping )
@@ -226,6 +228,16 @@ public class AdminController {
 		return mView;
 
 
+	}
+
+	@GetMapping("/baskets/regular")
+	public List<Basket> getAllRegularBaskets() {
+		return basketService.findAllRegularBaskets();
+	}
+
+	@GetMapping("/baskets/custom")
+	public List<Basket> getAllCustomBaskets() {
+		return basketService.findAllCustomBaskets();
 	}
 
 

@@ -234,4 +234,30 @@ public class UserController {
 		basketService.removeAllProductsFromBasket();
 	}
 
+	/* User specific baskets.
+	  public List<Basket> getUserRegularBaskets(Principal principal) {
+        // Assuming that you're using Spring Security and the user's username is their unique identifier
+        String username = principal.getName();
+        User user = userService.findByUsername(username);
+        return basketService.findRegularBasketsByUserId(user.getId());
+    }
+
+    @GetMapping("/baskets/custom")
+    public List<Basket> getUserCustomBaskets(Principal principal) {
+        String username = principal.getName();
+        User user = userService.findByUsername(username);
+        return basketService.findCustomBasketsByUserId(user.getId());
+    }
+
+	 */
+	@GetMapping("/baskets/regular")
+	public List<Basket> getAllRegularBaskets() {
+		return basketService.findAllRegularBaskets();
+	}
+
+	@GetMapping("/baskets/custom")
+	public List<Basket> getAllCustomBaskets() {
+		return basketService.findAllCustomBaskets();
+	}
+
 }
