@@ -33,6 +33,12 @@
 									$("#product-quantity").val("");
 									$("#product-price").val("");
 
+									$("#product-pairing").children().each(function (i, e) {
+										$(e).removeAttr("selected");
+									});
+
+									$("#product-pairing").find("option:first").attr("selected", "");
+
 									changeEditorVisibility(true);
 								});
 
@@ -49,11 +55,16 @@
 										$("#product-quantity").val(product.children(".product-quantity").text().replace("(", "").replace("x)", ""));
 										$("#product-price").val(product.siblings().children(".product-price").text().replace("$", ""));
 
-										// Set the selected product pairing
-										let pairing = product.children(".product-pairing").text().replace("with ", "").replace(" (", ",").replace(" recommended)", "").split(",");
+										// Pass the paired product information to the selected product editor, by adding a selected attribute to the paired product option in the select element
+										let selectedPair = product.attr("paired-product-id");
 
-										//todo: set the selected product pairing to the correct value
-										$("#product-pairing").val(pairing[0]);
+										$("#product-pairing").children().each(function (i, e) {
+											if ($(e).val() == selectedPair) {
+												$(e).attr("selected", "");
+											} else {
+												$(e).removeAttr("selected");
+											}
+										});
 
 										changeEditorVisibility(true);
 									});
@@ -113,7 +124,7 @@
 									<div class="product">
 										<img class="product-img" src="${product.image}" alt="Product">
 										<div class="product-details">
-											<div class="product-details-left">
+											<div class="product-details-left" paired-product-id="${product.pairedProduct.getId()}">
 												<h5 class="product-name">${product.name}</h5>
 												<h5 class="product-quantity">(${product.quantity}x)</h5><br>
 												<c:if test="${not empty product.pairedProduct.name}">
@@ -171,8 +182,8 @@
 												<label for="product-pairing">Select Pair</label>
 												<select id="product-pairing">
 													<option value="0">None</option>
-													<c:forEach var="product" items="${products}" varStatus="loop">
-														<option value="${loop.index + 2}">${product.name}</option>
+													<c:forEach var="innerProduct" items="${products}" varStatus="loop">
+														<option value="${innerProduct.getId()}">${innerProduct.name}</option>
 													</c:forEach>
 												</select>
 
