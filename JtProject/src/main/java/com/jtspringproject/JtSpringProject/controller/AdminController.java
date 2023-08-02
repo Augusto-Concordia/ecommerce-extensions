@@ -37,8 +37,12 @@ public class AdminController {
 	/*
 	 * get to get data from db ( @GetMapping )
 	 * post to post data to db ( @PostMapping )
-	 * @RequestParam("dbcolumn") what are we gonna ask the db for ? example line 124 we are requesting the product db so we can add a new product
-	 * within the getmapping the ModelAndView mv = new ModelAndView("namejsp"); namejsp should match a jsp file
+	 * 
+	 * @RequestParam("dbcolumn") what are we gonna ask the db for ? example line 124
+	 * we are requesting the product db so we can add a new product
+	 * within the getmapping the ModelAndView mv = new ModelAndView("namejsp");
+	 * namejsp should match a jsp file
+	 * 
 	 * @...("/loginvalidate") the url directory where its gonna go
 	 * return "redirect:/index"; will recall the mapping for index
 	 */
@@ -92,7 +96,8 @@ public class AdminController {
 	public ModelAndView getproduct() {
 		ModelAndView mView = new ModelAndView("products"); // Preparing the view to be used
 
-		List<Product> products = this.productService.getProducts(); // preparing a list of products to insert in the view
+		List<Product> products = this.productService.getProducts(); // preparing a list of products to insert in the
+																	// view
 
 		if (products.isEmpty()) {
 			mView.addObject("msg", "No products are available");
@@ -102,7 +107,7 @@ public class AdminController {
 		return mView;
 
 	}
-	
+
 	@GetMapping("products/add")
 	public ModelAndView addProduct() {
 		ModelAndView mView = new ModelAndView("productsAdd");
@@ -114,16 +119,28 @@ public class AdminController {
 		return mView;
 	}
 
-	@RequestMapping(value = "products/add",method=RequestMethod.POST)
-	public String addProduct(@RequestParam("name") String name ,
-							 @RequestParam("productImage") String image,
-							 @RequestParam("quantity")int quantity,
-							 @RequestParam("price") int price) {
+	@RequestMapping(value = "products/add", method = RequestMethod.POST)
+	public String addProduct(@RequestParam("name") String name,
+			@RequestParam("productImage") String image,
+			@RequestParam("quantity") int quantity,
+			@RequestParam("price") int price,
+			@RequestParam("pairedID") int pairedID) {
+
+		// transfer the pariedID posted from productsUpdate input to a Product object =>
+		// to be used as an argument below
+		Product pairedProduct = new Product();
+		if (pairedID == 0) {
+			pairedProduct = null;
+		} else {
+			pairedProduct = this.productService.getProduct(pairedID);
+		}
+
 		Product product = new Product();
 		product.setImage(image);
 		product.setName(name);
 		product.setQuantity(quantity);
 		product.setPrice(price);
+		product.setPairedProduct(pairedProduct);
 		this.productService.addProduct(product);
 
 		return "redirect:/admin/products";
@@ -135,29 +152,29 @@ public class AdminController {
 		ModelAndView mView = new ModelAndView("productsUpdate");
 		Product product = this.productService.getProduct(id);
 		mView.addObject("product", product);
-     	// add all products to select for paired items
-     	List<Product> products = this.productService.getProducts();
-    	mView.addObject("availableProducts",products);
+		// add all products to select for paired items
+		List<Product> products = this.productService.getProducts();
+		mView.addObject("availableProducts", products);
 
 		return mView;
-		//return "redirect:/admin/coupons";
+		// return "redirect:/admin/coupons";
 	}
 
-	@RequestMapping(value = "products/update/{id}",method=RequestMethod.POST)
+	@RequestMapping(value = "products/update/{id}", method = RequestMethod.POST)
 	public String updateProduct(@PathVariable("id") int id, // get the id from the path variable
-								@RequestParam("name") String name ,
-								@RequestParam("productImage") String image,
-								@RequestParam("quantity")int quantity,
-								@RequestParam("price") int price,
-								@RequestParam("pairedID") int pairedID )
-	{
-		// transfer the pariedID posted from productsUpdate input to a Product object => to be used as an argument below
+			@RequestParam("name") String name,
+			@RequestParam("productImage") String image,
+			@RequestParam("quantity") int quantity,
+			@RequestParam("price") int price,
+			@RequestParam("pairedID") int pairedID) {
+		// transfer the pariedID posted from productsUpdate input to a Product object =>
+		// to be used as an argument below
 		Product pairedProduct = new Product();
-		if (pairedID == 0){
+		if (pairedID == 0) {
 			pairedProduct = null;
+		} else {
+			pairedProduct = this.productService.getProduct(pairedID);
 		}
-
-		pairedProduct = this.productService.getProduct(pairedID);
 
 		// Get the existing product from the database using the provided id
 		Product product = this.productService.getProduct(id);
@@ -227,7 +244,6 @@ public class AdminController {
 		}
 		return mView;
 
-
 	}
 
 	@GetMapping("/baskets/regular")
@@ -240,6 +256,4 @@ public class AdminController {
 		return basketService.findAllCustomBaskets();
 	}
 
-
 }
-

@@ -27,6 +27,8 @@
 
 								// Add new product to the store
 								$("#add-btn").on("click", function () {
+									$("#selected-product-details").attr("product-id", "0");
+									$("#selected-product-details").attr("paired-product-id", "0");
 									$("#product-img").attr("src", "images/nyan_logo_nobg_large.png");
 									$("#product-img-url").val("");
 									$("#product-name").val("");
@@ -42,6 +44,34 @@
 									changeEditorVisibility(true);
 								});
 
+								$("#product-submit").on("click", function () {
+									let productId = $("#selected-product-details").attr("product-id");
+									let productImgUrl = $("#product-img-url").val();
+									let productName = $("#product-name").val();
+									let productQuantity = $("#product-quantity").val();
+									let productPrice = $("#product-price").val();
+
+									let pairedProductId = $("#selected-product-details").attr("paired-product-id");
+
+									if (productId != "0") {
+										fetch("admin/products/update/" + productId + "?" + new URLSearchParams({
+											name: productName,
+											productImage: productImgUrl,
+											quantity: productQuantity,
+											price: Math.round(productPrice),
+											pairedID: pairedProductId
+										}), { method: "post" }).then(() => location.reload());
+									} else {
+										fetch("admin/products/add?" + new URLSearchParams({
+											name: productName,
+											productImage: productImgUrl,
+											quantity: productQuantity,
+											price: Math.round(productPrice),
+											pairedID: pairedProductId
+										}), { method: "post" }).then(() => location.reload());
+									}
+								});
+
 								// Edit product on the store
 								$(".edit-button").each(function (i, e) {
 									$(e).on("click", function () {
@@ -49,6 +79,7 @@
 										let product = $(e).parent().parent().parent().children(".product-details").children(".product-details-left");
 
 										// Set the selected product details
+										$("#selected-product-details").attr("product-id", product.attr("product-id"));
 										$("#product-img").attr("src", product.parent().parent().children(".product-img").attr("src"));
 										$("#product-img-url").val(product.parent().parent().children(".product-img").attr("src"));
 										$("#product-name").val(product.children(".product-name").text());
@@ -57,6 +88,7 @@
 
 										// Pass the paired product information to the selected product editor, by adding a selected attribute to the paired product option in the select element
 										let selectedPair = product.attr("paired-product-id");
+										$("#selected-product-details").attr("paired-product-id", selectedPair);
 
 										$("#product-pairing").children().each(function (i, e) {
 											if ($(e).val() == selectedPair) {
@@ -68,16 +100,24 @@
 
 										changeEditorVisibility(true);
 									});
+								});
 
-									// Delete product from store
-									$(".delete-button").on("click", () => location.href = "editproduct");
+								// Delete product from store
+								$(".delete-button").on("click", () => location.href = "editproduct");
 
-									// Update the selected product image
-									$("#product-img-url").on("change", () => {
-										let newUrl = $("#product-img-url").val() == "" ? "images/nyan_logo_nobg_large.png" : $("#product-img-url").val();
+								// Update the selected product image
+								$("#product-img-url").on("change", () => {
+									let newUrl = $("#product-img-url").val() == "" ? "images/nyan_logo_nobg_large.png" : $("#product-img-url").val();
 
-										$("#product-img").attr("src", newUrl);
-									});
+									$("#product-img").attr("src", newUrl);
+								});
+
+								// Update the paired product id
+								$("#product-pairing").on("change", function () {
+									let selectedPair = $("#product-pairing").val();
+									console.log(selectedPair);
+
+									$("#selected-product-details").attr("paired-product-id", selectedPair);
 								});
 
 								function changeEditorVisibility(visible) {
@@ -124,7 +164,7 @@
 									<div class="product">
 										<img class="product-img" src="${product.image}" alt="Product">
 										<div class="product-details">
-											<div class="product-details-left" paired-product-id="${product.pairedProduct.getId()}">
+											<div class="product-details-left" product-id="${product.id}" paired-product-id="${product.pairedProduct.getId()}">
 												<h5 class="product-name">${product.name}</h5>
 												<h5 class="product-quantity">(${product.quantity}x)</h5><br>
 												<c:if test="${not empty product.pairedProduct.name}">
@@ -157,10 +197,10 @@
 									<!-- Product selected -->
 									<div class="selection disabled">
 										<span id="title">Editor</span>
-										<div id="selected-product-details">
+										<div id="selected-product-details" product-id="-1">
 
 											<img id="product-img" src="images/nyan_logo_nobg_large.png" alt="Product image">
-											<form action="products/update/id" method="post" id="selected-product-details-right">
+											<div id="selected-product-details-right">
 												<label for="product-img-url">Image</label>
 												<input id="product-img-url" required placeholder="https://image.com" type="url"></input>
 
@@ -175,7 +215,7 @@
 
 													<div id="product-form-right">
 														<label for="product-price">Price (CA$/u)</label>
-														<input id="product-price" required placeholder="4.02" type="number"></input>
+														<input id="product-price" required placeholder="4" type="number"></input>
 													</div>
 												</div>
 
@@ -188,7 +228,7 @@
 												</select>
 
 												<input id="product-submit" class="btn" type="submit" value="Finish"></input>
-											</form>
+											</div>
 										</div>
 									</div>
 							</section>
