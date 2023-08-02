@@ -102,37 +102,17 @@
                   if (!$(".store-unit-dropdown-basket").is(":visible") && !$(".store-unit-dropdown-custombasket").is(":visible"))
                     pauseAutoSlide = false;
                 });
-                /* Augusto's code implementation
-                $("#remove").each((i, e) => $(e).on("click", function () {
+
+                $(".btn.remove").each((i, e) => $(e).on("click", function () {
                   let productId = $(e).parent().parent().find("#product-info #product-id").text();
                   let basketType = $(e).parent().parent().find("#product-info #basket-type").text();
 
                   console.log(productId);
 
-                  fetch("http://localhost:8080/basket/removeitem?" + new URLSearchParams({
-                    basketProductID: productId
+                  fetch("basket/removeitembypid?" + new URLSearchParams({
+                    productID: productId
                   }), {
-                    method: "POST",
-                  }).then(response => {
-                    //location.reload();
-                  });
-                }));
-
-                 */
-                $("#remove").each((i, e) => $(e).on("click", function () {
-                  let productId = $(e).parent().parent().find("#product-info #product-id").text();
-                  let basketType = $(e).parent().parent().find("#product-info #basket-type").text();
-
-                  console.log(productId);
-
-                  fetch("http://localhost:8080/basket/removeitembypid", {
-                    method: "POST",
-                    headers: {
-                      'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams({
-                      productID: productId
-                    })
+                    method: "POST"
                   }).then(response => {
                     location.reload();
                   });

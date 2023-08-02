@@ -20,6 +20,6 @@
 
         <div id="actions">
             <img id="add-basket" class="btn btn-icon" src="images/icons/basket.png" alt="Add the product to a basket">
-            <img id="remove" class="btn btn-icon" src="images/icons/close.png" alt="Remove the product">
+            <img id="remove" class="btn btn-icon remove" src="images/icons/close.png" alt="Remove the product">
         </div>
     </div>
