@@ -125,7 +125,12 @@
 											<div class="product-details-right">
 												<h5 class="product-price">$${product.price}</h5>
 												<button id="edit-button" class="edit-button"><img src="images/icons/edit.png" alt="Edit icon" width="40"></button>
-												<button id="delete-button"><img src="images/icons/delete.png" alt="Trash icon" width="40"></button>
+												<form action="/admin/products/delete" method="get">
+													<input type="hidden" name="id" value="${product.id}">
+													<button type="submit" id="delete-button">
+														<img src="images/icons/delete.png" alt="Trash icon" width="40">
+													</button>
+												</form>
 											</div>
 										</div>
 									</div>
