@@ -85,13 +85,13 @@ public class UserController {
 
 				List<BasketProduct> products_in_regular_basket = new ArrayList<>();
 				for (Basket basket : this.basketService.findAllRegularBaskets()) {
-					products_in_regular_basket.addAll(basketService.findAllProductInBasketByBasketId(basket.getBasketId()));
+					if (basket.getUser().getId() == u.getId()) {products_in_regular_basket.addAll(basketService.findAllProductInBasketByBasketId(basket.getBasketId()));}
 				}
 				
 
 				List<BasketProduct> products_in_custom_basket = new ArrayList<>();
 				for (Basket basket : this.basketService.findAllCustomBaskets()) {
-					products_in_custom_basket.addAll(basketService.findAllProductInBasketByBasketId(basket.getBasketId()));
+					if (basket.getUser().getId() == u.getId()) {products_in_custom_basket.addAll(basketService.findAllProductInBasketByBasketId(basket.getBasketId()));}
 				}
 
 				mView.addObject("products", products);
