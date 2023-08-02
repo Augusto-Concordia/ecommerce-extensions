@@ -268,7 +268,10 @@
                       <div class="product">
                         <span hidden class="product-id">${product.id}</span>
                         <div class="product-details">
-                          <h5 class="product-name">${product.name}</h5>
+                          <h5 class="product-name">${product.name} <br> 
+                            <c:if test="${not empty product.pairedProduct.name}">
+                              <span class="product-pairing"> paired with ${product.pairedProduct.name}</span>
+                            </c:if></h5>
                           <h5 class="product-price">$${product.price}</h5>
                         </div>
                         <img class="product-img" src="${product.image}" alt="Product">
@@ -331,6 +334,9 @@
                         <button class="unit-add-button">Add</button>
                       </div>
                     </div>
+                    <c:if test="${not empty product.pairedProduct.name}">
+                      <h5 class="product-pairing">paired with <span class="paired-product">${product.pairedProduct.name}</span></h5>
+                    </c:if>
                   </div>
                 </c:forEach>
               </div>

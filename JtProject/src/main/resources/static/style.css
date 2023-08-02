@@ -474,14 +474,26 @@ header h3 {
   transform: translateY(-50%);
 }
 
-#store-carousel .product-details {
-  display: flex;
-  justify-content: flex-end;
+#store-carousel .product-details h5 {
+  font-size: 1.5em;
 }
 
-#store-carousel .product-details h5 {
-  margin: 5% 10%;
-  font-size: 1.5em;
+#store-carousel .product-details .product-price {
+  position: absolute; 
+  right: 8%;
+  top: 0;
+}
+
+#store-carousel .product-details .product-name {
+  position: absolute; 
+  left: 50%;
+  top: 0;
+}
+
+#store-carousel .product-pairing {
+  font-size: 0.7em;
+  font-style: italic;
+  font-weight: 100;
 }
 
 #store-carousel .product-buttons {
@@ -540,7 +552,7 @@ header h3 {
   width: 60%;
   position: absolute;
   left: 20%;
-  top: 50%;
+  top: 40%;
   transform: translate(-50%);
   transform: translateY(-50%);
 }
@@ -553,13 +565,22 @@ header h3 {
 #store-list .product-details .product-name {
   position: absolute;
   left: 20px;
-  bottom: 0;
+  bottom: 11px;
 }
 
 #store-list .product-details .product-price {
   position: absolute;
   right: 20px;
-  bottom: 0;
+  bottom: 11px;
+}
+
+#store-list .product-pairing {
+  position: absolute;
+  bottom: 4px;
+  left: 20px;
+
+  font-style: italic;
+  font-weight: 100;
 }
 
 #store-list .product-buttons {
@@ -666,7 +687,8 @@ header h3 {
 }
 
 #baskets-container #basket-header {
-  font-size: 2.6em;
+  font-size: 2.2em;
+  margin-top: 14px;
 }
 
 #baskets-container .spanning-row {
@@ -917,7 +939,7 @@ header h3 {
 }
 
 #admin-products .product-img {
-  width: 18%;
+  width: 16%;
   height: auto;
   object-fit: contain;
   margin-left: 3%;
@@ -962,9 +984,6 @@ header h3 {
 
 #admin-products .product-pairing .paired-product {
   font-weight: bold;
-}
-
-#admin-products .product-pairing .recommended-product {
   font-style: italic;
 }
 

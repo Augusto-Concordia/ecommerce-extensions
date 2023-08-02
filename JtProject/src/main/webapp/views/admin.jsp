@@ -118,7 +118,9 @@
 											<div class="product-details-left">
 												<h5 class="product-name">${product.name}</h5>
 												<h5 class="product-quantity">(${product.quantity}x)</h5><br>
-												<h5 class="product-pairing">with <span class="paired-product">Banana</span> (<span class="recommended-product">Pears</span> recommended)</h5>
+												<c:if test="${not empty product.pairedProduct.name}">
+													<h5 class="product-pairing">paired with <span class="paired-product">${product.pairedProduct.name}</span></h5>
+												</c:if>
 											</div>
 											<div class="product-details-right">
 												<h5 class="product-price">$${product.price}</h5>
@@ -166,10 +168,9 @@
 												<label for="product-pairing">Select Pair</label>
 												<select id="product-pairing">
 													<option value="0">None</option>
-													<option value="1">Banana</option>
-													<option value="2">Apple</option>
-													<option value="3">Orange</option>
-													<option value="4">Pear</option>
+													<c:forEach var="product" items="${products}" varStatus="loop">
+														<option value="${loop.index + 2}">${product.name}</option>
+													</c:forEach>
 												</select>
 
 												<input id="product-submit" class="btn" type="submit" value="Finish"></input>
