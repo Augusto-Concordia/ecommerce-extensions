@@ -5,7 +5,7 @@ USE ecommjava;
 
 # create the customer table
 CREATE TABLE IF NOT EXISTS CUSTOMER(
-    customer_id       int unique key not null auto_increment primary key,
+	customer_id       int unique key not null auto_increment primary key,
     email    varchar(255) null,
     password varchar(255) null,
     role     ENUM('ROLE_NORMAL', 'ROLE_ADMIN') null,
@@ -23,8 +23,8 @@ INSERT INTO CUSTOMER(email, password, role, username, accumulatedPurchases) VALU
 
 # create the product table
 CREATE TABLE IF NOT EXISTS PRODUCT(
-                                      product_id  int unique key not null auto_increment primary key,
-                                      image       varchar(255) null,
+    product_id  int unique key not null auto_increment primary key,
+    image       varchar(255) null,
     name        varchar(255) null,
     price       int null,
     quantity    int null,
@@ -44,8 +44,8 @@ INSERT INTO PRODUCT(image, name, price, quantity) VALUES
 
 # create coupon table
 CREATE TABLE IF NOT EXISTS COUPON (
-                                      coupon_id int unique key not null auto_increment primary key,
-                                      customer_id int
+    coupon_id int unique key not null auto_increment primary key,
+    customer_id int
 );
 
 # insert default coupons
@@ -56,24 +56,22 @@ INSERT INTO COUPON (customer_id) VALUES (1);
 INSERT INTO COUPON (customer_id) VALUES (1);
 
 CREATE TABLE IF NOT EXISTS BASKET (
-                                      basket_id  int unique key not null auto_increment primary key,
-                                      customer_id int,
-                                      basket_type ENUM ('CUSTOM_BASKET', 'BASKET')
+    basket_id  int unique key not null auto_increment primary key,
+    customer_id int,
+    basket_type ENUM ('CUSTOM_BASKET', 'BASKET')
     );
 
 # insert default basket
-INSERT INTO BASKET (customer_id, basket_type) VALUES (2, 'CUSTOM_BASKET');
+INSERT INTO BASKET (customer_id, basket_type) VALUES (1, 'CUSTOM_BASKET');
 INSERT INTO BASKET (customer_id, basket_type) VALUES (1, 'BASKET');
 
 CREATE TABLE IF NOT EXISTS BASKET_PRODUCT (
-                                              basket_product_id  int unique key not null auto_increment primary key,
-                                              basket_id  int,
-                                              product_id int,
-                                              quantity int
+    basket_product_id  int unique key not null auto_increment primary key,
+    basket_id  int,
+    product_id int,
+    quantity int
 );
 
 # insert products basket
 INSERT INTO BASKET_PRODUCT (basket_id, product_id, quantity) VALUES (2, 2, 10);
-INSERT INTO BASKET_PRODUCT (basket_id, product_id, quantity) VALUES (2, 3, 10);
-INSERT INTO BASKET_PRODUCT (basket_id, product_id, quantity) VALUES (1, 2, 10);
 INSERT INTO BASKET_PRODUCT (basket_id, product_id, quantity) VALUES (1, 3, 10);
