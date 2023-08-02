@@ -103,7 +103,7 @@
                     pauseAutoSlide = false;
                 });
 
-                $(".btn.remove").each((i, e) => $(e).on("click", function () {
+                $("#small-product .btn.remove").each((i, e) => $(e).on("click", function () {
                   let productId = $(e).parent().parent().find("#product-info #product-id").text();
                   let basketType = $(e).parent().parent().find("#product-info #basket-type").text();
 
