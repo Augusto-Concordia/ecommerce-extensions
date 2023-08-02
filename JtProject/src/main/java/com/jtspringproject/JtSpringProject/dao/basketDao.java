@@ -53,7 +53,13 @@ public class basketDao {
     @SuppressWarnings("unchecked")
     public List<Basket> findAllBasketByUser(int user_id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from basket  where user_id = :user_id").list();
+        return session.createQuery("from basket where user_id = :user_id").list();
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Basket> findAllBasketByUserNType(int user_id, String basket_type) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from basket where user_id = :user_id AND basket_type =:basket_type").list();
     }
 
 }
