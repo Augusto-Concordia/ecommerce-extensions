@@ -167,6 +167,17 @@ public class basketService {
 
         combineBaskets(custom_basket, basket);
     }
+
+    @Transactional
+    public void emptyCustomerBasket(int user_id) {
+        Basket basket = basketDao.findAllBasketByUserNType(user_id, "BASKET");
+        List<BasketProduct> basket_products = findAllProductInBasketByBasketId(basket.getBasketId());
+
+        for (BasketProduct product : basket_products) {
+            basketProductDao.delete(product.getBasket_product_id());
+        }
+
+    }
 }
 
 

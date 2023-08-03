@@ -117,6 +117,25 @@ public class UserController {
 	public ModelAndView userlogout(Model model, HttpServletRequest req, HttpServletResponse res) {
 		ModelAndView mView = new ModelAndView("redirect:/");
 
+		// clear users basket after logout
+		if (req.getCookies() != null) {
+			String username = "";
+			String password = "";
+
+			for (Cookie cookie : req.getCookies()) {
+				String name = cookie.getName();
+				String value = cookie.getValue();
+
+				if (name.equalsIgnoreCase("username")) {
+					username = value;
+				} else if (name.equalsIgnoreCase("password")) {
+					password = value;
+				}
+			}
+
+			User user = userService.getUser(username, password);
+			basketService.emptyCustomerBasket(user.getId());
+		}
 		res.addCookie(new Cookie("username", ""));
 
 		return mView;
@@ -130,6 +149,8 @@ public class UserController {
 		ModelAndView mView = new ModelAndView("redirect:/");
 
 		if (u.getUsername() != null) {
+
+			// check if they have a basket and if they dont make one
 
 			res.addCookie(new Cookie("username", u.getUsername()));
 

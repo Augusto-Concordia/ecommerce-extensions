@@ -53,9 +53,6 @@ public class userDao {
         return user;
 	}
     
-//    public User checkLogin() {
-//    	this.sessionFactory.getCurrentSession().
-//    }
     @Transactional
     public User getUser(String username,String password) {
     	Query query = sessionFactory.getCurrentSession().createQuery("from CUSTOMER where username = :username");

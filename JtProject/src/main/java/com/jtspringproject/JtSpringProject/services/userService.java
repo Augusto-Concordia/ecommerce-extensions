@@ -30,5 +30,9 @@ public class userService {
 		return this.userDao.getUser(id);
 	}
 
+	public User getUser(String usermame, String password) {
+		return this.userDao.getUser(usermame, password);
+	}
+
 	
 }
