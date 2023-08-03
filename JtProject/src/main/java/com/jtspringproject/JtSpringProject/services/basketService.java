@@ -65,24 +65,28 @@ public class basketService {
     }
 
     @Transactional
-    public void removeProductFromBasket(int id) {
-        BasketProduct basketProduct = basketProductDao.findById(id);
-        if (basketProduct != null) {
-            System.out.println("\n\n\n\nBasketProduct found: " + basketProduct.toString());
-            basketProductDao.delete(id);
-        } else {
-            System.out.println("\n\n\n\n\nBasketProduct not found for ID: " + id);
+    public void removeProductFromBasket(int user_id, int product_id) {
+        Basket basket = basketDao.findAllBasketByUserNType(user_id, "BASKET");
+        List<BasketProduct> basket_products = findAllProductInBasketByBasketId(basket.getBasketId());
+
+        for (BasketProduct product : basket_products) {
+            if (product.getProduct().getId() == product_id) {
+                basketProductDao.delete(product.getBasket_product_id());
+                break;
+            }
         }
     }
-    //created this implementation for universal basket, we prob need to add more constraints for user
-    //specific
+
     @Transactional
-    public void removeProductFromBasketPID(int product_id) {
-        BasketProduct basketProduct = basketProductDao.findByProductId(product_id);
-        if (basketProduct != null) {
-            basketProductDao.delete(basketProduct.getBasket_product_id());
-        } else {
-            System.out.println("BasketProduct why not not found for Product ID: " + product_id);
+    public void removeProductFromCustomBasket(int user_id, int product_id) {
+        Basket basket = basketDao.findAllBasketByUserNType(user_id, "CUSTOM_BASKET");
+        List<BasketProduct> basket_products = findAllProductInBasketByBasketId(basket.getBasketId());
+
+        for (BasketProduct product : basket_products) {
+            if (product.getProduct().getId() == product_id) {
+                basketProductDao.delete(product.getBasket_product_id());
+                break;
+            }
         }
     }
 

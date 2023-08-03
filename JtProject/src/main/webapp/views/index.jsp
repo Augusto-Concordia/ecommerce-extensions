@@ -134,14 +134,25 @@
                     pauseAutoSlide = false;
                 });
 
-                $("#small-product .btn.remove").each((i, e) => $(e).on("click", function () {
-                  let productId = $(e).parent().parent().find("#product-info #product-id").text();
-                  let basketType = $(e).parent().parent().find("#product-info #basket-type").text();
+                $("#basket #small-product .btn.remove").each((i, e) => $(e).on("click", function () {
+                  let product_id = $(e).parent().parent().find("#product-info #product-id").text();
+                  // console.log(productId);
+                  fetch("basket/removeitembasket?" + new URLSearchParams({
+                    user_id: $("#current_user").text(),
+                    product_id: product_id
+                  }), {
+                    method: "POST"
+                  }).then(response => {
+                    location.reload();
+                  });
+                }));
 
-                  console.log(productId);
-
-                  fetch("basket/removeitembypid?" + new URLSearchParams({
-                    productID: productId
+                $("#custom-basket #small-product .btn.remove").each((i, e) => $(e).on("click", function () {
+                  let product_id = $(e).parent().parent().find("#product-info #product-id").text();
+                  // console.log(productId);
+                  fetch("basket/removeitemcustombasket?" + new URLSearchParams({
+                    user_id: $("#current_user").text(),
+                    product_id: product_id
                   }), {
                     method: "POST"
                   }).then(response => {

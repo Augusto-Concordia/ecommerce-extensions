@@ -30,7 +30,7 @@ public class basketProductDao {
 
     public void delete(int id) {
         Session session = sessionFactory.getCurrentSession();
-        BasketProduct basket_product = session.byId(BasketProduct.class).load(id);
+        BasketProduct basket_product = session.get(BasketProduct.class, id);
         if (basket_product != null) {
             session.delete(basket_product);
         }

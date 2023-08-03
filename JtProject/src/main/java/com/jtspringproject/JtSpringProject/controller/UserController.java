@@ -281,9 +281,17 @@ public class UserController {
 		basketService.addCustomBasketToBasket(userID);
 	}
 
-	@PostMapping("/basket/removeitembypid")
-	public void removeItemFromBasketByProductId(@RequestParam("productID") int productID) {
-		basketService.removeProductFromBasketPID(productID);
+	@PostMapping("basket/removeitembasket")
+	public void removeItemFromBasketByProductId(@RequestParam("user_id") int user_id,
+												@RequestParam("product_id") int product_id) 
+	{
+		basketService.removeProductFromBasket(user_id, product_id);
+	}
+
+	@PostMapping("basket/removeitemcustombasket")
+	public void removeItemFromCustomBasketByProductId(@RequestParam("user_id") int user_id,
+												@RequestParam("product_id") int product_id) {
+		basketService.removeProductFromCustomBasket(user_id, product_id);
 	}
 
 	@PostMapping("basket/clear")
