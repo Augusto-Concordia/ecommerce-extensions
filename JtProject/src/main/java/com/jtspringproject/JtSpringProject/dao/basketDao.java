@@ -53,9 +53,17 @@ public class basketDao {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Basket> findAllBasketByUser(int user_id) {
+    public List<Basket> findAllBasketByUser(int customer_id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from BASKET where user_id = :user_id").list();
+        Query query = session.createQuery("from BASKET where customer_id = :customer_id");
+        query.setParameter("customer_id", customer_id);
+        
+        List<Basket> results = query.list();
+        if (results.isEmpty()) {
+            return null; // handle no-results scenario
+        } else {
+            return results; // return first matching BasketProduct
+        }
     }
 
     @SuppressWarnings("unchecked")

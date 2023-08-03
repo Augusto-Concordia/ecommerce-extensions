@@ -150,8 +150,6 @@ public class UserController {
 
 		if (u.getUsername() != null) {
 
-			// check if they have a basket and if they dont make one
-
 			res.addCookie(new Cookie("username", u.getUsername()));
 
 			// DO NOT DO THIS IN REAL LIFE
@@ -162,6 +160,10 @@ public class UserController {
 			res.addCookie(new Cookie("password", u.getPassword()));
 
 			mView.addObject("user", u);
+
+			// check if they have a basket and custom basket, if they dont make one
+			basketService.giveUserBaskets(u);
+
 			List<Product> products = this.productService.getProducts();
 
 			if (products.isEmpty()) {

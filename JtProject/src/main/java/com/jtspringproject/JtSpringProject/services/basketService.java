@@ -4,6 +4,7 @@ import com.jtspringproject.JtSpringProject.dao.basketProductDao;
 import com.jtspringproject.JtSpringProject.dao.basketDao;
 import com.jtspringproject.JtSpringProject.models.Basket;
 import com.jtspringproject.JtSpringProject.models.BasketProduct;
+import com.jtspringproject.JtSpringProject.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -177,6 +178,44 @@ public class basketService {
             basketProductDao.delete(product.getBasket_product_id());
         }
 
+    }
+
+    @Transactional
+    public void giveUserBaskets(User u) {
+        List<Basket> user_baskets = findAllBasketsById(u.getId());
+        if (user_baskets.isEmpty()) {
+            Basket new_basket = new Basket();   
+            new_basket.setUser(u); 
+            new_basket.setBasketType("BASKET");      
+            addBasket(new_basket);
+
+            Basket new_custombasket = new Basket();   
+            new_custombasket.setUser(u); 
+            new_custombasket.setBasketType("CUSTOM_BASKET");      
+            addBasket(new_custombasket);
+        }
+        else {
+            List<Basket> custombasket = user_baskets.stream()
+                .filter(c -> "CUSTOM_BASKET".equals(c.getBasketType()))
+                .collect(Collectors.toList());
+
+            List<Basket> basket = user_baskets.stream()
+                .filter(b -> "BASKET".equals(b.getBasketType()))
+                .collect(Collectors.toList());
+
+            if (custombasket.isEmpty()) {
+                Basket new_custombasket = new Basket();   
+                new_custombasket.setUser(u); 
+                new_custombasket.setBasketType("CUSTOM_BASKET");      
+                addBasket(new_custombasket);
+            }
+            if (basket.isEmpty()) {
+                Basket new_basket = new Basket();   
+                new_basket.setUser(u); 
+                new_basket.setBasketType("BASKET");      
+                addBasket(new_basket);
+            }
+        }
     }
 }
 
