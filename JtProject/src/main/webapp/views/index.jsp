@@ -20,6 +20,9 @@
             <script type="text/javascript">
               let slideIndex = 1;
               let pauseAutoSlide = false;
+              let isCustomBasket = false;
+              let basket = null;
+              let customBasket = null;
               const slideInterval = 3000;
 
               function changeSlide(x) {
@@ -53,6 +56,13 @@
                   setTimeout(openBasketOverlay, 2000);
                   setTimeout(closeBasketOverlay, 7000);
                 }
+
+                // if the user had a basket open, open it again
+                basket = $("#basket");
+                customBasket = $("#custom-basket");
+                isCustomBasket = localStorage.getItem("currentBasket") == "custom-basket";
+                updateBasket();
+
                 $(document).on("keydown", function (e) {
                   // moves the carousel to the left or right with the arrow keys
                   if (e.keyCode == 37) // left arrow
@@ -90,12 +100,6 @@
                     pauseAutoSlide = true;
                 });
 
-                $("#custom-basket #actions .btn").on("click", function () {
-                  fetch("basket/export?" + new URLSearchParams({
-                  userID: $("#current_user").text()
-                  }), { method: "post" }).then(() => location.reload());
-                });
-
                 $(".store-unit-dropdown-basket .unit-add-button").on("click", function () {
                   fetch("basket/add?" + new URLSearchParams({
                     user_id: $("#current_user").text(),
@@ -105,6 +109,7 @@
                     method: "POST",
                   }).then(response => {
                     localStorage.setItem("hasNewProduct", "true");
+                    localStorage.setItem("currentBasket", "basket");
                     location.reload();
                   });
 
@@ -124,6 +129,7 @@
                     method: "POST",
                   }).then(response => {
                     localStorage.setItem("hasNewProduct", "true");
+                    localStorage.setItem("currentBasket", "custom-basket");
                     location.reload();
                   });
 
@@ -143,6 +149,24 @@
                   }), {
                     method: "POST"
                   }).then(response => {
+                    localStorage.setItem("currentBasket", "basket");
+                    location.reload();
+                  });
+                }));
+
+                $("#custom-basket #small-product .btn.add-basket").each((i, e) => $(e).on("click", function () {
+                  let product_id = $(e).parent().parent().find("#product-info #product-id").text();
+                  let quantity = $(e).parent().parent().find("#product-info #product-qty-pure").text();
+
+                  fetch("basket/add?" + new URLSearchParams({
+                    user_id: $("#current_user").text(),
+                    id: product_id,
+                    quantity: quantity
+                  }), {
+                    method: "POST",
+                  }).then(response => {
+                    localStorage.setItem("hasNewProduct", "true");
+                    localStorage.setItem("currentBasket", "basket");
                     location.reload();
                   });
                 }));
@@ -156,6 +180,7 @@
                   }), {
                     method: "POST"
                   }).then(response => {
+                    localStorage.setItem("currentBasket", "custom-basket");
                     location.reload();
                   });
                 }));
@@ -166,6 +191,7 @@
                   }), {
                     method: "POST",
                   }).then(response => {
+                    localStorage.setItem("currentBasket", "basket");
                     location.reload();
                   });
                 });
@@ -176,6 +202,16 @@
                   }), {
                     method: "POST",
                   }).then(response => {
+                    localStorage.setItem("currentBasket", "custom-basket");
+                    location.reload();
+                  });
+                });
+
+                $("#custom-basket #actions #basket-action").on("click", function () {
+                  fetch("basket/export?" + new URLSearchParams({
+                    userID: $("#current_user").text()
+                  }), { method: "post" }).then(() => {
+                    localStorage.setItem("currentBasket", "custom-basket");
                     location.reload();
                   });
                 });
@@ -195,11 +231,6 @@
                     unitCount = 0;
                   unitCountSpan.text(unitCount.toString());
                 });
-
-                let isCustomBasket = false;
-
-                let basket = $("#basket");
-                let customBasket = $("#custom-basket");
 
                 // Toggle between the two baskets
                 $(".basket-type-switch").on("click", toggleBasketType);
@@ -229,8 +260,8 @@
 
                 // Opens the welcome dialog
                 function openWelcomeDialog() {
-                  $("#welcome-dialog").addClass("enabled");
-                  $("#welcome-dialog").removeClass("disabled");
+                  $("#welcome-dialog").addClass("soft-enabled");
+                  $("#welcome-dialog").removeClass("soft-disabled");
 
                   $(document.body).addClass("unscrollable");
                   $(document.body).removeClass("scrollable");
@@ -238,8 +269,8 @@
 
                 // Closes the welcome dialog
                 function closeWelcomeDialog() {
-                  $("#welcome-dialog").addClass("disabled");
-                  $("#welcome-dialog").removeClass("enabled");
+                  $("#welcome-dialog").addClass("soft-disabled");
+                  $("#welcome-dialog").removeClass("soft-enabled");
 
                   $(document.body).addClass("scrollable");
                   $(document.body).removeClass("unscrollable");
@@ -259,21 +290,23 @@
                 function toggleBasketType() {
                   isCustomBasket = !isCustomBasket;
 
+                  localStorage.setItem("currentBasket", isCustomBasket ? "custom-basket" : "basket");
+
                   updateBasket();
                 }
 
                 // Updates the currently displayed basket
                 function updateBasket() {
                   if (isCustomBasket) {
-                    customBasket.removeClass("disabled");
-                    customBasket.addClass("enabled");
-                    basket.addClass("disabled");
-                    basket.removeClass("enabled");
+                    customBasket.removeClass("soft-disabled");
+                    customBasket.addClass("soft-enabled");
+                    basket.addClass("soft-disabled");
+                    basket.removeClass("soft-enabled");
                   } else {
-                    customBasket.addClass("disabled");
-                    customBasket.removeClass("enabled");
-                    basket.addClass("enabled");
-                    basket.removeClass("disabled");
+                    customBasket.addClass("soft-disabled");
+                    customBasket.removeClass("soft-enabled");
+                    basket.addClass("soft-enabled");
+                    basket.removeClass("soft-disabled");
                   }
                 }
               });
@@ -282,7 +315,7 @@
           </head>
 
           <!-- Welcome Dialog -->
-          <div id="welcome-dialog" class="disabled">
+          <div id="welcome-dialog" class="soft-disabled">
             <div id="welcome-content">
               <img id="logo" src="images/nyan_logo_nobg_large.png" alt="Nyan Groceries icon">
               <span id="title">Welcome back!</span>
@@ -322,10 +355,11 @@
                       <div class="product">
                         <span hidden class="product-id">${product.id}</span>
                         <div class="product-details">
-                          <h5 class="product-name">${product.name} <br> 
+                          <h5 class="product-name">${product.name} <br>
                             <c:if test="${not empty product.pairedProduct.name}">
                               <span class="product-pairing"> paired with ${product.pairedProduct.name}</span>
-                            </c:if></h5>
+                            </c:if>
+                          </h5>
                           <h5 class="product-price">$${product.price}</h5>
                         </div>
                         <img class="product-img" src="${product.image}" alt="Product">
@@ -399,13 +433,13 @@
             <!-- Baskets -->
             <div id="baskets-container">
               <jsp:include page="basket.jsp">
-                <jsp:param name="visibility" value="enabled" />
+                <jsp:param name="visibility" value="soft-enabled" />
                 <jsp:param name="type" value="basket" />
                 <jsp:param name="name" value="Basket" />
               </jsp:include>
 
               <jsp:include page="basket.jsp">
-                <jsp:param name="visibility" value="disabled" />
+                <jsp:param name="visibility" value="soft-disabled" />
                 <jsp:param name="type" value="custom-basket" />
                 <jsp:param name="name" value="Custom Basket" />
               </jsp:include>

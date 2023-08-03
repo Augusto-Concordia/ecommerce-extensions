@@ -269,7 +269,21 @@ header h3 {
 }
 
 .disabled {
-  display: none!important;
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 0.2s ease-in-out;
+}
+
+.soft-enabled {
+  opacity: 1;
+  pointer-events: all;
+
+  transition: opacity 0.2s ease-in-out;
+}
+
+.soft-disabled {
   opacity: 0;
   pointer-events: none;
 
@@ -441,7 +455,7 @@ header h3 {
 
 #storefront {
   max-width: calc(100vw - 3% - 25em);
-  width: 75%;
+  width: 73%;
   margin: 20px 0;
 
   color: var(--white-color);
@@ -479,13 +493,13 @@ header h3 {
 }
 
 #store-carousel .product-details .product-price {
-  position: absolute; 
+  position: absolute;
   right: 8%;
   top: 0;
 }
 
 #store-carousel .product-details .product-name {
-  position: absolute; 
+  position: absolute;
   left: 50%;
   top: 0;
 }
@@ -658,9 +672,9 @@ header h3 {
 /* BASKET STYLES */
 
 #baskets-container {
-  --baskets-container-margin-top: 7em;
+  --baskets-container-margin-top: 6.85em;
 
-  width: 24%;
+  width: 26%;
   min-width: 25em;
 
   position: fixed;
@@ -1059,7 +1073,7 @@ header h3 {
   display: flex;
 }
 
-#selected-product-details #product-form-left, 
+#selected-product-details #product-form-left,
 #selected-product-details #product-form-right {
   flex: 1;
 }

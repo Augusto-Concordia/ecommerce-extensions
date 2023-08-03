@@ -5,6 +5,7 @@
 
         <div id="product-info">
             <span id="product-id" hidden>${param.id}</span>
+            <span id="product-qty-pure" hidden>${param.qty}</span>
             <span id="basket-id" hidden>${param.basket_type}</span>
             <span id="product-name">${param.name}</span>
             <div id="product-prices">
@@ -19,7 +20,7 @@
         </div>
 
         <div id="actions">
-            <img id="add-basket" class="btn btn-icon" src="images/icons/basket.png" alt="Add the product to a basket">
+            <img id="add-basket" class="btn btn-icon add-basket" src="images/icons/basket.png" alt="Add the product to a basket">
             <img id="remove" class="btn btn-icon remove" src="images/icons/close.png" alt="Remove the product">
         </div>
     </div>

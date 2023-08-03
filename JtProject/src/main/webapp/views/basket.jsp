@@ -98,20 +98,20 @@
 
                                 // Sets the basket overlay open trigger event handler
                                 $(".basket #overlay").on("basketOverlayOpen", function () {
-                                    $(".basket #overlay").removeClass("disabled");
-                                    $(".basket #overlay").addClass("enabled");
+                                    $(".basket #overlay").removeClass("soft-disabled");
+                                    $(".basket #overlay").addClass("soft-enabled");
                                 });
 
                                 // Sets the basket overlay close trigger event handler
                                 $(".basket #overlay").on("basketOverlayClose", function () {
-                                    $(".basket #overlay").removeClass("enabled");
-                                    $(".basket #overlay").addClass("disabled");
+                                    $(".basket #overlay").removeClass("soft-enabled");
+                                    $(".basket #overlay").addClass("soft-disabled");
                                 });
                             });
                         </script>
 
                         <div id="${param.type}" class="basket ${param.visibility}">
-                            <div id="overlay" class="disabled">
+                            <div id="overlay" class="soft-disabled">
                                 <div id="overlay-content">
                                     <span id="title">Head's Up :)</span>
                                     <span id="content">You have earned
@@ -194,7 +194,7 @@
                                 <div id="actions" class="btn-container spanning-row">
                                     <div class="btn-container">
                                         <a class="btn btn-primary">
-                                            <span>
+                                            <span id="basket-action">
                                                 <c:choose>
                                                     <c:when test="${param.type == 'basket'}">
                                                         <c:out value="Checkout" />
