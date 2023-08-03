@@ -92,26 +92,11 @@ public class basketService {
     }
 
     @Transactional
-    public BasketProduct findProductInBasket(int id) {
-        return basketProductDao.findById(id);
-    }
-
-    @Transactional
-    public List<BasketProduct> findAllBasketProducts() {
-        return basketProductDao.findAll();
-    }
-
-    @Transactional
     public List<BasketProduct> findAllProductInBasketByBasketId(int basket_id) {
         List<BasketProduct> allBasketsProducts = basketProductDao.findAll();
         return allBasketsProducts.stream()
                 .filter(basketproduct -> basket_id == (basketproduct.getBasket().getBasketId()))
                 .collect(Collectors.toList());
-    }
-
-    @Transactional
-    public void removeAllProductsFromBasket() {
-        basketProductDao.deleteAll();
     }
 
     @Transactional
