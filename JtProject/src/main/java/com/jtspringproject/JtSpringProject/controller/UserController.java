@@ -223,6 +223,11 @@ public class UserController {
 		basketService.removeProductFromBasketPID(basketProductID);
 	}
 
+	@PostMapping("basket/export")
+	public void addCustomBasketToBasket(@RequestParam("userID") int userID) {
+		basketService.addCustomBasketToBasket(userID);
+	}
+
 	@PostMapping("/basket/removeitembypid")
 	public void removeItemFromBasketByProductId(@RequestParam("productID") int productID) {
 		basketService.removeProductFromBasketPID(productID);
