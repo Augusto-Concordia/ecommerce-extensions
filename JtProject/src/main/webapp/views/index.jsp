@@ -149,8 +149,20 @@
                   });
                 }));
 
-                $("#remove-all").on("click", function () {
-                  fetch("basket/clear", {
+                $("#basket #remove-all").on("click", function () {
+                  fetch("basket/clear?" + new URLSearchParams({
+                    user_id: $("#current_user").text()
+                  }), {
+                    method: "POST",
+                  }).then(response => {
+                    location.reload();
+                  });
+                });
+
+                $("#custom-basket #remove-all").on("click", function () {
+                  fetch("basketcustom/clear?" + new URLSearchParams({
+                    user_id: $("#current_user").text()
+                  }), {
                     method: "POST",
                   }).then(response => {
                     location.reload();

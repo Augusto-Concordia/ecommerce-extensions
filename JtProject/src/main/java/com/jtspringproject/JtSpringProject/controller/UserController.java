@@ -276,12 +276,6 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	@PostMapping("/basket/removeitem")
-	public void removeItemFromBasket(@RequestParam("basketProductID") int basketProductID) {
-		// You're directly getting the id of the BasketProduct object to be removed.
-		basketService.removeProductFromBasketPID(basketProductID);
-	}
-
 	@PostMapping("basket/export")
 	public void addCustomBasketToBasket(@RequestParam("userID") int userID) {
 		basketService.addCustomBasketToBasket(userID);
@@ -292,9 +286,16 @@ public class UserController {
 		basketService.removeProductFromBasketPID(productID);
 	}
 
-	@PostMapping("/basket/clear")
-	public void clearBasket() {
-		basketService.removeAllProductsFromBasket();
+	@PostMapping("basket/clear")
+	public void clearBasket(@RequestParam("user_id") int user_id)
+	{
+		basketService.clearBasketForUser(user_id, "BASKET");
+	}
+
+	@PostMapping("basketcustom/clear")
+	public void clearCustomBasket(@RequestParam("user_id") int user_id)
+	{
+		basketService.clearBasketForUser(user_id, "CUSTOM_BASKET");
 	}
 
 	/* User specific baskets.

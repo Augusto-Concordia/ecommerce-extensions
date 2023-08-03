@@ -115,6 +115,20 @@ public class basketService {
     }
 
     @Transactional
+    public void deleteBasketProduct(int id) {
+        basketProductDao.delete(id);
+    }
+
+    @Transactional
+    public void clearBasketForUser(int user_id, String basket_type) {
+        Basket basket = getUserBasker(user_id, basket_type);
+        List<BasketProduct> allProducts = findAllProductInBasketByBasketId(basket.getBasketId());
+        for (BasketProduct product : allProducts) {
+            basketProductDao.delete(product.getBasket_product_id());
+        }
+    }
+
+    @Transactional
     public List<Basket> findAllRegularBaskets() {
         List<Basket> allBaskets = basketDao.findAll();
         return allBaskets.stream()
