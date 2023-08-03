@@ -213,15 +213,13 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	// BASKET //}
-
+	// BASKET //
 	@RequestMapping(value = "basket/add", method=RequestMethod.POST)
-	public String addProductToBasket(@RequestParam("id") int id, 
+	public String addProductToBasket(@RequestParam("user_id") int user_id,
+									@RequestParam("id") int id, 
 									@RequestParam("quantity")int quantity)
 	{	
-		// will add to custom or normal basket based on the find basket id
-		// temp basket stuff - currently putting everything in basket id 1
-		Basket basket = this.basketService.findBasket(1);
+		Basket basket = this.basketService.getUserBasker(user_id, "BASKET");
 		// get the existing product from the database using the provided id
 		Product product = this.productService.getProduct(id);
 		if (product == null) {
@@ -229,7 +227,38 @@ public class UserController {
 			throw new NoSuchElementException("No product with id " + id + " exists");
 		}
 
-		List<BasketProduct> products_in_basket = this.basketService.findAllBasketProducts(); // all basket products
+		List<BasketProduct> products_in_basket = this.basketService.findAllProductInBasketByBasketId(basket.getBasketId()); // all basket products
+		// check if item is already in basket
+		for (BasketProduct basket_product : products_in_basket) {
+            if (basket_product.getProduct().getId() == id) {
+                basket_product.setQuantity(basket_product.getQuantity() + quantity);
+				this.basketService.updateProductInBasket(basket_product);
+				return "redirect:/";
+            }
+        }
+
+		BasketProduct basketProduct = new BasketProduct();
+		basketProduct.setBasket(basket);
+		basketProduct.setProduct(product);
+		basketProduct.setQuantity(quantity);
+		this.basketService.addProductToBasket(basketProduct);
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "basketcustom/add", method=RequestMethod.POST)
+	public String addProductToCustomBasket(@RequestParam("user_id") int user_id,
+									@RequestParam("id") int id, 
+									@RequestParam("quantity")int quantity)
+	{	
+		Basket basket = this.basketService.getUserBasker(user_id, "CUSTOM_BASKET");
+		// get the existing product from the database using the provided id
+		Product product = this.productService.getProduct(id);
+		if (product == null) {
+			// Handle the case where no product with the given id exists
+			throw new NoSuchElementException("No product with id " + id + " exists");
+		}
+
+		List<BasketProduct> products_in_basket = this.basketService.findAllProductInBasketByBasketId(basket.getBasketId()); // all basket products
 		// check if item is already in basket
 		for (BasketProduct basket_product : products_in_basket) {
             if (basket_product.getProduct().getId() == id) {

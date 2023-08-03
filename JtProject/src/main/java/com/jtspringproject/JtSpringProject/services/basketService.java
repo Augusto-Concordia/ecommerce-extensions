@@ -160,6 +160,11 @@ public class basketService {
     }
 
     @Transactional
+    public Basket getUserBasker(int user_id, String basket_type) {
+        return basketDao.findAllBasketByUserNType(user_id, basket_type);
+    }
+
+    @Transactional
     public void addCustomBasketToBasket(int user_id) {
         // get custom
         Basket custom_basket = basketDao.findAllBasketByUserNType(user_id, "CUSTOM_BASKET");
