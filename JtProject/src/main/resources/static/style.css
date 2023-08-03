@@ -261,7 +261,7 @@ header h3 {
 }
 
 .enabled {
-  display: unset;
+
   opacity: 1;
   pointer-events: all;
 
@@ -269,7 +269,7 @@ header h3 {
 }
 
 .disabled {
-  display: none !important;
+
   opacity: 0;
   pointer-events: none;
 
