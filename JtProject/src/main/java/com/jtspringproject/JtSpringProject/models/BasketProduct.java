@@ -27,13 +27,21 @@ public class BasketProduct {
         return basket_product_id;
     }
     
-    public Basket getBasket() {return basket;}
+    public Basket getBasket() {
+        return basket;
+    }
 
-    public void setBasket(Basket basket) {this.basket = basket;}
+    public void setBasket(Basket basket) {
+        this.basket = basket;
+    }
 
-    public Product getProduct() {return product;}
+    public Product getProduct() {
+        return product;
+    }
 
-    public void setProduct(Product product) {this.product = product;}
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public int getQuantity() {
         return quantity;

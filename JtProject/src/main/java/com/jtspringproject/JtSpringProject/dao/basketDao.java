@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -54,13 +55,21 @@ public class basketDao {
     @SuppressWarnings("unchecked")
     public List<Basket> findAllBasketByUser(int user_id) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from basket where user_id = :user_id").list();
+        return session.createQuery("from BASKET where user_id = :user_id").list();
     }
 
     @SuppressWarnings("unchecked")
-    public List<Basket> findAllBasketByUserNType(int user_id, String basket_type) {
+    public Basket findAllBasketByUserNType(int customer_id, String basket_type) {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from basket where user_id = :user_id AND basket_type =:basket_type").list();
+        Query query = session.createQuery("from BASKET where customer_id = :customer_id AND basket_type =:basket_type");
+        query.setParameter("customer_id", customer_id);
+        query.setParameter("basket_type", basket_type);
+        List<Basket> results = query.list();
+        if (results.isEmpty()) {
+            return null; // handle no-results scenario
+        } else {
+            return results.get(0); // return first matching BasketProduct
+        }
     }
 
 }

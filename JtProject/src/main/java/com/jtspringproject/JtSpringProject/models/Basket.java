@@ -41,5 +41,9 @@ public class Basket {
         this.basket_type = basket_type;
     }
 
+    @Override
+	public String toString() {
+		return "Basket [user=" + user.getId() + ", basket_type=" + basket_type + "]";
+	}
 
 }

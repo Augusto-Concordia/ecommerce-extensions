@@ -133,25 +133,21 @@ public class basketService {
     public void combineBaskets(Basket c_basket, Basket r_basket) {
         List<BasketProduct> custom_basket_products = findAllProductInBasketByBasketId(c_basket.getBasketId());
         List<BasketProduct> regular_basket_products = findAllProductInBasketByBasketId(r_basket.getBasketId());
-    
-        List<Integer> product_id_list = regular_basket_products.stream()
-                .map(basketproduct -> basketproduct.getProduct().getId())
-                .collect(Collectors.toList());
+        boolean found = false;
+
         for (BasketProduct c_product : custom_basket_products) {
             int productId = c_product.getProduct().getId();
             int newQuantity = c_product.getQuantity();
-
-            if (product_id_list.contains(productId)) {
-                // Product ID exists in regular_basket_products, update the quantity
-                for (BasketProduct r_product : regular_basket_products) {
-                    if (r_product.getProduct().getId() == productId) {
-                        r_product.setQuantity( r_product.getQuantity() + newQuantity );
-                        updateProductInBasket(r_product);
-                        break;
-                    }
+            found = false;
+            for (BasketProduct r_product : regular_basket_products) {
+                if (r_product.getProduct().getId() == productId) {
+                    r_product.setQuantity( r_product.getQuantity() + newQuantity );
+                    updateProductInBasket(r_product);
+                    found = true;
+                    break;
                 }
-            } 
-            else {
+            }
+            if (found == false) {
                 // if custom product not already in regular basket
                 BasketProduct new_product = new BasketProduct();   
                 new_product.setBasket(r_basket);
@@ -164,19 +160,10 @@ public class basketService {
 
     @Transactional
     public void addCustomBasketToBasket(int user_id) {
-        List<Basket> allBaskets = basketDao.findAll();
-        // get users baskets
-        List<Basket> usersBaskets = allBaskets.stream()
-                .filter(basket -> user_id == basket.getUser().getId())
-                .collect(Collectors.toList());
         // get custom
-        Basket custom_basket = (usersBaskets.stream()
-                .filter(basket_c -> "CUSTOM_BASKET".equals(basket_c.getBasketType()))
-                .collect(Collectors.toList())).get(0);
+        Basket custom_basket = basketDao.findAllBasketByUserNType(user_id, "CUSTOM_BASKET");
         // get regular
-        Basket basket = (usersBaskets.stream()
-                .filter(basket_r -> "BASKET".equals(basket_r.getBasketType()))
-                .collect(Collectors.toList())).get(0);
+        Basket basket = basketDao.findAllBasketByUserNType(user_id, "BASKET");
 
         combineBaskets(custom_basket, basket);
     }

@@ -86,6 +86,12 @@
                     pauseAutoSlide = true;
                 });
 
+                $("#custom-basket #actions .btn").on("click", function () {
+                  fetch("basket/export?" + new URLSearchParams({
+                  userID: $("#current_user").text()
+                  }), { method: "post" }).then(() => location.reload());
+                });
+
                 $(".unit-add-button").on("click", function () {
                   fetch("basket/add?" + new URLSearchParams({
                     id: $(this).parentsUntil(".product").siblings(".product-id").text(),
