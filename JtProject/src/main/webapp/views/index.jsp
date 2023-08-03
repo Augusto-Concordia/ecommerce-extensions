@@ -48,7 +48,11 @@
 
               $(document).ready(function () {
                 autoSlide();
-
+                if (localStorage.getItem("hasNewProduct") == "true") {
+                  localStorage.setItem("hasNewProduct", "false");
+                  setTimeout(openBasketOverlay, 2000);
+                  setTimeout(closeBasketOverlay, 7000);
+                }
                 $(document).on("keydown", function (e) {
                   // moves the carousel to the left or right with the arrow keys
                   if (e.keyCode == 37) // left arrow
@@ -99,6 +103,7 @@
                   }), {
                     method: "POST",
                   }).then(response => {
+                    localStorage.setItem("hasNewProduct", "true");
                     location.reload();
                   });
 
@@ -354,14 +359,12 @@
                 <jsp:param name="visibility" value="enabled" />
                 <jsp:param name="type" value="basket" />
                 <jsp:param name="name" value="Basket" />
-                <jsp:param name="basketSubtotalUntilCoupon" value="17.62" />
               </jsp:include>
 
               <jsp:include page="basket.jsp">
                 <jsp:param name="visibility" value="disabled" />
                 <jsp:param name="type" value="custom-basket" />
                 <jsp:param name="name" value="Custom Basket" />
-                <jsp:param name="basketSubtotalUntilCoupon" value="17.62" />
               </jsp:include>
             </div>
 

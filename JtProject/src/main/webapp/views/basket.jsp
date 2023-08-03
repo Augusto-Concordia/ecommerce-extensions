@@ -9,16 +9,70 @@
                     float basketSubtotalRegular = 0.0f;
                     float couponDiscountRegular = 0.0f;
                     float basketTotalRegular = 0.0f;
-                            
+
+                    // total in basket should be calculated first
                     if (products_in_r_basket != null) {
                         for (BasketProduct basket_item : products_in_r_basket) {
                             basketSubtotalRegular += basket_item.getProduct().getPrice() * basket_item.getQuantity();
                         }
 
+                    //---------Coupon related code -------------------
+                    List<Coupon> coupons = (List<Coupon>) request.getAttribute("coupons");
+                    // keeps the coupons belonging to a specific user id
+                    User user = (User) request.getAttribute("user");
+                    int user_id = user.getId();
+                    List<Coupon> couponsForUser = new ArrayList<Coupon>();
+                    for (Coupon coupon : coupons) {
+                        if (coupon.getUser().getId() == user_id) {
+                            couponsForUser.add(coupon);
+                        }
+                    }
+
+                    // get the size of the coupons List
+                    int coupons_available = couponsForUser.size();
+                    int coupons_will_be_used = 0;
+
+                    // check how many coupons can be applied to the basket
+                    int coupon_needed = (int) (basketSubtotalRegular / 5);
+                    // check if the user have enough coupons to apply
+                    if (coupons_available > coupon_needed) {
+                        // if enough, then set the coupon discount to the coupon needed
+                        couponDiscountRegular = coupon_needed * 5;
+                        coupons_will_be_used = coupon_needed;
+                        // have to remove the coupons that the user used
+                        int couponsToRemove = coupons.size() - coupon_needed;
+                        List <Integer> couponsToRemoveIds = new ArrayList<Integer>();
+                        for (int i = 0; i < couponsToRemove; i++) {
+                            // get the id of the coupons to remove
+                            int coupon_id = coupons.get(i).getId();
+                            couponsToRemoveIds.add(coupon_id);
+                        }
+                        // After checkout
+                        // post the couponsToRemoveIds to remove the coupons from the DB
+                    } else {
+                        // if not enough, then set the coupon discount to the coupon available
+                        couponDiscountRegular = coupons_available * 5;
+                        coupons_will_be_used = coupons_available;
+                    }
+
+                    // calculate how many coupon earnt and how much away to earn the next five dollar
+                    int couponsEarned = (int) (basketSubtotalRegular / 100);
+                    int remainder = (int) (basketSubtotalRegular % 100);
+                    int amountNeeded = 100 - remainder;
+
+                    // ---------Coupon related END---------------------------------------
+
+
+
+
                         basketTotalRegular = basketSubtotalRegular - couponDiscountRegular;
                         request.setAttribute("basketSubtotalRegularBasket", basketSubtotalRegular);
                         request.setAttribute("couponDiscountRegularBasket", couponDiscountRegular);
                         request.setAttribute("basketTotalRegularBasket", basketTotalRegular);
+                        request.setAttribute("amountNeeded", amountNeeded);
+                        request.setAttribute("couponsEarned", couponsEarned);
+                        request.setAttribute("couponsAvailable", coupons_available);
+                        request.setAttribute("couponsWillBeUsed", coupons_will_be_used);
                     }
                     
                     List<BasketProduct> products_in_c_basket = (List<BasketProduct>) request.getAttribute("products_in_custom_basket");
@@ -60,9 +114,18 @@
                             <div id="overlay" class="disabled">
                                 <div id="overlay-content">
                                     <span id="title">Head's Up :)</span>
-                                    <span id="content">You are <span id="coupon-amount">
-                                            <fmt:formatNumber value="${param.basketSubtotalUntilCoupon}" pattern=".00$" />
-                                        </span> away from getting a 5$ coupon on your main basket!</span>
+                                    <span id="content">You have earned
+                                        <span id="coupon-amount">
+                                            <fmt:formatNumber value="${couponsEarned}"  />
+                                        </span>
+                                        coupon(s) and  <fmt:formatNumber value="${amountNeeded}" pattern=".00$" />
+                                        away from getting a 5$ coupon on your main basket!
+                                    </span>
+                                    <span> You have  <fmt:formatNumber value="${couponsAvailable}"  /> coupons available to use. and you can use
+                                        <fmt:formatNumber value="${couponsWillBeUsed}"  />  coupons on your main basket.
+                                    </span>
+
+
                                 </div>
                             </div>
 

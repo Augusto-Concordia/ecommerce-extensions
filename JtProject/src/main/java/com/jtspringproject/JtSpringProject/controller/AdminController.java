@@ -1,6 +1,7 @@
 package com.jtspringproject.JtSpringProject.controller;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -236,6 +237,8 @@ public class AdminController {
 
 		ModelAndView mView = new ModelAndView("coupons");
 		List<Coupon> coupons = this.couponService.getCoupons();
+
+
 
 		if (coupons.isEmpty()) {
 			mView.addObject("msg", "No products are available");

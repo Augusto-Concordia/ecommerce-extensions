@@ -46,6 +46,8 @@ public class UserController {
 	private productService productService;
 	@Autowired
 	private basketService basketService;
+	@Autowired
+	private couponService couponService;
 
 	@GetMapping("/register")
 	public String registerUser() {
@@ -93,6 +95,11 @@ public class UserController {
 				for (Basket basket : this.basketService.findAllCustomBaskets()) {
 					if (basket.getUser().getId() == u.getId()) {products_in_custom_basket.addAll(basketService.findAllProductInBasketByBasketId(basket.getBasketId()));}
 				}
+
+
+				// add coupons requested from the coupon table in the DB
+			    List<Coupon> coupons = this.couponService.getCoupons();
+	           	mView.addObject("coupons" , coupons);
 
 				mView.addObject("products", products);
 
