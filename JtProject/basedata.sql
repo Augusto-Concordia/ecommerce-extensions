@@ -34,13 +34,14 @@ CREATE TABLE IF NOT EXISTS PRODUCT(
 # insert default products
 INSERT INTO PRODUCT(image, name, price, quantity) VALUES
 ('https://freepngimg.com/save/9557-apple-fruit-transparent/744x744', 'Apple', 3, 40),
-('https://www.nicepng.com/png/full/813-8132637_poiata-bunicii-cracked-egg.png', 'Cracked Eggs', 1, 90),
-('https://www.pngall.com/wp-content/uploads/2016/05/Orange-Free-PNG-Image.png', 'Orange', 3, 40),
+('https://assets.stickpng.com/images/580b57fbd9996e24bc43c107.png', 'Cracked Eggs', 1, 90),
+('https://www.boeschbodenspies.com/wp-content/uploads/2017/08/orange.png', 'Orange', 3, 40),
 ('https://clipart-library.com/images_k/mango-transparent/mango-transparent-3.png', 'Mango', 3, 60),
 ('https://www.pngmart.com/files/3/Strawberry-Transparent-Background.png', 'Strawberry', 2, 40),
 ('https://pluspng.com/img-png/cherry-png-red-cherry-png-image-download-png-image-2000.png', 'Cherry', 2, 40),
 ('https://purepng.com/public/uploads/large/purepng.com-blueberriesblueberriesflowering-plantsindigoberriescyanococcus-1701527118046elpcq.png', 'Blueberry', 2, 40),
-('https://www.pngplay.com/wp-content/uploads/1/Baked-Bread-PNG-Image.png', 'Assorted Bread Basket', 101, 10);
+('https://www.pngplay.com/wp-content/uploads/1/Baked-Bread-PNG-Image.png', 'Assorted Bread Basket', 101, 10),
+('https://images.contentstack.io/v3/assets/bltbb619fd5c667ba2d/bltfa3fc63df072e399/60b12ecbcc7ff369bd794a89/7ELEVEN-BarefootMoscato.png', 'Barefoot Wine', 1000, 10);
 
 # create coupon table
 CREATE TABLE IF NOT EXISTS COUPON (
