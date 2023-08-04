@@ -248,9 +248,12 @@
                 // dismisses the welcome dialog with the correct side-effect
                 $("#welcome-dialog #no-btn").on("click", closeWelcomeDialog);
                 $("#welcome-dialog #yes-btn").on("click", function () {
-                  closeWelcomeDialog();
-                  isCustomBasket = true;
-                  updateBasket();
+                  fetch("basket/export?" + new URLSearchParams({
+                    userID: $("#current_user").text()
+                  }), { method: "post" }).then(() => {
+                    localStorage.setItem("currentBasket", "basket");
+                    location.reload();
+                  });
                 });
 
                 // Opens the basket overlay
