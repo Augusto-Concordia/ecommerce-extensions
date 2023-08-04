@@ -204,8 +204,37 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 
-	@PostMapping("products")
-	public String postproduct() {
+//	no usage checked by Yupei
+//	@PostMapping("products")
+//	public String postproduct() {
+//		return "redirect:/admin/products";
+//	}
+
+	@RequestMapping(value = "products", method = RequestMethod.POST)
+	public String updateProduct(@RequestParam("pairedRecArr") String pairedRecArr) {
+
+		// transfer the pairedRecArr posted from basketProduct.jsp
+		// to be used as an argument below
+		// set recommended Pair Id here
+		// get all products here then set the pairedRecID one by one
+		String[] stringArray = pairedRecArr.split(",");
+		int[] intArray = new int[stringArray.length];
+
+		for (int i = 0; i < stringArray.length; i++) {
+			intArray[i] = Integer.parseInt(stringArray[i]);
+		}
+
+		List<Product> products = this.productService.getProducts();
+		for (Product product : products)  // there is 9 products
+		{
+
+			product.setPairedProductRecID(intArray[product.getId()-1]);
+			// Save the updated product back to the database
+			this.productService.updateProduct(product);
+		}
+		System.out.println(pairedRecArr);
+
+
 		return "redirect:/admin/products";
 	}
 

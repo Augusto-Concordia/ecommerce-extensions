@@ -57,6 +57,7 @@
 				<th scope="col">Product Name</th>
 				<th scope="col">Image</th>
 				<th scope="col">Paired Product</th>
+				<th scope="col">Suggested Paired Product</th>
 				<th scope="col">Quantity</th>
 				<th scope="col">Price</th>
 				<th scope="col">Delete</th>
@@ -81,6 +82,10 @@
 					</td>
 					<td>
 							${product.pairedProduct.name}
+
+					</td>
+					<td>
+							${product.pairedProductRecID}
 
 					</td>
 					<td>

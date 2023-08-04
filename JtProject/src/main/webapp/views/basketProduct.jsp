@@ -9,7 +9,7 @@
 <%@ page import="org.springframework.boot.autoconfigure.kafka.KafkaProperties" %>
 <%
     List<BasketProduct> orders = (List<BasketProduct>) request.getAttribute("orders");
-    BasketProduct order = orders.get(0); // get the first item in the list (first row in the DB table)
+
     // Logic to get the paired item
 
     // seperate the table to 6 baskets, Get a product array for each basket
@@ -63,7 +63,8 @@
     }
 
     System.out.println("--------------------");
-    // find the max occurrences
+    // find the max occurrences and store it in a int array
+    int[] recPairedIDArr = new int[9];
     for (int i = 1; i <= 9; i++){ // we have 9 productID
         int maxOccurrences = Integer.MIN_VALUE;
         List<Integer> maxKey = null;
@@ -90,9 +91,12 @@
             // check if the frequency is greater than 80%
             if (pairedFrequency > 80) {
                 System.out.println("\tPaired item for product ID " + i + " is " + otherNumber);
+                //save the otherNumber to recPairedIDArr
+                recPairedIDArr[i-1] = otherNumber;
             }
             else{
                 System.out.println("");
+                recPairedIDArr[i-1] = 0;
             }
 
 
@@ -101,12 +105,21 @@
     }
 
 
+    // convert the array to a to post in the HTML form
+    String result = "";
+
+    for (int i = 0; i < recPairedIDArr.length; i++) {
+        if (i > 0) {
+            result += ",";
+        }
+        result += recPairedIDArr[i];
+    }
+    System.out.print(result);
 
 
-
-
-    // for display in the view
+    // variables to use in the view
     request.setAttribute("orders", orders);
+    request.setAttribute("pairedRecArr", result);
 %>
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
@@ -150,6 +163,11 @@
     </div>
 </nav><br>
 <div class="container-fluid">
+    <form action="/admin/products" method="post">
+        <input type="hidden" name="pairedRecArr" value="${pairedRecArr}" />
+<%--        <input type="hidden" th:each="value : ${pairedRecArr}" th:name="pairedRecArr" th:value="${value}" />--%>
+        <button type="submit">Send Array TO /admin/products</button>
+    </form>
 
     <table class="table">
 

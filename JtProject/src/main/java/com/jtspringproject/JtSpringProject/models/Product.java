@@ -36,6 +36,8 @@ public class Product {
 	@JoinColumn(name = "paired_product_id")
 	private Product pairedProduct;
 
+	private int pairedProductRecID;
+
 	public int getId() {
 		return id;
 	}
@@ -83,5 +85,11 @@ public class Product {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+
+	public int getPairedProductRecID() {
+		return pairedProductRecID;
+	}
+	public void setPairedProductRecID (int pairedProductRecID){
+		this.pairedProductRecID = pairedProductRecID;
+	}
 }
