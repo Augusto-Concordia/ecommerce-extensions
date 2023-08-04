@@ -34,7 +34,8 @@ public class AdminController {
 	private couponService couponService;
 	@Autowired
 	private basketService basketService;
-
+	@Autowired
+	private basketProductService basketProductService;
 	/*
 	 * get to get data from db ( @GetMapping )
 	 * post to post data to db ( @PostMapping )
@@ -259,4 +260,19 @@ public class AdminController {
 		return basketService.findAllCustomBaskets();
 	}
 
+
+	@GetMapping("basketProduct")
+	public ModelAndView getOrders() {
+
+		ModelAndView mView = new ModelAndView("basketProduct");
+		List<BasketProduct> orders = this.basketProductService.getOrders();
+
+		if (orders.isEmpty()) {
+			mView.addObject("msg", "No orders are available");
+		} else {
+			mView.addObject("orders", orders);
+		}
+		return mView;
+
+	}
 }

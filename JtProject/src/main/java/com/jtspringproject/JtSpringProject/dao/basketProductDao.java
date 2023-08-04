@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.hibernate.query.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,9 +42,11 @@ public class basketProductDao {
         return session.get(BasketProduct.class, id);
     }
 
-    @SuppressWarnings("unchecked")
+
+    @Transactional
     public List<BasketProduct> findAll() {
-        return this.sessionFactory.getCurrentSession().createQuery("from BASKET_PRODUCT").list();
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from BASKET_PRODUCT").list();
     }
 
     public void deleteAll() {

@@ -4,6 +4,7 @@ import com.jtspringproject.JtSpringProject.dao.basketProductDao;
 import com.jtspringproject.JtSpringProject.dao.basketDao;
 import com.jtspringproject.JtSpringProject.models.Basket;
 import com.jtspringproject.JtSpringProject.models.BasketProduct;
+import com.jtspringproject.JtSpringProject.models.Coupon;
 import com.jtspringproject.JtSpringProject.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -225,6 +226,7 @@ public class basketService {
             }
         }
     }
+
 }
 
 
