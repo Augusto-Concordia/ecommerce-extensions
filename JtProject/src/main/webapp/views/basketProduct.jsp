@@ -166,7 +166,7 @@
     <form action="/admin/products" method="post">
         <input type="hidden" name="pairedRecArr" value="${pairedRecArr}" />
 <%--        <input type="hidden" th:each="value : ${pairedRecArr}" th:name="pairedRecArr" th:value="${value}" />--%>
-        <button type="submit">Send Array TO /admin/products</button>
+        <button type="submit" class="btn btn-primary">See the suggested Paired Items</button>
     </form>
 
     <table class="table">

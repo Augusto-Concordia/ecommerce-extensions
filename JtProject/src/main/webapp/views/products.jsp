@@ -5,6 +5,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@page import=" java.io.ObjectOutputStream" %>
+<%
+	String [] strArr = {"Apple", "Cracked Eggs", "Orange", "Mango", "Strawberry", "Cherry",
+			"Blueberry", "Assorted Bread Basket", "Barefoot Wine"};
+	request.setAttribute("strArr", strArr);
+
+%>
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -85,7 +91,7 @@
 
 					</td>
 					<td>
-							${product.pairedProductRecID}
+							${strArr[product.pairedProductRecID-1]}
 
 					</td>
 					<td>

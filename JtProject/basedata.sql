@@ -28,13 +28,14 @@ CREATE TABLE IF NOT EXISTS PRODUCT(
     name        varchar(255) null,
     price       int null,
     quantity    int null,
-    paired_product_id int null DEFAULT '1'
+    paired_product_id int null DEFAULT '1',
+    pairedProductRecID int null DEFAULT '0'
     );
 
 # insert default products
 INSERT INTO PRODUCT(image, name, price, quantity) VALUES
 ('https://freepngimg.com/save/9557-apple-fruit-transparent/744x744', 'Apple', 3, 40),
-('https://assets.stickpng.com/images/580b57fbd9996e24bc43c107.png', 'Cracked Eggs', 1, 90),
+('https://www.nicepng.com/png/full/813-8132637_poiata-bunicii-cracked-egg.png', 'Cracked Eggs', 1, 90),
 ('https://www.boeschbodenspies.com/wp-content/uploads/2017/08/orange.png', 'Orange', 3, 40),
 ('https://clipart-library.com/images_k/mango-transparent/mango-transparent-3.png', 'Mango', 3, 60),
 ('https://www.pngmart.com/files/3/Strawberry-Transparent-Background.png', 'Strawberry', 2, 40),
