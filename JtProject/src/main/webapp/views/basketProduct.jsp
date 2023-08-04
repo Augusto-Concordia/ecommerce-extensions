@@ -114,7 +114,7 @@
         }
         result += recPairedIDArr[i];
     }
-    System.out.print(result);
+    System.out.print("The string to be posted in the HTML code: " + result);
 
 
     // variables to use in the view
