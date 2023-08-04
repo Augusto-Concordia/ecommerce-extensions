@@ -54,7 +54,7 @@
                 if (localStorage.getItem("hasNewProduct") == "true") {
                   localStorage.setItem("hasNewProduct", "false");
                   setTimeout(openBasketOverlay, 2000);
-                  setTimeout(closeBasketOverlay, 7000);
+                  setTimeout(closeBasketOverlay, 8000);
                 }
 
                 // if the user had a basket open, open it again
@@ -62,6 +62,10 @@
                 customBasket = $("#custom-basket");
                 isCustomBasket = localStorage.getItem("currentBasket") == "custom-basket";
                 updateBasket();
+
+                $(".basket #overlay").on("click", function () {
+                  closeBasketOverlay();
+                });
 
                 $(document).on("keydown", function (e) {
                   // moves the carousel to the left or right with the arrow keys

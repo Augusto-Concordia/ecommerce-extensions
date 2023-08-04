@@ -90,21 +90,34 @@ a,
 #overlay-content #content {
   display: block;
 
-  font-size: 1.75em;
   line-height: 100%;
 }
 
-#overlay-content #title,
-#overlay-content #content {
-  font-weight: 700;
-}
-
 #overlay-content #title {
+  font-size: 1.75em;
   font-weight: 700;
 }
 
 #overlay-content #content {
-  margin-top: 0.5em;
+  font-size: 1.5em;
+  margin-top: 0.75em;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+#overlay-content .overlay-values {
+  text-decoration: underline;
+}
+
+#overlay-content #close-cta {
+  display: block;
+  width: 100%;
+
+  margin-top: 1.25rem;
+
+  font-size: 1.1rem;
+  font-style: italic;
+  text-align: center;
 }
 
 #welcome-dialog {
@@ -735,10 +748,6 @@ header h3 {
   padding-block: 1.5em;
 
   border-radius: var(--default-border-radius);
-}
-
-.basket #overlay-content #coupon-amount {
-  font-weight: 700;
 }
 
 #basket-summary {

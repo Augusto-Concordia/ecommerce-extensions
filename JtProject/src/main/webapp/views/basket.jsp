@@ -115,17 +115,15 @@
                                 <div id="overlay-content">
                                     <span id="title">Head's Up :)</span>
                                     <span id="content">You have earned
-                                        <span id="coupon-amount">
-                                            <fmt:formatNumber value="${couponsEarned}"  />
+                                        <span id="coupon-amount" class="overlay-values">
+                                            <fmt:formatNumber value="${couponsEarned}"  /> coupon(s)
                                         </span>
-                                        coupon(s) and  <fmt:formatNumber value="${amountNeeded}" pattern=".00$" />
-                                        away from getting a 5$ coupon on your main basket!
+                                        and are <span id="amount-needed" class="overlay-values"><fmt:formatNumber value="${amountNeeded}" pattern="0.00$" /></span>
+                                        away from getting a 5$ coupon on your main basket! <br/> <br/>
+                                        You have <span id="coupon-available" class="overlay-values"><fmt:formatNumber value="${couponsAvailable}"/> coupons</span> available to use, and you have
+                                        <span id="coupons-used" class="overlay-values"><fmt:formatNumber value="${couponsWillBeUsed}"/> coupons</span> currently applied.
+                                        <span id="close-cta">(Tap to Close)</span>
                                     </span>
-                                    <span> You have  <fmt:formatNumber value="${couponsAvailable}"  /> coupons available to use. and you can use
-                                        <fmt:formatNumber value="${couponsWillBeUsed}"  />  coupons on your main basket.
-                                    </span>
-
-
                                 </div>
                             </div>
 
