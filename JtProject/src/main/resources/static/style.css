@@ -1007,6 +1007,9 @@ header h3 {
 
 #admin-products .product-pairing .paired-product {
   font-weight: bold;
+}
+
+#admin-products .product-pairing .recommended-product {
   font-style: italic;
 }
 

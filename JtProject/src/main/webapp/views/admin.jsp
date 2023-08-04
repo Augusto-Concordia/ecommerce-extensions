@@ -3,6 +3,12 @@
 		<%@page import="java.text.*" %>
 			<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+			<%
+				String [] strArr = {"Apple", "Cracked Eggs", "Orange", "Mango", "Strawberry", "Cherry",
+						"Blueberry", "Assorted Bread Basket", "Barefoot Wine"};
+				request.setAttribute("strArr", strArr);
+			%>
+
 				<!DOCTYPE html>
 				<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
@@ -168,7 +174,10 @@
 												<h5 class="product-name">${product.name}</h5>
 												<h5 class="product-quantity">(${product.quantity}x)</h5><br>
 												<c:if test="${not empty product.pairedProduct.name}">
-													<h5 class="product-pairing">paired with <span class="paired-product">${product.pairedProduct.name}</span></h5>
+													<h5 class="product-pairing">paired with <span class="paired-product">${product.pairedProduct.name} </span></h5>
+												</c:if>
+												<c:if test="${not empty strArr[product.pairedProductRecID-1]}">
+													<h5 class="product-pairing">(<span class="recommended-product">${strArr[product.pairedProductRecID-1]}</span> recommended)</h5>
 												</c:if>
 											</div>
 											<div class="product-details-right">
