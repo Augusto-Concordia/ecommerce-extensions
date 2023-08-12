@@ -210,7 +210,7 @@ public class AdminController {
 //		return "redirect:/admin/products";
 //	}
 
-	@RequestMapping(value = "products", method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String updateProduct(@RequestParam("pairedRecArr") String pairedRecArr) {
 
 		// transfer the pairedRecArr posted from basketProduct.jsp
@@ -235,7 +235,7 @@ public class AdminController {
 		System.out.println(pairedRecArr);
 
 
-		return "redirect:/admin/products";
+		return "redirect:/admin";
 	}
 
 	@RequestMapping(value = "updateuser", method = RequestMethod.POST)

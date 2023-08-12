@@ -114,7 +114,8 @@
         }
         result += recPairedIDArr[i];
     }
-    System.out.print("The string to be posted in the HTML code: " + result);
+    System.out.print("The string to be posted in the basketProduct.jsp HTML form by clicking the blue button and " +
+            "used by the AdminController to update the DB : " + result);
 
 
     // variables to use in the view
@@ -163,10 +164,10 @@
     </div>
 </nav><br>
 <div class="container-fluid">
-    <form action="/admin/products" method="post">
+    <form action="/admin" method="post">
         <input type="hidden" name="pairedRecArr" value="${pairedRecArr}" />
 <%--        <input type="hidden" th:each="value : ${pairedRecArr}" th:name="pairedRecArr" th:value="${value}" />--%>
-        <button type="submit" class="btn btn-primary">See the suggested Paired Items</button>
+        <button type="submit" class="btn btn-primary">Update the suggested Paired Items in Database</button>
     </form>
 
     <table class="table">
